@@ -9,7 +9,7 @@
 * **Problem:** Valid Anagram
   * **Trigger Identification:** "Is an anagram of $t$." Anagrams mean exact character frequencies. "Frequencies" triggers the **Pre-Populated (Two-Pass)** rule. You need a complete global inventory of string $s$ before you can compare it to string $t$.
 
-* **Problem:** Two Sum
+* **Problem:** [Two Sum](001-Two-Sum.md)
   * **Trigger Identification:** "Two numbers that add up to target" and "Return indices." The need for pairs triggers a Hash Map. The need for indices explicitly disqualifies sorting. Triggers the **On-the-Go (One-Pass)** mapping of `value -> index`.
 
 * **Problem:** Group Anagrams
