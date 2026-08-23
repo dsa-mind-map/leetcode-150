@@ -71,11 +71,6 @@ class Solution {
     }
 }
 
-````java
-
-####💻 Final Java Solution (Using Option 2 : Count the frequencies)
-
-```java
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> map = new HashMap<>();
