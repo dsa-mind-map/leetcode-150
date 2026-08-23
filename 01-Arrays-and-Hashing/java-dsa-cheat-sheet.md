@@ -93,6 +93,16 @@ map.computeIfAbsent(node, k -> new ArrayList<>()).add(neighbor);
 ### C. Map Variations (When to use what)
 * **`HashMap`**: Unordered. $\mathcal{O}(1)$ time. (Your 99% default choice).
 * **`TreeMap`**: Keys are strictly sorted ascending. $\mathcal{O}(\log n)$ time. (Use when the problem requires maintaining a dynamically sorted list of keys).
+* **`map.entrySet()`** returns a Set<Map.Entry<K, V>>, not a List. You cannot call .sort() directly on a Set because Sets do not have an index-based ordering.To make your code syntactically valid in Java, you must wrap the entry set inside an ArrayList constructor first:
+       
+        Map<Integer, String> map = new HashMap<>();
+        // ... populate map ...
+        
+        // 1. Convert entrySet to a List
+        List<Map.Entry<Integer, String>> mapEntryList = new ArrayList<>(map.entrySet());
+        
+        // 2. Sort using the comparator
+        mapEntryList.sort((a, b) -> b.getValue().compareTo(a.getValue()));
 * **`LinkedHashMap`**: Maintains insertion order. $\mathcal{O}(1)$ time. (Critical for building an LRU Cache).
 
 ## 3. 🏔️ Heaps (PriorityQueue)
