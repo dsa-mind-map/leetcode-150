@@ -9,8 +9,8 @@ Java handles sorting differently based on whether you are sorting a primitive ar
 ### A. Primitive Arrays (`int[]`, `char[]`)
 You cannot use custom comparators (lambdas) on primitives. You must rely on default ascending sort.
 
-int[] arr = {5, 2, 8, 1};
-Arrays.sort(arr); // Result: [1, 2, 5, 8]
+        int[] arr = {5, 2, 8, 1};
+        Arrays.sort(arr); // Result: [1, 2, 5, 8]
 
 // To sort descending, you must sort ascending first, then manually reverse, 
 // OR convert int[] to Integer[] first.
