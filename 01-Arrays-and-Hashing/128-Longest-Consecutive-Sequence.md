@@ -23,35 +23,32 @@ For example, in the array `[100, 4, 200, 1, 3, 2]`:
 ```java
 class Solution {
     public int longestConsecutive(int[] nums) {
-        if (nums == null || nums.length == 0) return 0;
+        int n = nums.length;
+        int longestConSeq = 0;
 
-        // 1. Throw everything into a HashSet for O(1) lookups
-        Set<Integer> set = new HashSet<>();
-        for (int num : nums) {
-            set.add(num);
+        Set<Integer> set = new HashSet<>(); // space o(n) 
+
+        for(int i=0; i< n; i++){
+            set.add(nums[i]);
         }
+       
 
-        int longestStreak = 0;
+        for(int i=0; i<n; i++){ //time o(n)
 
-        // 2. Iterate through the set
-        for (int num : set) {
-            
-            // 3. ONLY start counting if this is the start of a sequence!
+            int num = nums[i];
             if (!set.contains(num - 1)) {
-                int currentNum = num;
-                int currentStreak = 1;
-
-                // 4. Count upwards as far as we can go
-                while (set.contains(currentNum + 1)) {
-                    currentNum++;
-                    currentStreak++;
+                int count = 0;
+                while(set.contains(num)){
+                    count++;
+                    num++;
                 }
 
-                // 5. Update our max streak
-                longestStreak = Math.max(longestStreak, currentStreak);
+                if(longestConSeq < count)
+                    longestConSeq = count;
             }
         }
 
-        return longestStreak;
+        return longestConSeq;
     }
 }
+
