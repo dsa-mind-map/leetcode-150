@@ -32,52 +32,62 @@ Because the frequencies are strictly bounded from $1$ to $n$, we do not need to 
 ## 💻 Final Java Solution
 
 ```java
+
 class Solution {
-    public int[] topKFrequent(int[] nums, int k) {
-        
-        // 1. Convert array into frequency map
-        Map<Integer, Integer> map = new HashMap<>();
+    public int[] topKFrequent(int[] nums, int k) {
 
-        for (int i = 0; i < nums.length; i++) {
-            int freq = 0;
-            if (map.containsKey(nums[i])) {
-                freq = map.get(nums[i]);
-            }
-            map.put(nums[i], ++freq);
-        }
+        Map<Integer, Integer> map = new HashMap<>();
 
-        // 2. Convert frequency map to array of lists (Bucket Sort)
-        // Array size is nums.length. Frequency f goes to index f - 1.
-        List[] freqArray = new ArrayList[nums.length];
+        int n =  nums.length;
 
-        for (Integer key : map.keySet()) {
-            Integer frequency = map.get(key);
-            List<Integer> list = new ArrayList<>();
+        for(int i=0; i<n; i++){
 
-            if (freqArray[frequency - 1] != null) {
-                list = freqArray[frequency - 1];
-            }
-            
-            list.add(key);
-            // Crucial fix: put the updated list back into the array
-            freqArray[frequency - 1] = list;
-        }
+            if(map.containsKey(nums[i])){
+                map.put(nums[i], map.get(nums[i])+1);
+            }else{
+                map.put(nums[i], 1);
+            }
 
-        // 3. Extract Top K by iterating backwards
-        int[] finalResult = new int[k];
-        int count = 0;
-        
-        for (int i = freqArray.length - 1; i >= 0; i--) {
-            if (freqArray[i] != null) {
-                for (int j = 0; j < freqArray[i].size(); j++) {
-                    finalResult[count++] = (Integer) freqArray[i].get(j);
-                    if (count == k) {
-                        return finalResult;
-                    }
-                }
-            }
-        }
+        }
 
-        return finalResult;
-    }
+        List[] frequencyArray =  new List[n+1];
+
+        for(Map.Entry entry: map.entrySet()){
+
+            int key = (int)entry.getKey();
+            int frequency = (int)entry.getValue();
+
+            List<Integer> freqList = new ArrayList<>();
+
+            if(frequencyArray[frequency] !=null){
+               freqList = frequencyArray[frequency]; 
+            }
+
+            freqList.add(key);
+            frequencyArray[frequency] = freqList;
+
+        }
+
+        int[] finalArray = new int[k];
+
+        int count = 0;
+
+        for(int i=n; i>0; i--){
+            List<Integer> freqList = frequencyArray[i];
+
+            if(freqList != null){
+                for(int j=0; j<freqList.size(); j++){
+                    if(count < k){
+                        finalArray[count++] = freqList.get(j);
+                    }
+            }
+            }
+            
+        }
+
+        return finalArray;
+
+
+
+    }
 }
