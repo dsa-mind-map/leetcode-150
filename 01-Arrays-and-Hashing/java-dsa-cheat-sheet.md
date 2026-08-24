@@ -70,9 +70,15 @@ for (Map.Entry<String, Integer> entry : map.entrySet()) {
 }
 
 // 2. Iterate Only Keys
+Set<String> keys = map.keySet();
+
 for (String key : map.keySet()) { /* ... */ }
 
+
 // 3. Iterate Only Values
+Collection<Integer> values = map.values();
+List<Integer> valueList = new ArrayList<>(values);
+        
 for (int val : map.values()) { /* ... */ }
 ```
 
@@ -88,6 +94,12 @@ map.get(node).add(neighbor);
 
 // 3. Graph/Tree Adjacency Lists (Advanced & Cleanest)
 map.computeIfAbsent(node, k -> new ArrayList<>()).add(neighbor);
+
+
+// 3. convert keys to set and values to list
+return map.keySet();
+return new ArrayList<>(map.values());
+
 ```
 
 ### C. Map Variations (When to use what)
