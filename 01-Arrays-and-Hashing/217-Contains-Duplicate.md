@@ -26,7 +26,7 @@ Given an integer array `nums`, return `true` if any value appears at least twice
 
 ## 💻 Final Java Solutions
 
-### Approach 1: Hash Set (Optimal Time: $\mathcal{O}(n)$, Space: $\mathcal{O}(n)$)
+### Approach 1: Hash Set (Optimal Time: $\mathcal{O}(n)$, Space: $\mathcal{O}(n)$ )
 ```java
 class Solution {
     public boolean hasDuplicate(int[] nums) {
@@ -53,7 +53,7 @@ class Solution {
 }
 ```
 
-### Approach 2: Sorting (Optimal Space: $\mathcal{O}(1)$, Time: $\mathcal{O}(n \log n)$)
+### Approach 2: Sorting (Optimal Space: $\mathcal{O}(1)$, Time: $\mathcal{O}(nlogn)$ )
 ```java
 class Solution {
     public boolean hasDuplicate(int[] nums) {
