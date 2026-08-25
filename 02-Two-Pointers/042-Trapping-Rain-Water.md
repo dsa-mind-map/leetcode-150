@@ -92,10 +92,8 @@ class Solution {
 
 ---
 
-## 🧠 The Mental Model: The "Bottleneck" Insight
+## 🧠 Two-Pointer Mental Model: (In Plain English)
 
-
-🧠 The Two-Pointer Mental Model (In Plain English)
 1. The Bottleneck Check: if (h[left] <= h[right])
 
 What it means: If I am standing at the left pointer, water will never leak to the right. The right side acts as a guaranteed giant wall because it is at least as tall as my current position. The left side is my absolute bottleneck.
