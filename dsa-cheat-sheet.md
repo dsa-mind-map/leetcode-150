@@ -42,7 +42,7 @@ List<Integer> list1 = Arrays.stream(primitives)
                             .boxed()
                             .toList();
                             
-// Option 1: Collect directly into a mutable ArrayList
+// MUTABLE LIST
 List<Integer> integerList = Arrays.stream(primitive)
                                     .boxed()
                                     .collect(Collectors.toList());
