@@ -8,6 +8,8 @@ Java handles sorting differently based on whether you are sorting a primitive ar
 
 ### A. Primitive Arrays (`int[]`, `char[]`)
 You cannot use custom lambdas on primitive arrays directly. 
+
+```java
 int[] arr = {5, 2, 8, 1};
 Arrays.sort(arr); // Ascending: [1, 2, 5, 8]
 
@@ -15,8 +17,7 @@ Arrays.sort(arr); // Ascending: [1, 2, 5, 8]
 // 1. Sort ascending and run a standard two-pointer reverse loop.
 // 2. Convert to Integer[] (Wrapper class) and use Collections.reverseOrder().
 
-```java
-import java.util.Arrays;
+
 
 int[] primitiveArray = {1, 2, 3, 4, 5};
 
