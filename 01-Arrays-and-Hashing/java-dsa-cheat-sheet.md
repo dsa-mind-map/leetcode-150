@@ -2,6 +2,100 @@
 **Purpose:** Instant syntax recall for Sorting, Maps, Heaps, and Bucket Sort to achieve zero-friction coding in interviews.
 
 ---
+# Java Collection & Array Conversion Guide
+
+This guide covers common and efficient ways to convert between primitive arrays, wrapper object arrays, `List`, and `Set` in Java.
+
+---
+
+## 1. Primitive Array to Object Array (`int[]` $
+ightarrow$ `Integer[]`)
+
+### Stream Way
+```java
+int[] primitives = {1, 2, 3, 4, 5};
+
+Integer[] objArray = Arrays.stream(primitives)
+                            .boxed()
+                            .toArray(Integer[]::new);
+```
+
+### Traditional Way
+```java
+int[] primitives = {1, 2, 3, 4, 5};
+Integer[] objArray = new Integer[primitives.length];
+
+for (int i = 0; i < primitives.length; i++) {
+    objArray[i] = primitives[i]; // Autoboxing
+}
+```
+
+---
+
+## 2. Primitive Array to List (`int[]` $
+ightarrow$ `List<Integer>`)
+
+### Modern Stream Way (Java 16+)
+```java
+int[] primitives = {1, 2, 3, 4, 5};
+
+List<Integer> list1 = Arrays.stream(primitives)
+                            .boxed()
+                            .toList();
+```
+
+### Traditional Loop Way (Fastest performance, zero stream overhead)
+```java
+int[] primitives = {1, 2, 3, 4, 5};
+
+List<Integer> list2 = new ArrayList<>(primitives.length);
+for (int num : primitives) {
+    list2.add(num);
+}
+```
+
+---
+
+## 3. Object Array to List (`Integer[]` $
+ightarrow$ `List<Integer>`)
+
+```java
+Integer[] objectArray = {1, 2, 3, 4, 5};
+
+// Fixed-size list backed by the array
+List<Integer> list = Arrays.asList(objectArray);
+
+// Mutable list (if you need to add/remove elements later)
+List<Integer> mutableList = new ArrayList<>(Arrays.asList(objectArray));
+```
+
+---
+
+## 4. List to Primitive Array (`List<Integer>` $
+ightarrow$ `int[]`)
+
+```java
+List<Integer> list = new ArrayList<>(List.of(1, 2, 3));
+
+// Modern Java (Java 8+)
+int[] arr = list.stream().mapToInt(i -> i).toArray();
+```
+
+---
+
+## 5. Object Array or List to Set (`Set<Integer>`)
+
+```java
+Integer[] numsArray = {1, 2, 3, 2};
+
+// From Array to Set
+Set<Integer> set = new HashSet<>(Arrays.asList(numsArray));
+
+// From List to Set
+List<Integer> list = List.of(1, 2, 3, 2);
+Set<Integer> uniqueSet = new HashSet<>(list);
+```
+---
 
 ## 1. 🛠️ Sorting in Java
 Java handles sorting differently based on whether you are sorting a primitive array, an object array, or a Collection (List).
