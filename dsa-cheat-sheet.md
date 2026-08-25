@@ -79,7 +79,7 @@ int[] arr = list.stream().mapToInt(i -> i).toArray();
 
 ---
 
-## 5. Object Array or List to Set (`Integer[]` -> `Set<Integer>` || 'List<Integer>` -> `Set<Integer>`)
+## 5. Object Array or List to Set ( `Integer[]`, 'List<Integer>` --> `Set<Integer>` )
 
 ```java
 Integer[] numsArray = {1, 2, 3, 2};
