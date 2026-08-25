@@ -15,8 +15,18 @@ Arrays.sort(arr); // Ascending: [1, 2, 5, 8]
 // INTERVIEW TRICK: To sort primitives descending, you MUST either:
 // 1. Sort ascending and run a standard two-pointer reverse loop.
 // 2. Convert to Integer[] (Wrapper class) and use Collections.reverseOrder().
-Integer[] wrappedArr = {5, 2, 8, 1};
-Arrays.sort(wrappedArr, Collections.reverseOrder()); // Descending
+
+```java
+import java.util.Arrays;
+
+int[] primitiveArray = {1, 2, 3, 4, 5};
+
+// Convert to Integer[]
+Integer[] objectArray = Arrays.stream(primitiveArray)
+                              .boxed()
+                              .toArray(Integer[]::new);
+
+Arrays.sort(objectArray, Collections.reverseOrder()); // Descending
 ```
 
 ### B. Collections (ArrayList, LinkedList)
