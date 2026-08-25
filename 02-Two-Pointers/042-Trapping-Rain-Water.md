@@ -82,6 +82,7 @@ class Solution {
     }
 }
 
+````
 
 ---
 # 42. Trapping Rain Water (Optimal Two-Pointer Solution)
