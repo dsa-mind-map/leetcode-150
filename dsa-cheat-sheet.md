@@ -37,6 +37,9 @@ for (int i = 0; i < primitives.length; i++) {
 ```java
 int[] primitives = {1, 2, 3, 4, 5};
 
+// Stream.toList() / List.of() (Java 16+ / 9+): 
+// Fully immutable (read-only structure and read-only elements, backed by a copied, safe data store).
+
 // IMMUTABLE LIST
 List<Integer> list1 = Arrays.stream(primitives)
                             .boxed()
