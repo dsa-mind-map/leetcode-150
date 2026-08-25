@@ -37,9 +37,16 @@ for (int i = 0; i < primitives.length; i++) {
 ```java
 int[] primitives = {1, 2, 3, 4, 5};
 
+// IMMUTABLE LIST
 List<Integer> list1 = Arrays.stream(primitives)
                             .boxed()
                             .toList();
+                            
+// Option 1: Collect directly into a mutable ArrayList
+List<Integer> integerList = Arrays.stream(primitive)
+                                    .boxed()
+                                    .collect(Collectors.toList());
+                                    
 ```
 
 ### Traditional Loop Way (Fastest performance, zero stream overhead)
