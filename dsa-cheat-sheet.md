@@ -8,8 +8,7 @@ This guide covers common and efficient ways to convert between primitive arrays,
 
 ---
 
-## 1. Primitive Array to Object Array (`int[]` $
-ightarrow$ `Integer[]`)
+## 1. Primitive Array to Object Array (`int[]` -> `Integer[]`)
 
 ### Stream Way
 ```java
@@ -32,8 +31,7 @@ for (int i = 0; i < primitives.length; i++) {
 
 ---
 
-## 2. Primitive Array to List (`int[]` $
-ightarrow$ `List<Integer>`)
+## 2. Primitive Array to List (`int[]` -> `List<Integer>`)
 
 ### Modern Stream Way (Java 16+)
 ```java
@@ -56,8 +54,7 @@ for (int num : primitives) {
 
 ---
 
-## 3. Object Array to List (`Integer[]` $
-ightarrow$ `List<Integer>`)
+## 3. Object Array to List (`Integer[]` -> `List<Integer>`)
 
 ```java
 Integer[] objectArray = {1, 2, 3, 4, 5};
@@ -71,8 +68,7 @@ List<Integer> mutableList = new ArrayList<>(Arrays.asList(objectArray));
 
 ---
 
-## 4. List to Primitive Array (`List<Integer>` $
-ightarrow$ `int[]`)
+## 4. List to Primitive Array (`List<Integer>` -> `int[]`)
 
 ```java
 List<Integer> list = new ArrayList<>(List.of(1, 2, 3));
