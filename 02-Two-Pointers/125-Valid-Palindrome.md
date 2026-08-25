@@ -57,12 +57,12 @@ class Solution {
 
         while (start < end) {
             
-            // 2. Skip non-alphanumeric characters from the left (with boundary guard)
+            // 2. "Keep moving until you find something valid." (Skip garbage/punctuation).
             while (start < end && !Character.isLetterOrDigit(s.charAt(start))) {
                 start++;
             }
             
-            // 3. Skip non-alphanumeric characters from the right (with boundary guard)
+            // 3. "Keep moving until you find something valid." (Skip garbage/punctuation).
             while (start < end && !Character.isLetterOrDigit(s.charAt(end))) {
                 end--;
             }
