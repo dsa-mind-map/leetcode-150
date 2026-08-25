@@ -15,7 +15,7 @@ Given `n` non-negative integers representing an elevation map where the width of
 
 ---
 
-## 🧠 The Mental Model: The Physics of Trapped Water
+## 🧠 Part 1: The Mental Model (Physics of Trapped Water)
 
 When approaching this problem, we look at it index by index. If you imagine yourself standing on top of a single building at index `i`, you must ask yourself: *"How much water can stay directly on top of my head without spilling?"*
 
@@ -44,7 +44,7 @@ Because we are looking **strictly** at the buildings to the left and strictly to
 
 ---
 
-## 💻 The Code (Exclusive Boundaries)
+## 💻 The Code ($\mathcal{O}(n)$ Space - Exclusive Boundaries)
 
 ```java
 class Solution {
@@ -81,52 +81,7 @@ class Solution {
         return totalWater;
     }
 }
-
-````
-
----
-# 42. Trapping Rain Water (Optimal Two-Pointer Solution)
-
-**Difficulty:** Hard  
-**Topic:** Arrays / Two Pointers (Dynamic Boundary Tracking)
-
----
-
-## 🧠 Two-Pointer Mental Model: (In Plain English)
-
-1. The Bottleneck Check: if (h[left] <= h[right])
-
-What it means: If I am standing at the left pointer, water will never leak to the right. The right side acts as a guaranteed giant wall because it is at least as tall as my current position. The left side is my absolute bottleneck.
-
-2. The Valley (Trapping Water): if (h[left] < leftMax)
-
-What it means: Since the right side is safely sealed, I only need to check my local left wall (leftMax). If my current building is shorter than leftMax, a valley is created!
-
-The Math: I calculate the trapped water and add it to the total: volume += leftMax - h[left].
-
-3. The New Peak (Updating Boundaries): if (h[left] >= leftMax)
-
-What it means: I am not in a valley; I am standing on a new mountain peak. My building cannot hold water on its roof, but it becomes the new tallest left boundary for everyone else.
-
-The Action: I simply update the ledger: leftMax = h[left].
-
-(Note: After processing either step 2 or 3, I take one step inward: left++)
-
-4. The Reverse Symmetry: if (h[left] > h[right])
-
-What it means: The left side is now the guaranteed giant wall, making the right side the bottleneck. The right pointer goes into action using the exact same rules, but in reverse.
-
-The Action: I compare h[right] against rightMax, calculate water or update the boundary, and take one step backward: right--.
-
----
-
-
----
-
-## 💻 The Code ($\mathcal{O}(1)$ Space)
-
-```java
-class Solution {
+🧠 Part 2: The Optimal Two-Pointer Mental Model (In Plain English)To optimize space to $\mathcal{O}(1)$, we drop the arrays and use two moving pointers (left and right) to track the max boundaries dynamically.1. The Bottleneck Check: if (h[left] <= h[right])What it means: If I am standing at the left pointer, water will never leak to the right. The right side acts as a guaranteed giant wall because it is at least as tall as my current position. The left side is my absolute bottleneck.2. The Valley (Trapping Water): if (h[left] < leftMax)What it means: Since the right side is safely sealed, I only need to check my local left wall (leftMax). If my current building is shorter than leftMax, a valley is created!The Math: I calculate the trapped water and add it to the total: volume += leftMax - h[left].3. The New Peak (Updating Boundaries): if (h[left] >= leftMax)What it means: I am not in a valley; I am standing on a new mountain peak. My building cannot hold water on its roof, but it becomes the new tallest left boundary for everyone else.The Action: I simply update the ledger: leftMax = h[left].(Note: After processing either step 2 or 3, I take one step inward: left++)4. The Reverse Symmetry: if (h[left] > h[right])What it means: The left side is now the guaranteed giant wall, making the right side the bottleneck. The right pointer goes into action using the exact same rules, but in reverse.The Action: I compare h[right] against rightMax, calculate water or update the boundary, and take one step backward: right--.💻 The Code ($\mathcal{O}(1)$ Space - Two Pointers)Javaclass Solution {
     public int trap(int[] height) {
         if (height == null || height.length == 0) return 0;
 
@@ -170,3 +125,4 @@ class Solution {
         return totalWater;
     }
 }
+⏱️ Complexity Analysis (Optimal Solution)Time Complexity: $\mathcal{O}(n)$We process each element in the array exactly once as the left and right pointers converge in the middle. We completely eliminated the three separate passes from the previous solution down to just one single pass.Space Complexity: $\mathcal{O}(1)$We completely eliminated the two auxiliary arrays. We only use four basic integer variables (left, right, leftMax, rightMax), keeping our memory footprint perfectly flat regardless of how large the input array is.
