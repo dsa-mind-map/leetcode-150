@@ -81,3 +81,74 @@ class Solution {
         return totalWater;
     }
 }
+
+
+---
+# 42. Trapping Rain Water (Optimal Two-Pointer Solution)
+
+**Difficulty:** Hard  
+**Topic:** Arrays / Two Pointers (Dynamic Boundary Tracking)
+
+---
+
+## 🧠 The Mental Model: The "Bottleneck" Insight
+
+In our previous solution, we used `leftMax` and `rightMax` arrays to store the tallest buildings for *every single index*. But do we really need all that history at once? 
+
+**No.** Because of the physics of water, the water level at any point is strictly determined by the **smaller** of the two outer walls. 
+
+Imagine two guards, one at the far left and one at the far right of the city, walking toward each other:
+1. They each keep track of the tallest building they've seen so far (`leftMax` and `rightMax`).
+2. They compare their maxes: **Whichever side has the shorter max wall is the bottleneck.** 
+3. Because that side is the bottleneck, water on that side can *never* overflow past that shorter wall—no matter what giant buildings might exist in the unknown middle section. 
+4. Therefore, the guard on the shorter side can safely calculate the water for their current building, step inward, and repeat.
+
+---
+
+## 💻 The Code ($\mathcal{O}(1)$ Space)
+
+```java
+class Solution {
+    public int trap(int[] height) {
+        if (height == null || height.length == 0) return 0;
+
+        int left = 0;
+        int right = height.length - 1;
+        
+        int leftMax = 0;
+        int rightMax = 0;
+        
+        int totalWater = 0;
+
+        // The two guards walk toward each other until they meet
+        while (left < right) {
+            
+            // Step 1: Identify the bottleneck side
+            if (height[left] < height[right]) {
+                
+                // We are working on the left side. 
+                // Is the current building a new boundary wall, or a valley?
+                if (height[left] >= leftMax) {
+                    leftMax = height[left]; // New tall wall, update boundary (holds no water)
+                } else {
+                    totalWater += leftMax - height[left]; // Valley! Add water.
+                }
+                left++; // Move left guard inward
+                
+            } else {
+                
+                // We are working on the right side.
+                // Is the current building a new boundary wall, or a valley?
+                if (height[right] >= rightMax) {
+                    rightMax = height[right]; // New tall wall, update boundary (holds no water)
+                } else {
+                    totalWater += rightMax - height[right]; // Valley! Add water.
+                }
+                right--; // Move right guard inward
+                
+            }
+        }
+
+        return totalWater;
+    }
+}
