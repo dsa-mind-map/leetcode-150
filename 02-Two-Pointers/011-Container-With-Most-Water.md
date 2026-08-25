@@ -73,9 +73,9 @@ class Solution {
             // 3. Greedy pointer movement: Always abandon the shorter wall
             // to avoid losing the chance of finding a taller boundary.
             if (heights[start] <= heights[end]) {
-                start++;
+                start++; // dont loose index of larger height
             } else {
-                end--;
+                end--; // dont loose index of larger height
             }
         }
 
