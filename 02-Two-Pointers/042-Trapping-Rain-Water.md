@@ -40,6 +40,8 @@ What it means: The left side is now the guaranteed giant wall, making the right 
 
 The Action: I compare h[right] against rightMax, calculate water or update the boundary, and take one step backward: right--.
 
+---
+
 ## 🧠 The Mental Model: The Physics of Trapped Water
 
 When approaching this problem, we look at it index by index. If you imagine yourself standing on top of a single building at index `i`, you must ask yourself: *"How much water can stay directly on top of my head without spilling?"*
