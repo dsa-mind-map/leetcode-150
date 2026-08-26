@@ -47,13 +47,14 @@ class Solution {
             if(profit > 0){
                 // profit
                 if(profit > maxProfit) maxProfit = profit;
-                end++; // sell at a new price
+                // end++; // sell at a new price
             }else{
                 // no profit
                 start = end; // buy at lower price
-                end++; // sell at a new price
+                // end++; // sell at a new price
        
             }
+            end++; // sell at a new price
         }
         return maxProfit;
     }
