@@ -1,6 +1,33 @@
 # Pattern 3: Sliding Window
 **Focus:** Maintaining a contiguous subset of elements (a subarray or substring) and dynamically expanding or shrinking its boundaries to optimize $\mathcal{O}(n^2)$ nested loops into $\mathcal{O}(n)$ linear time.
 
+2. How to "Spot" it in the wild (The Triggers)
+You don't need to guess if a problem is a Sliding Window. The problem description will literally scream it at you if you know the two trigger words:
+
+Trigger 1: "Contiguous" / "Substring" / "Subarray"
+
+The elements must be physically next to each other. If the problem allows you to pick elements from random places (like "subsequence"), Sliding Window is dead. It only works on unbroken chains.
+
+Trigger 2: "Longest" / "Shortest" / "Target Size"
+
+You are asked to optimize a boundary based on a specific rule.
+
+Look at our problem: "Find the length of the longest (Trigger 2) substring (Trigger 1) without repeating characters." It is a perfect match.
+
+
+3. The Mental Model: The InchwormForget pointers. Imagine an inchworm crawling across an array from left to right. It has a Head and a Tail.The Head (right pointer): Its only job is to move forward and eat new elements, expanding the worm.The Tail (left pointer): Its only job is to move forward to shrink the worm.The inchworm operates on a very simple physical law:The Head always steps forward to eat the next element.If the worm eats something that makes it sick (violates the problem's rule), the Tail must crawl forward, pooping out elements until the worm is healthy again.Because the Head and the Tail only ever move forward, they can only travel the length of the array once. This guarantees $\mathcal{O}(n)$ time.
+
+4. The Universal 4-Step Engine
+Every single dynamic Sliding Window problem on earth follows this exact 4-step heartbeat. You don't memorize the code; you just write this logical heartbeat:
+
+Expand: The Head takes one step forward and ingests a new element.
+
+Update State: Record what the Head just ate (e.g., put it in your memory/ledger).
+
+Validate & Shrink (The while loop): Is the worm sick? While the rule is broken, the Tail must step forward, dropping elements out of your memory, until the rule is fixed.
+
+Record Answer: Now that the worm is definitively healthy again, is this the biggest/smallest worm we've seen so far? Update your record.
+
 ## 📚 Trigger Dictionary
 
 ### Group 1: The Core Window Basics (State Tracking)
