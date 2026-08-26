@@ -31,25 +31,35 @@ We look for a pair of days using a contiguous window. The `left` pointer is our 
 ```java
 class Solution {
     public int maxProfit(int[] prices) {
-        int left = 0; // Buy
-        int right = 1; // Sell
+        int n = prices.length;
+
+        int start = 0; // buy price at index 0
+        int end = 1; // sell price at index 1
+
         int maxProfit = 0;
 
-        while (right < prices.length) {
-            // Is this a profitable transaction?
-            if (prices[left] < prices[right]) {
-                int currentProfit = prices[right] - prices[left];
-                maxProfit = Math.max(maxProfit, currentProfit);
-            } else {
-                // We found a cheaper price! Shift our buy day to this new low.
-                left = right;
-            }
-            right++; // Always move forward to check the next day
-        }
+        //[2, 9, 1, 3, 6, 10]
+        while(start < n && end <n){
+            // buying at start
+            // selling at end
+            int profit = prices[end] - prices[start];
 
+            if(profit > 0){
+                // profit
+                if(profit > maxProfit) maxProfit = profit;
+                end++; // sell at a new price
+            }else{
+                // no profit
+                start = end; // buy at lower price
+                end++; // sell at a new price
+       
+            }
+        }
         return maxProfit;
     }
 }
+
+
 ```
 
 ---
@@ -64,25 +74,30 @@ Instead of physically maintaining two pointers, we just track the **value** of t
 ```java
 class Solution {
     public int maxProfit(int[] prices) {
-        int profit = 0;
-        int lastBuyPrice = Integer.MAX_VALUE; // Start with the highest possible price
+        
+        int n = prices.length;
 
-        for (int i = 0; i < prices.length; i++) {
-            
-            // 1. Lock in a new cheaper buy price if we find one
-            if (prices[i] < lastBuyPrice) {
-                lastBuyPrice = prices[i];
-            } 
-            // 2. Otherwise, check if selling today breaks our profit record
-            else if (prices[i] - lastBuyPrice > profit) {
-                profit = prices[i] - lastBuyPrice;
+        int buyPrice = Integer.MAX_VALUE;
+
+        int maxProfit = 0;
+
+        // [2, 9, 1, 3, 6, 10]
+        for(int i=0; i<n; i++){
+
+            int sellPrice = prices[i];
+            int profit = sellPrice - buyPrice;
+
+            if(profit > 0){
+                if(profit > maxProfit) maxProfit = profit;
+            }else{
+                buyPrice = sellPrice; // buy at lower price
             }
-            
         }
 
-        return profit;
+        return maxProfit;
     }
 }
+
 ```
 
 ---
