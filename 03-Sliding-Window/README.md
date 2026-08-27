@@ -32,7 +32,7 @@ Sliding window problems fall strictly into one of three behavioral buckets based
 **The Rule:** The window size is strictly locked to a specific number ($k$). When the window reaches that size, the Tail steps forward by +1 every time the Head steps forward by +1.
 
 * **[Maximum Average Subarray I](643-Maximum-Average-Subarray-I.md):** Find a contiguous subarray of exactly size $k$.
-* **Minimum Recolors to Get K Consecutive Black Blocks (2379):** Look for a block of exactly $k$ consecutive elements.
+* **[Minimum Recolors to Get K Consecutive Black Blocks](Minimum-Recolors-to-Get K-Consecutive-Black-Blocks.md):** Look for a block of exactly $k$ consecutive elements.
 * **Substrings of Size Three with Distinct Characters (1876):** Window size locked to exactly 3.
 * **Minimum Difference Between Highest and Lowest of K Scores (1984):** Evaluate chunks of exactly $k$ students.
 * **Permutation In String (567):** Permutations must match the exact length of the target string.
