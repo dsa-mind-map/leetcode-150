@@ -110,7 +110,8 @@ class Solution {
 ```
 
 ---
-##Java Code: Solution 2 (Single-Array Net-Debt Approach)
+
+## 💻 Java Code: Solution 2 (Single-Array Net-Debt Approach)
 
 ```java
 class Solution {
@@ -171,5 +172,9 @@ class Solution {
     }
 }
 
+```
 
+---
+
+⏱️ Complexity AnalysisTime Complexity: $\mathcal{O}(n_2)$Traversing s2 takes linear time with respect to its length. The 26-slot frequency check runs in constant $\mathcal{O}(1)$ time per window.Space Complexity: $\mathcal{O}(1)$Frequency arrays are fixed at a size of 26, requiring constant extra memory regardless of input scale.
 
