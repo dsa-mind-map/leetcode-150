@@ -36,18 +36,23 @@ Given two strings `s1` and `s2`, return `true` if `s2` contains a permutation of
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
 
+        // 2 arrays for frequency
+        // one array is used to track & update frequency
+        // another array is to check if character from s2 exists in s1
+
         int n1 = s1.length();
         int n2 = s2.length();
-        if (n1 > n2) return false;
 
         int[] freq = new int[26];
         int[] existsInS1 = new int[26];
 
-        // Populate initial frequencies and static reference permission slips
-        for(int i = 0; i < n1; i++){
+        for(int i=0; i<n1; i++){
+
             int index = s1.charAt(i) - 'a';
+            
             freq[index]++;
             existsInS1[index]++;
+
         }
 
         int start = 0;
@@ -55,38 +60,116 @@ class Solution {
 
         while(end < n2){
             
-            // Head checks permission slip before decrementing
+            // head exists in s1 and then decrement
             int indexEnd = s2.charAt(end) - 'a';
             if(existsInS1[indexEnd] > 0){
                 freq[indexEnd]--;
             }
 
-            // Window size validation
-            if(end - start + 1 == n1){
-                boolean permutation = true;
+            if( end - start + 1 == n1){
 
-                for(int i = 0; i < 26; i++){
+                boolean permuation = true;
+
+                for(int i=0; i<freq.length; i++){
+
                     if(freq[i] != 0){
-                        permutation = false;
+                        permuation = false;
                         break;
                     }
+
                 }
                 
-                if(permutation) return true;
+                if(permuation){
+                    return permuation;
+                }
 
-                // Tail checks permission slip before incrementing
+                // tail exists in s1 and then increment
                 int indexStart = s2.charAt(start) - 'a';
                 if(existsInS1[indexStart] > 0){
                     freq[indexStart]++;
                 }
 
                 start++;
+                
             }
 
-            // Head always steps forward at the END of the loop
             end++;
+
+
         }
 
         return false;
+
+
+
+
+
+
     }
 }
+```
+
+---
+Java Code: Solution 2 (Single-Array Net-Debt Approach)
+
+```java
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+
+        // I will use only one array to frequency update 
+        // catch : all elements of s2 ( exists in s1 or not) will be part of frequency count array
+
+        int n1 = s1.length();
+        int n2 = s2.length();
+
+        int[] freq = new int[26];
+
+        for(int i=0; i<n1; i++){
+
+            int index = s1.charAt(i) - 'a';
+
+            freq[index]++;
+
+        }
+
+        int start = 0;
+        int end = 0;
+
+        while( end < n2){
+
+            int indexEnd = s2.charAt(end) - 'a';
+            freq[indexEnd]--;
+
+            if(end - start + 1 == n1){
+
+                boolean permutation = true;
+
+                for(int i=0; i<freq.length; i++){
+                    if(freq[i] != 0){
+                        permutation = false;
+                    }
+                }
+
+                if(permutation){
+                    return permutation;
+                }
+
+                int indexStart = s2.charAt(start) - 'a';
+                freq[indexStart]++;
+
+                start++;
+
+            }
+
+            end++;
+
+        }
+
+        return false;
+
+        
+    }
+}
+
+
+
