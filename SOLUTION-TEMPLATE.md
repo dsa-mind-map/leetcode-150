@@ -1,47 +1,90 @@
-# [Problem Name] ([Problem ID])
+# Substrings of Size Three with Distinct Characters (1876) - Generalized for Size K
 
-**Platform:** [LeetCode](Link)  
-**Difficulty:** [Easy/Medium/Hard]  
-**Pattern:** [Exact Pattern Name - e.g., Sliding Window (Fixed Step)]
+**Platform:** [LeetCode](https://leetcode.com/problems/substrings-of-size-three-with-distinct-characters/)  
+**Difficulty:** Easy (Scaled to Medium conceptually)  
+**Pattern:** Sliding Window (Fixed Step)
 
 ---
 
 ## 📝 Problem Description
 
-[Brief description of the problem, the core constraints, and what needs to be returned.]
+A string is **good** if there are no repeated characters.
+Given a string `s` and an integer `k`, return the number of **good substrings** of length `k` in `s`. 
+
+*(Note: The original LeetCode problem hardcodes the size to 3, but this implementation scales to handle any window size `k` efficiently).*
 
 ---
 
 ## 🧠 Pattern Recognition & Approach
 
-* **The Trigger:** [What specific words in the prompt told us to use this pattern? e.g., "exactly size k", "longest contiguous"]
-* **The Strategy:** [How does the standard pattern apply here? e.g., "We will use the universal Fixed Window template where the Head expands and the Tail strictly follows."]
+* **The Trigger:** The requirement to evaluate substrings of a specific, exact length (`k`) strictly maps to **Pattern 1: Fixed Sliding Window**.
+* **The Strategy:** We use the universal Fixed Window template where the Head (`end`) expands and the Tail (`start`) follows. To manage the state of unique characters efficiently across a large window, we use a **Frequency Array** of size 26 combined with a global `duplicateCount` "alarm" variable.
 
 ---
 
 ## 💡 Key Learnings & Pitfalls
 
-* **[Your specific "Aha!" moment or mental shift]**
-* **The Pitfall:** [What common mistake did we avoid? e.g., "Why we can't use a HashSet here," or "Why the `end++` must always be at the very bottom of the loop."]
-* **The Rule:** [The golden rule to remember for next time.]
+* **The Global Alarm Shortcut:** Instead of looping through a 26-slot frequency array on every iteration to check for duplicates, we use a single `duplicateCount` variable. If this alarm is `0`, the window is valid in $\mathcal{O}(1)$ time.
+* **The "3 or More" Pitfall:** When removing a character at the Tail, it is tempting to write `if (freq > 1) { duplicateCount--; } freq--;`. This is a silent bug! If a window has three `'a'`s (`freq = 3`), removing one still leaves two `'a'`s in the window. The duplicate count shouldn't drop yet.
+* **The Rule of Perfect Symmetry:** The Tail's logic must be the exact mirror of the Head's logic. 
+  * Head turns the alarm ON only when crossing the threshold: `freq++; if (freq == 2) { duplicateCount++; }`
+  * Tail turns the alarm OFF only when crossing back: `freq--; if (freq == 1) { duplicateCount--; }`
+* **The Golden Loop Rule:** The Head (`end`) must always take its step forward at the **very bottom** of the `while` loop. Operate on the current valid window first, *then* increment into the future.
 
 ---
 
 ## 💻 Java Code
 
 ```java
-// Strictly adhering to the agreed-upon pattern template (No random shortcuts)
+// Strictly adhering to the agreed-upon pattern template
 class Solution {
-    public int solveProblem(int[] nums, int k) {
+    public int countGoodSubstrings(String s, int k) { 
         
         // 1. Initialize pointers and state
+        int n = s.length();
+        int start = 0;
+        int end = 0;
+        int goodSubStrings = 0;
         
+        int[] freq = new int[26]; // Tracks counts of 'a' through 'z'
+        int duplicateCount = 0;   // How many characters are violating uniqueness?
+
         // 2. The while loop (Head traverses)
-        
+        while (end < n) {
+            
             // 3. Update state based on Head
+            char endChar = s.charAt(end);
+            freq[endChar - 'a']++; 
             
+            // Only increase alarm when moving from 1 to 2
+            if (freq[endChar - 'a'] == 2) {
+                duplicateCount++;
+            }
+
             // 4. Validate Window (if/while for Tail movement)
-            
+            if (end - start + 1 == k) {
+                
+                // Evaluate current valid window
+                if (duplicateCount == 0) {
+                    goodSubStrings++;
+                }
+
+                // Prepare to slide: Tail drops the left element
+                char startChar = s.charAt(start);
+                freq[startChar - 'a']--;
+                
+                // Only decrease alarm when moving from 2 to 1 (fully healed)
+                if (freq[startChar - 'a'] == 1) {
+                    duplicateCount--;
+                }
+                
+                start++; // Slide the Tail
+            }
+
             // 5. Head takes its step forward at the END of the loop
+            end++;
+        }
+
+        return goodSubStrings;
     }
 }
