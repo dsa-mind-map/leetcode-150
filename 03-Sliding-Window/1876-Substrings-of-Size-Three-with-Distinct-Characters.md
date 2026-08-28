@@ -25,27 +25,48 @@ Given a string `s`, return the number of **good substrings** of length 3 in `s`.
 
 ```java
 class Solution {
-    public int countGoodSubstrings(String s) {
-
+    public int countGoodSubstrings(String s, int k) { // k is now a parameter, e.g., 10
+        
         int n = s.length();
         int start = 0;
+        int end = 0;
         int goodSubStrings = 0;
+        
+        // State Trackers
+        int[] freq = new int[26]; // Tracks counts of 'a' through 'z'
+        int duplicateCount = 0;   // How many characters are violating the uniqueness rule?
 
-        // Stop at n - 2 to ensure start+1 and start+2 are always in bounds
-        while (start < n - 2) {
-
-            // Grab the three characters in our fixed window
-            char first = s.charAt(start);
-            char second = s.charAt(start + 1);
-            char third  = s.charAt(start + 2);
-
-            // Check if they are completely unique
-            if (first != second && second != third && third != first) {
-                goodSubStrings++;
+        while (end < n) {
+            
+            // 1. STATE UPDATE: Head eats a new character
+            char endChar = s.charAt(end);
+            freq[endChar - 'a']++; 
+            if (freq[endChar - 'a'] == 2) {
+                // We just found a duplicate!
+                duplicateCount++;
             }
 
-            // Slide the window forward by 1
-            start++;
+            // 2. CHECK WINDOW SIZE
+            if (end - start + 1 == k) {
+                
+                // 3. EVALUATE: Are there zero duplicates in our size 10 window?
+                if (duplicateCount == 0) {
+                    goodSubStrings++;
+                }
+
+                // 4. PREPARE TO SLIDE: Tail drops the left element
+                char startChar = s.charAt(start);
+                freq[startChar - 'a']--;
+                if (freq[startChar - 'a'] == 1) {
+                    // We just removed a duplicate, so our window is healing!
+                    duplicateCount--;
+                }
+                
+                start++;
+            }
+
+            // 5. Head always takes its step forward at the END
+            end++;
         }
 
         return goodSubStrings;
