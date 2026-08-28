@@ -110,7 +110,7 @@ class Solution {
 ```
 
 ---
-Java Code: Solution 2 (Single-Array Net-Debt Approach)
+##Java Code: Solution 2 (Single-Array Net-Debt Approach)
 
 ```java
 class Solution {
