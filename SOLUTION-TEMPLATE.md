@@ -1,19 +1,4 @@
-# Substrings of Size Three with Distinct Characters (1876) - Generalized for Size K
 
-**Platform:** [LeetCode](https://leetcode.com/problems/substrings-of-size-three-with-distinct-characters/)  
-**Difficulty:** Easy (Scaled to Medium conceptually)  
-**Pattern:** Sliding Window (Fixed Step)
-
----
-
-## 📝 Problem Description
-
-A string is **good** if there are no repeated characters.
-Given a string `s` and an integer `k`, return the number of **good substrings** of length `k` in `s`. 
-
-*(Note: The original LeetCode problem hardcodes the size to 3, but this implementation scales to handle any window size `k` efficiently).*
-
----
 
 ## 🧠 Pattern Recognition & Approach
 
