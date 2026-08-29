@@ -31,39 +31,40 @@ As long as the newly added character's frequency is not reduced back to `1`, the
 ```java
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        // Use an array of 128 to cover all standard ASCII characters
-        int[] freq = new int[128]; 
-        
+
+        int n = s.length();
+
         int start = 0;
         int end = 0;
-        int maxSubstring = 0;
+        int largestsubstring = 0;
 
-        while (end < s.length()) {
-            // 1. EXPAND: Add the current character to our window
-            char rightChar = s.charAt(end);
-            freq[rightChar]++;
+        int[] freq = new int[128];
 
-            // 2. CHECK & SHRINK: Did we just add a duplicate?
-            // Keep shrinking from the left until the duplicate is removed
-            while (freq[rightChar] > 1) {
-                char leftChar = s.charAt(start);
-                freq[leftChar]--; // Remove from window state
-                start++;          // Move tail forward
+        while( end < n){
+
+            freq[s.charAt(end)]++;
+
+            while( freq[s.charAt(end)] > 1){
+
+                freq[s.charAt(start)]--;
+                start++;    
+
             }
 
-            // 3. UPDATE: The window is now valid (no duplicates)
-            int currentWindowSize = end - start + 1;
-            if (currentWindowSize > maxSubstring) {
-                maxSubstring = currentWindowSize;
+            if(end - start + 1 > largestsubstring){
+                largestsubstring = end -start +1;
             }
 
-            // 4. MOVE FORWARD
             end++;
+
+
         }
-        
-        return maxSubstring;
+
+        return largestsubstring;
+
     }
 }
+
 ```
 ---
 Complexity Analysis
