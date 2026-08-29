@@ -13,14 +13,6 @@ You are given an array of integers `nums`, and there is a sliding window of size
 ---
 
 ## 🧠 Pattern Recognition & Approach
-## DEQUE
-As long as you are adding elements at one end and removing them from the opposite end, it is always a FIFO (First-In, First-Out) queue.
-
-Add at Tail + Remove at Head: FIFO (Standard flow)
-
-Add at Head + Remove at Tail: FIFO (Reverse flow—the first item you added gets pushed all the way to the tail over time, so it still gets removed first!)
-
-It only turns into a LIFO (Stack) if you add and remove from the exact same end (e.g., add at head and remove at head).
 
 * **The Trigger:** The requirement to evaluate sliding windows of a specific, exact length (`k`) and dynamically track a running maximum maps directly to **Pattern 1: Fixed Sliding Window**.
 * **The Strategy:** We use the universal Fixed Window template where the Head (`end`) expands and the Tail (`start`) follows. To manage elements dynamically while keeping them sorted for instant maximum retrieval without an $\mathcal{O}(k)$ scan, we use a **`TreeMap`** configured as a frequency map (`value -> frequency`).
@@ -107,6 +99,15 @@ class Solution {
 ---
 
 ## 🚀 Solution: Monotonic Deque Approach
+
+## DEQUE
+As long as you are adding elements at one end and removing them from the opposite end, it is always a FIFO (First-In, First-Out) queue.
+
+Add at Tail + Remove at Head: FIFO (Standard flow)
+
+Add at Head + Remove at Tail: FIFO (Reverse flow—the first item you added gets pushed all the way to the tail over time, so it still gets removed first!)
+
+It only turns into a LIFO (Stack) if you add and remove from the exact same end (e.g., add at head and remove at head).
 
 ### Approach & Pattern Recognition
 * **The Trigger:** Finding the maximum value across a moving window of fixed size `k` maps directly to **Pattern 1: Fixed Sliding Window**.
