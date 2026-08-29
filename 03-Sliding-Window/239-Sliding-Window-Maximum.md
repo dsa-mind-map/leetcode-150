@@ -88,3 +88,74 @@ class Solution {
   * Inserting, deleting, and retrieving the maximum (`lastKey()`) in a `TreeMap` takes logarithmic time relative to the number of unique elements in the window (`k`). Since we do this for all `n` elements, the total time is $\mathcal{O}(n \log k)$.
 * **Space Complexity:** $\mathcal{O}(k)$
   * The `TreeMap` stores at most `k` unique elements at any given time, maintaining linear-bounded extra space.
+
+
+# Sliding Window Maximum (239)
+
+**Platform:** [LeetCode](https://leetcode.com/problems/sliding-window-maximum/)  
+**Difficulty:** Hard  
+**Pattern:** Sliding Window (Fixed Step) + Monotonic Deque
+
+---
+
+## 🚀 Solution: Monotonic Deque Approach
+
+### Approach & Pattern Recognition
+* **The Trigger:** Finding the maximum value across a moving window of fixed size `k` maps directly to **Pattern 1: Fixed Sliding Window**.
+* **The Strategy:** To avoid the $\mathcal{O}(n \times k)$ penalty of scanning every window, or the $\mathcal{O}(n \log k)$ overhead of a Balanced BST (`TreeMap`/`TreeSet`), we use a **Monotonic Deque** (`ArrayDeque` storing **indices**). We maintain a strict descending order inside the deque so that the maximum element is always instantly accessible at the front.
+
+### Key Learnings & Pitfalls
+* **Store Indices, Not Values:** Storing indices instead of raw values allows us to mathematically check whether an element has fallen out of the left window boundary (`i - k + 1`), which is impossible if we only store raw values.
+* **The Monotonic Decreasing Rule:** Before adding a new element, we purge smaller elements from the **back** of the deque (`pollLast()`). These smaller elements are useless because they are smaller *and* older—they will never become the maximum.
+* **Pruning Out-of-Bounds from the Front:** If the index at the front of the deque is older than our current window bounds (`i - k + 1`), we pop it from the **front** (`pollFirst()`).
+* **Amortized $\mathcal{O}(1)$ Efficiency:** Even though there is a `while` loop inside the traversal loop to clear out smaller elements, each index is pushed into and popped from the deque at most once. This guarantees a true linear runtime.
+
+### Java Code
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums == null || k <= 0) return new int[0];
+        
+        int n = nums.length;
+        int[] result = new int[n - k + 1];
+        int resIdx = 0;
+        
+        // Deque stores indices of the array elements
+        Deque<Integer> deque = new ArrayDeque<>();
+        
+        for (int i = 0; i < n; i++) {
+            
+            // 1. Remove indices that are out of the current window range [i - k + 1, i]
+            if (!deque.isEmpty() && deque.peekFirst() < i - k + 1) {
+                deque.pollFirst();
+            }
+            
+            // 2. Remove elements from the back that are smaller than the current element
+            // (They are useless because current element is larger and more recent)
+            while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
+                deque.pollLast();
+            }
+            
+            // 3. Push current element index to the back
+            deque.offerLast(i);
+            
+            // 4. Record the maximum for the window once we reach size k
+            if (i >= k - 1) {
+                result[resIdx++] = nums[deque.peekFirst()];
+            }
+        }
+        
+        return result;
+    }
+}
+```
+
+---
+
+## ⏱️ Complexity Analysis
+
+* **Time Complexity:** $\mathcal{O}(n)$, where $N$ is the length of the array. Every index is pushed into the deque once and popped from the deque at most once. This guarantees linear runtime regardless of how large window $k$ grows.
+* **Space Complexity:** $\mathcal{O}(k)$. In the worst-case scenario (a strictly increasing array), the deque will store up to $k$ indices at any given moment.
