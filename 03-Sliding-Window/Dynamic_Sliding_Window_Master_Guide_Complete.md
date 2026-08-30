@@ -195,7 +195,7 @@ public int longestOnes(int[] nums, int k) {
 > * `1 <= fruits.length <= 10^5`
 > * `0 <= fruits[i] < fruits.length`
 >
-> * solution trick:
+> **solution trick**
 > * That is a very clever idea for optimizing the sliding window! You are trying to "jump" the start pointer instead of moving it one step at a time.
 > * However, this approach will fail because the fruits are not always contiguous.
 
