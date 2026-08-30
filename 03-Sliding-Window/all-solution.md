@@ -29,8 +29,12 @@ public double findMaxAverage(int[] nums, int k) {
     }
     return maxAvg;
 }
-2. Longest Substring Without Repeating Characters
+```
+---
+
+###2. Longest Substring Without Repeating Characters
 Java
+```
 public int lengthOfLongestSubstring(String s) {
     int start = 0, end = 0, maxLength = 0;
     int[] count = new int[128]; 
@@ -54,8 +58,12 @@ public int lengthOfLongestSubstring(String s) {
     }
     return maxLength;
 }
-3. Max Consecutive Ones III
+
+```
+---
+###3. Max Consecutive Ones III
 Java
+```
 public int longestOnes(int[] nums, int k) {
     int start = 0, end = 0, maxLength = 0;
     int zeroCount = 0;
@@ -77,8 +85,11 @@ public int longestOnes(int[] nums, int k) {
     }
     return maxLength;
 }
-4. Fruit Into Baskets
+```
+---
+###4. Fruit Into Baskets
 Java
+```
 public int totalFruit(int[] fruits) {
     int start = 0, end = 0, maxFruits = 0;
     Map<Integer, Integer> fruitCount = new HashMap<>();
@@ -104,8 +115,12 @@ public int totalFruit(int[] fruits) {
     }
     return maxFruits;
 }
-5. Longest Repeating Character Replacement
+```
+---
+
+###5. Longest Repeating Character Replacement
 Java
+```
 public int characterReplacement(String s, int k) {
     int start = 0, end = 0, maxLength = 0;
     int maxFreq = 0; 
@@ -132,8 +147,12 @@ public int characterReplacement(String s, int k) {
     }
     return maxLength;
 }
-6. Minimum Window Substring
+```
+---
+
+###6. Minimum Window Substring
 Java
+```
 public String minWindow(String s, String t) {
     if (s.length() < t.length()) return "";
     
@@ -168,6 +187,8 @@ public String minWindow(String s, String t) {
     
     return minLength == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLength);
 }
+```
+---
 Comparing the "Tail Squeeze" (Shrink Phase)
 The power of this pattern is that the while loop condition directly maps to the problem's primary constraint.
 
