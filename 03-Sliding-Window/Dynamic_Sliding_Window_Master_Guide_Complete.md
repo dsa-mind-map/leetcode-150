@@ -89,7 +89,7 @@ public int lengthOfLongestSubstring(String s) {
     return maxLength;
 }
 ```
-```
+```java
 class Solution {
     public int longestOnes(int[] nums, int k) {
         
