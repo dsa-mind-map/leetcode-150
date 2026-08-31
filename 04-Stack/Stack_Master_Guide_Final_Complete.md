@@ -272,28 +272,16 @@ class Solution {
                 int first = stack.pop();
 
                 if(str.equals("+")){
-                    
-                    int finalValue = first + second;
-                    stack.push(finalValue);
-
+                    stack.push(first + second);
                 }
                 if(str.equals("-")){
-
-                    int finalValue = first - second;
-                    stack.push(finalValue);
-
+                    stack.push(first - second);
                 }
                 if(str.equals("*")){
-
-                    int finalValue = first * second;
-                    stack.push(finalValue);
-
+                    stack.push(first * second);
                 }
                 if(str.equals("/")){
-                              
-                    int finalValue = first / second;
-                    stack.push(finalValue);
-
+                    stack.push(first / second);
                 }
 
             }else{
@@ -305,6 +293,7 @@ class Solution {
         return stack.peek();
     }
 }
+
 
 ```
 * **Time Complexity:** $O(N)$
