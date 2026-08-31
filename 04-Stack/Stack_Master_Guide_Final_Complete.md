@@ -239,6 +239,12 @@ class MinStack {
 
 ### 3. Evaluate Reverse Polish Notation (LeetCode 150)
 > **Question:** You are given an array of strings `tokens` that represents an arithmetic expression in Reverse Polish Notation. Evaluate the expression.
+>
+---
+> **TIPS**
+> use "+-*/".contains(str)
+>
+> use if-else block instead of multiple if-blocks
 
 ```java
 public int evalRPN(String[] tokens) {
