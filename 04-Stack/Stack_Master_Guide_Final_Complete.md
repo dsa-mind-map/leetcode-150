@@ -39,7 +39,7 @@ There are four distinct sub-patterns based on what the "trigger" is.
 >
 > **Constraints:** `1 <= s.length <= 10^4`, `s` consists of parentheses only.
 
-SOLUTION APPROACH :
+### SOLUTION APPROACH :
 When we see an opening bracket, we push the corresponding closing bracket. 
 
 ```java
