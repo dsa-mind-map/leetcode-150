@@ -69,6 +69,14 @@ class Solution {
 }
 ```
 ```java
+char = (   stack = [)]
+char = )   stack = []
+char = [   stack = []]
+char = ]   stack = []
+char = {   stack = [}]
+char = }   stack = []
+```
+```java
 import java.util.ArrayDeque;
 import java.util.Deque;
 
