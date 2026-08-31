@@ -47,13 +47,18 @@ class Solution {
     public boolean isValid(String s) {
    
     Stack<Character> stack = new Stack<>();
-    for (char c : s.toCharArray()) {
-        if (c == ')' || c == '}' || c == ']') {
-            if (stack.isEmpty() || stack.pop() != c) return false;
-        } else {
-            if (c == '(') stack.push(')');
-            else if (c == '{') stack.push('}');
-            else if (c == '[') stack.push(']');
+    for (char ch : s.toCharArray()) {
+        // ---- opening brackets: push the *expected* closing one ----
+        if (ch == '(')           stack.push(')');
+        else if (ch == '[')      stack.push(']');
+        else if (ch == '{')      stack.push('}');
+        // ---- closing brackets: must match the top of the stack ----
+        else {
+            if (stack.isEmpty() || stack.pop() != ch) {
+                return false;             // early exit – string is invalid
+            // stack.isEmpty() → there is no opening bracket to match → invalid.
+            // stack.pop() != ch → the most recent expected closing bracket is different from the current one → invalid.
+            }
         }
     }
     return stack.isEmpty();
@@ -77,6 +82,8 @@ class Solution {
             else {
                 if (stack.isEmpty() || stack.pop() != ch) {
                     return false;             // early exit – string is invalid
+                // stack.isEmpty() → there is no opening bracket to match → invalid.
+                // stack.pop() != ch → the most recent expected closing bracket is different from the current one → invalid.
                 }
             }
         }
