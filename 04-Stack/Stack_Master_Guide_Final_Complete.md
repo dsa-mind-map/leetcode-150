@@ -41,7 +41,9 @@ There are four distinct sub-patterns based on what the "trigger" is.
 
 ### SOLUTION APPROACH :
 > open bracket -> push closed one.
+> 
 > closed bracket
+> 
 > * stack empty-> means closed bracket has nothing to match with. 
 > * stack is not empty -> closed bracket is not equal to top of the stack.
 
