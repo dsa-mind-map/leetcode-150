@@ -60,6 +60,9 @@ class Solution {
             // stack.pop() != ch → the most recent expected closing bracket is different from the current one → invalid.
             }
         }
+        
+        System.out.println("char = " + ch + "   stack = " + stack);
+
     }
     return stack.isEmpty();
     }
