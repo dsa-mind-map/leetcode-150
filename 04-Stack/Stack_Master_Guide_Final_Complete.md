@@ -46,16 +46,15 @@ There are four distinct sub-patterns based on what the "trigger" is.
     - stack.pop() != ch → the most recent expected closing bracket is different from the current one → invalid.
 > Reject on mismatch.
 > Continue with next character, if closing character then pop & compare. If open character then push expected closing.
+> s = "()[]{}"
+> char = (   stack = [)]
+> char = )   stack = []
+> char = [   stack = []]
+> char = ]   stack = []
+> char = {   stack = [}]
+> char = }   stack = []
 
 ```java
-s = "()[]{}"
-char = (   stack = [)]
-char = )   stack = []
-char = [   stack = []]
-char = ]   stack = []
-char = {   stack = [}]
-char = }   stack = []
-```
 class Solution {
     public boolean isValid(String s) {
    
