@@ -184,7 +184,7 @@ class MinStack {
 
 ```java
 class MinStack {
-
+    // array of size 2 = [value, min-value]
     Stack<int[]> stack;
 
     public MinStack() {
@@ -196,12 +196,13 @@ class MinStack {
         // first value
         if(stack.isEmpty()){
 
-            stack.push(new int[]{val, val});
+            stack.push(new int[]{val, val}); // current value is "min value"
 
         }else{
 
-            int previousMin = stack.peek()[1];
-            int minValue = Math.min(previousMin, val);
+            int previousMin = stack.peek()[1]; 
+            int minValue = Math.min(previousMin, val); // min of "current" and "previous"
+
             stack.push(new int[]{val, minValue});
 
         }
@@ -216,14 +217,15 @@ class MinStack {
     }
     
     public int top() {
-        return stack.peek()[0];
+        return stack.peek()[0]; // 0th index has value
     }
     
     public int getMin() {
-        return stack.peek()[1];
+        return stack.peek()[1]; // 1th index has min value
         
     }
 }
+
 
 ```
 * **Time Complexity:** $O(1)$ for all operations.
