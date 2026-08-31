@@ -44,8 +44,8 @@ There are four distinct sub-patterns based on what the "trigger" is.
 > 
 > closed bracket
 > 
-> * stack empty-> means closed bracket has nothing to match with. 
-> * stack is not empty -> closed bracket is not equal to top of the stack.
+> * stack empty-> means closed bracket has nothing to match with. -> return false.
+> * stack not empty and closed bracket is not equal to top of the stack -> return false.
 
 
 ```java
