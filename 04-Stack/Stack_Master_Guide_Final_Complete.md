@@ -66,54 +66,29 @@ There are four distinct sub-patterns based on what the "trigger" is.
 ```java
 class Solution {
     public boolean isValid(String s) {
-   
-    Stack<Character> stack = new Stack<>();
-    for (char ch : s.toCharArray()) {
-        // ---- opening brackets: push the *expected* closing one ----
-        if (ch == '(')           stack.push(')');
-        else if (ch == '[')      stack.push(']');
-        else if (ch == '{')      stack.push('}');
-        // ---- closing brackets: must match the top of the stack ----
-        else {
-            if (stack.isEmpty() || stack.pop() != ch) {
-                return false;             // early exit – string is invalid
-            // stack.isEmpty() → there is no opening bracket to match → invalid.
-            // stack.pop() != ch → the most recent expected closing bracket is different from the current one → invalid.
-            }
-        }
         
-        System.out.println("char = " + ch + "   stack = " + stack);
+        Stack<Character> stack = new Stack<>();
 
-    }
-    return stack.isEmpty();
-    }
-}
-```
+        for(char ch : s.toCharArray()){
 
-```java
-import java.util.ArrayDeque;
-import java.util.Deque;
+            // open bracket -> push closed one.
+            if(ch == '(') stack.push(')'); 
+            if(ch == '{') stack.push('}'); 
+            if(ch == '[') stack.push(']'); 
 
-class Solution {
-    public boolean isValid(String s) {
-        Deque<Character> stack = new ArrayDeque<>();
+            // closed bracket
+            if(ch == ')' || ch == '}' || ch == ']' ){
 
-        for (char ch : s.toCharArray()) {
-            // ---- opening brackets: push the *expected* closing one ----
-            if (ch == '(')           stack.push(')');
-            else if (ch == '[')      stack.push(']');
-            else if (ch == '{')      stack.push('}');
-            // ---- closing brackets: must match the top of the stack ----
-            else {
-                if (stack.isEmpty() || stack.pop() != ch) {
-                    return false;             // early exit – string is invalid
-                // stack.isEmpty() → there is no opening bracket to match → invalid.
-                // stack.pop() != ch → the most recent expected closing bracket is different from the current one → invalid.
+                if(stack.isEmpty()){ // closed bracket has nothing to match with.
+                    return false;
                 }
+                if(stack.pop() != ch){ // closed bracket isnot equal to top of the stack.
+                    return false;
+                }
+
             }
         }
 
-        // If any opening brackets are left unmatched, the string is invalid
         return stack.isEmpty();
     }
 }
