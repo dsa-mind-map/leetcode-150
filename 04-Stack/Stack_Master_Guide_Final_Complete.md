@@ -58,6 +58,33 @@ public boolean isValid(String s) {
     return stack.isEmpty();
 }
 ```
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+class Solution {
+    public boolean isValid(String s) {
+        Deque<Character> stack = new ArrayDeque<>();
+
+        for (char ch : s.toCharArray()) {
+            // ---- opening brackets: push the *expected* closing one ----
+            if (ch == '(')           stack.push(')');
+            else if (ch == '[')      stack.push(']');
+            else if (ch == '{')      stack.push('}');
+            // ---- closing brackets: must match the top of the stack ----
+            else {
+                if (stack.isEmpty() || stack.pop() != ch) {
+                    return false;             // early exit – string is invalid
+                }
+            }
+        }
+
+        // If any opening brackets are left unmatched, the string is invalid
+        return stack.isEmpty();
+    }
+}
+```
+
 * **Time Complexity:** $O(N)$ - We iterate through the string exactly once.
 * **Space Complexity:** $O(N)$ - In the worst-case scenario (all opening brackets), the stack will store all $N$ characters.
 
