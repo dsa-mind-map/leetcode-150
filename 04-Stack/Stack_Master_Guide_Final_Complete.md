@@ -69,6 +69,7 @@ class Solution {
 }
 ```
 ```java
+s = "()[]{}"
 char = (   stack = [)]
 char = )   stack = []
 char = [   stack = []]
