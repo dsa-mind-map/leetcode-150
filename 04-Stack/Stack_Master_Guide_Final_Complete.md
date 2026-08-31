@@ -43,7 +43,8 @@ There are four distinct sub-patterns based on what the "trigger" is.
 When we see an opening bracket, we push the corresponding closing bracket. 
 
 ```java
-public boolean isValid(String s) {
+class Solution {
+    public boolean isValid(String s) {
    
     Stack<Character> stack = new Stack<>();
     for (char c : s.toCharArray()) {
@@ -56,6 +57,7 @@ public boolean isValid(String s) {
         }
     }
     return stack.isEmpty();
+    }
 }
 ```
 ```java
