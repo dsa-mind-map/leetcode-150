@@ -89,15 +89,7 @@ class Solution {
     }
 }
 ```
-```java
-s = "()[]{}"
-char = (   stack = [)]
-char = )   stack = []
-char = [   stack = []]
-char = ]   stack = []
-char = {   stack = [}]
-char = }   stack = []
-```
+
 ```java
 import java.util.ArrayDeque;
 import java.util.Deque;
