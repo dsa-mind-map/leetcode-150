@@ -48,6 +48,14 @@ There are four distinct sub-patterns based on what the "trigger" is.
 > Continue with next character, if closing character then pop & compare. If open character then push expected closing.
 
 ```java
+s = "()[]{}"
+char = (   stack = [)]
+char = )   stack = []
+char = [   stack = []]
+char = ]   stack = []
+char = {   stack = [}]
+char = }   stack = []
+```
 class Solution {
     public boolean isValid(String s) {
    
