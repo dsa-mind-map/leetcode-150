@@ -41,10 +41,15 @@ There are four distinct sub-patterns based on what the "trigger" is.
 
 ### SOLUTION APPROACH :
 > Push the expected closing symbol.
-> if current character is closing bracket then compare with popped character. 
+> 
+> if current character is closing bracket then compare with popped character.
+> 
 > stack.isEmpty() → there is no opening bracket to match → invalid.
+> 
 > stack.pop() != ch → the most recent expected closing bracket is different from the current one → invalid.
+> 
 > Reject on mismatch.
+> 
 > Continue with next character, if closing character then pop & compare. If open character then push expected closing.
 
 ```java
