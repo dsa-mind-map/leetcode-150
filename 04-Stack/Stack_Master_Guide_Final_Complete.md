@@ -457,8 +457,8 @@ public String simplifyPath(String path) {
 
 ---
 
-## Sub-Pattern 3: Monotonic Stack & Collision Resolution
-**The Pop Trigger:** A strictly greater/smaller element or an opposing directional collision.
+## Sub-Pattern 3: Monotonic Stack (next greater or next smaller) & Collision Resolution
+**The Pop Trigger:** A strictly **greater/smaller** element or an opposing directional collision. Stack is popped because next greater/smaller element popped.
 **Core Goal:** Finding spatial boundaries, timeline conditions, or resolving collisions in $O(N)$ time.
 
 ### 4. Daily Temperatures (LeetCode 739)
