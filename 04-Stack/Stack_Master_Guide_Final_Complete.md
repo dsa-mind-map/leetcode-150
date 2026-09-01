@@ -314,26 +314,16 @@ class Solution {
 > * A double period '..' represents the previous/parent directory.
 > * Multiple consecutive slashes such as '//' and '///' are treated as a single slash '/'.
 > * Any sequence of periods that does not match the rules above should be treated as a valid directory or file name. For example, '...' and '....' are valid directory or file names.
-> * The simplified canonical path should follow these rules:
-> * 
+>
+> The simplified canonical path should follow these rules:
+>  
 > * The path must start with a single slash '/'.
 > * Directories within the path must be separated by exactly one slash '/'.
 > * The path must not end with a slash '/', unless it is the root directory.
 > * The path must not have any single or double periods ('.' and '..') used to denote current or parent directories.
 > * Return the simplified canonical path.
 > 
->  
-> 
-> Example 1:
-> 
-> * Input: path = "/home/"
-> * 
-> * Output: "/home"
-> *
-> * Explanation:
-> * 
-> * The trailing slash should be removed.
-> 
+>
 > Example 2:
 > 
 > * Input: path = "/home//foo/"
@@ -382,6 +372,17 @@ class Solution {
 > * path consists of English letters, digits, period '.', slash '/' or '_'.
 > * path is a valid absolute Unix path.
 
+> **TIPS**
+> split by "/"
+>
+> Use ArrayDeque so that we can pop from "First"
+>
+> StringBuilder to build convert to result string
+>
+> If result string is of size = 0 then return "/"
+>
+> **STACK is synchronized while DEQUE ( ArrayDeque) is not synchronized ( faster) .**
+
 ```java
 class Solution {
     public String simplifyPath(String path) {
@@ -389,18 +390,21 @@ class Solution {
         String[] strs = path.split("/");
 
         Deque<String> deque = new ArrayDeque<>();
-        StringBuilder sb = new StringBuilder();
 
         for(String str: strs){
-
+            
+            // parent directory => move to previous directory
             if(str.equals("..")){
                 if(!deque.isEmpty()){
                     deque.pollLast();
                 }
             }else if(!str.isEmpty() && !str.equals(".")){
+                // not empty
+                // not "."
+
+                // valid directory
                 deque.addLast(str);
             }
-
         }
 
         // Reconstruct the path from the stack
@@ -416,20 +420,23 @@ class Solution {
 ```
 
 ```java
+class Solution {
 public String simplifyPath(String path) {
+
     Stack<String> stack = new Stack<>();
     String[] components = path.split("/");
     
     for (String dir : components) {
-        if (dir.equals("") || dir.equals(".")) {
-            continue; // Ignore empty spaces and current directory symbols
-        } else if (dir.equals("..")) {
-            // Resolve (Pop): Go up a directory level if stack is not empty
-            if (!stack.isEmpty()) {
+        // parent directory => move to previous directory
+        if(dir.equals("..")){
+            if(!stack.isEmpty()){
                 stack.pop();
             }
-        } else {
-            // Defer (Push): Valid directory name pushed to stack
+        }else if(!dir.isEmpty() && !dir.equals(".")){
+            // not empty
+            // not "."
+
+            // valid directory
             stack.push(dir);
         }
     }
@@ -441,6 +448,7 @@ public String simplifyPath(String path) {
     }
     
     return result.length() == 0 ? "/" : result.toString();
+}
 }
 ```
 * **Time Complexity:** $O(N)$ - Where $N$ is the length of the string. We split by slashes and iterate through components once.
