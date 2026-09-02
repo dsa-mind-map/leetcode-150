@@ -481,6 +481,18 @@ public String simplifyPath(String path) {
 **The Pop Trigger:** A strictly **greater/smaller** element or an opposing directional collision. Stack is popped because next greater/smaller element popped.
 **Core Goal:** Finding spatial boundaries, timeline conditions, or resolving collisions in $O(N)$ time.
 
+**TIPS**
+> 1 - traverse array left to right. ( i = 0 to n-1 )
+>
+> 2 - If (temperature of "ith" index) > (temperature of "peek of the stack" index ) then pop the index. Calculate (i-poppedIndex). Repeat this until stack is empty or temp["peek of the stack"] < temp[i]
+>
+> Add ith index to stack.
+
+**KEY LEARNINGS**
+> "peek of the stack" index is "stack.peek()" because stack store the index.
+> 
+> 
+
 ### 4. Daily Temperatures (LeetCode 739)
 ```java
 public int[] dailyTemperatures(int[] temperatures) {
