@@ -491,7 +491,43 @@ public String simplifyPath(String path) {
 **KEY LEARNINGS**
 > "peek of the stack" index is "stack.peek()" because stack store the index.
 > 
-> 
+# Mental Model & Intuition: Monotonic Stack (Daily Temperatures)
+
+## The Core Concept: The Dual Role of the ith Index
+
+When you are standing at the **ith index** in a monotonic stack problem like *Daily Temperatures*, you are essentially asking:
+> *"Am I the warmer day that these past days have been waiting for?"*
+
+Every single index plays **two distinct roles**:
+
+### 1. The Resolver (Looking Backward / The Savior)
+Before index `i` worries about its own future, it acts as a rescuer for the past. It checks the stack (which holds older, cooler days to the left).
+* If `temperatures[i]` is hotter than the temperature at `stack.peek()`, index `i` says: *"Hey, that's you! I am your warmer day."*
+* It pops that past index, calculates the distance (`i - prevIndex`), and repeats this for anyone else in the stack it is hotter than.
+
+### 2. The Waiter (Looking Forward / The Patient)
+Once index `i` finishes resolving all the past days it is hotter than, it can't find a warmer day for itself yet (because it's the present moment).
+* So, what does it do? It pushes itself onto the stack and joins the waiting room, waiting for some future `jth` index to eventually come along and resolve it.
+
+---
+
+## The Human Story
+Instead of reading dense algorithm code line-by-line, translate the logic into a human story:
+
+> *"I'm standing at today's temperature. I'm going to look back at the guys waiting in line. If I'm hotter than them, I'll clear them out and record their wait times. Then I'll jump in line myself and wait for my turn."*
+
+---
+
+## How to Read Complex Algorithm Code Faster
+
+Whenever you encounter a complex algorithm template, skip trying to read the syntax line-by-line first. Instead, follow this 3-step framework:
+
+1. **Define the Characters:** Ask yourself, *"What does the stack represent?"* 
+   * *Example:* A waiting room for unresolved days.
+2. **Define the Roles:** Ask yourself, *"What is the current element doing?"* 
+   * *Example:* It's both a savior to the past and a waiter for the future.
+3. **Map Code to Story:** *Then* look at the code to see how syntax enforces those roles.
+   * *Example:* The `while` loop clears out the past (Resolver), and the `stack.push(i)` joins the line (Waiter).
 
 ### 4. Daily Temperatures (LeetCode 739)
 ```java
