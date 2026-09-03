@@ -1,6 +1,6 @@
 # Binary Search Pattern: Master Reference Guide (Tier 1 & 2 Optimized)
 
-Every Binary Search problem operates on a single core principle: **Monotonicity**. If a **search space** is **sorted or partitioned** such that a condition cleanly divides it into two halves (e.g., `false` followed by `true`), you can eliminate half of the remaining options at every step, reducing linear time $O(N)$ down to logarithmic time $O(\log N)$.
+Every Binary Search problem operates on a single core principle: **Monotonicity**. If a **search space** is **SORTED or PARTITIONED** such that a condition cleanly divides it into two halves (e.g., `false` followed by `true`), you can eliminate half of the remaining options at every step, reducing linear time $O(N)$ down to logarithmic time $O(\log N)$.
 
 ---
 
