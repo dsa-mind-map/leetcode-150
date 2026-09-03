@@ -26,6 +26,12 @@ Every Binary Search problem operates on a single core principle: **Monotonicity*
 > 
 > **Example 1:** `nums = [-1,0,3,5,9,12]`, `target = 9` -> **Output:** `4`
 > **Constraints:** All integers in `nums` are unique. `nums` is sorted in ascending order.
+>
+**HINTS**
+>
+> **search space** [0....n-1]
+>
+>
 
 ```java
 public int search(int[] nums, int target) {
@@ -58,20 +64,31 @@ public int search(int[] nums, int target) {
 > 
 > **Example 1:** `nums = [1,3,5,6]`, `target = 5` -> **Output:** `2`
 > **Example 2:** `nums = [1,3,5,6]`, `target = 2` -> **Output:** `1`
+>
+**HINTS**
+>
+> **search space** [0....n]
+>
+>
 
 ```java
-public int searchInsert(int[] nums, int target) {
-    int left = 0, right = nums.length;
-    
-    while (left < right) {
-        int mid = left + (right - left) / 2;
-        if (nums[mid] < target) {
-            left = mid + 1;
-        } else {
-            right = mid;
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+
+        int start=0;         // search boundary
+        int end=nums.length; // search boundary
+
+        while(start < end){
+            int mid = start + ( end -start)/2;
+            if(nums[mid] < target){
+                start = mid+1;
+            }else{
+                end = mid; // why ?
+            }
         }
+        return start;
+        
     }
-    return left;
 }
 ```
 * **Time Complexity:** $O(\log N)$
