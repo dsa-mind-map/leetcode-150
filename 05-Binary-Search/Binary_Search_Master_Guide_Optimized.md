@@ -167,20 +167,21 @@ class Solution {
 **HINTS**
 > **convert 1D index to 2D cordinates ( row, col )**
 >
-> * row = mid / cols
+> * row = 1D-index / cols
 >
-> * col = mid % cols
+> * col = 1D-index % cols
 >
-> * index = 6 and cols = 4
+> * 1D-index = 6 and cols = 4
 >
 > * row = 6/4 = 1
 > * col = 6%4 = 2
 > 
 > **convert 2D cordinates ( row, col ) to 1D index**
 >
-> * index = (row*cols) + col
+> * 1D-index = (row*cols) + col
 > *
-> * cols = 4 and cordinates (1,2)
+> * cordinates (1,2) and cols = 4
+> * 
 > * index = (1*4) + 2 = 6
 
 ### 3. Search a 2D Matrix (LeetCode 74)
