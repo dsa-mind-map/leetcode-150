@@ -167,9 +167,8 @@ class Solution {
 **HINTS**
 > **convert 1D index to 2D cordinates ( row, col )**
 >
-> * row = 1D-index / cols
->
-> * col = 1D-index % cols
+> * **row = 1D-index / cols**
+> * **col = 1D-index % cols**
 >
 > * 1D-index = 6 and cols = 4
 >
@@ -178,7 +177,7 @@ class Solution {
 > 
 > **convert 2D cordinates ( row, col ) to 1D index**
 >
-> * 1D-index = (row*cols) + col
+> * **1D-index = (row*cols) + col**
 > *
 > * cordinates (1,2) and cols = 4
 > * 
