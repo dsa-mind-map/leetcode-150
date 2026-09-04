@@ -42,16 +42,19 @@ Every Binary Search problem operates on a single core principle: **Monotonicity*
 > * Input: nums = [-1,0,2,4,6,8], target = 4
 > * 
 > * Output: 3
+> * 
 > **Example 2:**
 > 
 > * Input: nums = [-1,0,2,4,6,8], target = 3
 > * 
 > * Output: -1
+> * 
 > **Constraints:**
 > 
 > * 1 <= nums.length <= 10000.
 > * -10000 < nums[i], target < 10000
 > * All the integers in nums are unique.
+> * 
 **HINTS**
 >
 > **search space** [0....n-1]
@@ -95,11 +98,13 @@ public int search(int[] nums, int target) {
 > * Input: nums = [-1,0,2,4,6,8], target = 5
 > * 
 > * Output: 4
+> * 
 > **Example 2:**
 > 
 > * Input: nums = [-1,0,2,4,6,8], target = 10
 > * 
 > * Output: 6
+> * 
 > **Constraints:**
 > 
 > * 1 <= nums.length <= 10,000.
@@ -157,6 +162,7 @@ class Solution {
 > * Input: matrix = [[1,2,4,8],[10,11,12,13],[14,20,30,40]], target = 10
 > * 
 > * Output: true
+> * 
 > **Example 2:**
 > 
 > 
@@ -164,6 +170,7 @@ class Solution {
 > * Input: matrix = [[1,2,4,8],[10,11,12,13],[14,20,30,40]], target = 15
 > * 
 > * Output: false
+> * 
 > **Constraints:**
 > 
 > * m == matrix.length
@@ -243,6 +250,7 @@ class Solution {
 > TimeMap() Initializes the object of the data structure.
 > void set(String key, String value, int timestamp) Stores the key key with the value value at the given time timestamp.
 > String get(String key, int timestamp) Returns a value such that set was called previously, with timestamp_prev <= timestamp. If there are multiple such values, it returns the value associated with the largest timestamp_prev. If there are no values, it returns "".
+> 
 > **Example 1:**
 > 
 > * Input:
@@ -258,6 +266,7 @@ class Solution {
 > * timeMap.get("alice", 2);           // return "happy", there is no value stored for timestamp 2, thus we return the value at timestamp 1.
 > * timeMap.set("alice", "sad", 3);    // store the key "alice" and value "sad" along with timestamp = 3.
 > * timeMap.get("alice", 3);           // return "sad"
+> * 
 > **Constraints:**
 > 
 > * 1 <= key.length, value.length <= 100
@@ -333,16 +342,19 @@ class TimeMap {
 > * Input: nums = [3,4,5,6,1,2]
 > * 
 > * Output: 1
+> * 
 > **Example 2:**
 > 
 > * Input: nums = [4,5,0,1,2,3]
 > * 
 > * Output: 0
+> * 
 > **Example 3:**
 > 
 > * Input: nums = [4,5,6,7]
 > * 
 > * Output: 4
+> * 
 > **Constraints:**
 > 
 > * 1 <= nums.length <= 1000
@@ -384,11 +396,13 @@ public int findMin(int[] nums) {
 > * Input: nums = [3,4,5,6,1,2], target = 1
 > * 
 > * Output: 4
+> * 
 > **Example 2:**
 > 
 > * Input: nums = [3,5,6,0,1,2], target = 4
 > * 
 > * Output: -1
+> * 
 > **Constraints:**
 > 
 > * 1 <= nums.length <= 1000
