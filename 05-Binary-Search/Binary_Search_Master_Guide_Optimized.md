@@ -164,6 +164,25 @@ class Solution {
 ## Sub-Pattern 3: 2D Matrices & Data Structures
 **Core Goal:** Mapping multi-dimensional or custom structural data into a virtual 1D sorted space.
 
+**HINTS**
+> **convert 1D index to 2D cordinates ( row, col )**
+>
+> * row = mid / cols
+>
+> * col = mid % cols
+>
+> * index = 6 and cols = 4
+>
+> * row = 6/4 = 1
+> * col = 6%4 = 2
+> 
+> **convert 2D cordinates ( row, col ) to 1D index**
+>
+> * index = (row*cols) + col
+> *
+> * cols = 4 and cordinates (1,2)
+> * index = (1*4) + 2 = 6
+
 ### 3. Search a 2D Matrix (LeetCode 74)
 > **Question:** 
 > You are given an m x n 2-D integer array matrix and an integer target.
