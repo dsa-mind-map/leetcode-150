@@ -59,7 +59,7 @@ Every Binary Search problem operates on a single core principle: **Monotonicity*
 >
 > **search space** [0....n-1]
 >
-> **after overlapping( start==end)** -> **start will cross the end** or **end will cross the start**
+> **after overlapping( start==end)** -> **start will cross the end** or **end will cross the start** if mid is not target.
 
 ```java
 class Solution {
