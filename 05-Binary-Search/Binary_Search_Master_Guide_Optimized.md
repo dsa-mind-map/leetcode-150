@@ -347,7 +347,7 @@ class TimeMap {
         while (left <= right) {
             int mid = left + (right - left) / 2;
             if (list.get(mid).timestamp <= timestamp) {
-                ans = list.get(mid).value;
+                ans = list.get(mid).value;  // we are looking for "largest time stamp" which is equal or less than the "given timestamp"
                 left = mid + 1; // Look for a closer timestamp to the right
             } else {
                 right = mid - 1;
