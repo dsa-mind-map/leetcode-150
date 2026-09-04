@@ -21,7 +21,7 @@ Every Binary Search problem operates on a single core principle: **Monotonicity*
 ## Sub-Pattern 1: Classic Direct Search
 **Core Goal:** Finding an exact element or value in a cleanly sorted array or range.
 
-### 1. Binary Search (LeetCode 704)
+### 1. Binary Search (LeetCode 704) -------------------- DISTINCT & SORTED
 > **Question:** 
 > You are given an array of distinct integers nums, sorted in ascending order, and an integer target.
 > 
@@ -59,25 +59,25 @@ Every Binary Search problem operates on a single core principle: **Monotonicity*
 >
 > **search space** [0....n-1]
 >
->
+> **after overlapping( start==end)** -> **start will cross the end** or **end will cross the start**
 
 ```java
 class Solution {
     public int search(int[] nums, int target) {
 
         int start = 0;
-        int end = nums.length - 1; // search space [ 0 to n-1]
+        int end = nums.length - 1;           // search space [ 0 to n-1]
 
-        while( start <= end ){     // overlapping start & end
+        while( start <= end ){              // overlapping start & end
 
             int mid = start + ( end - start ) / 2;
 
             if(target == nums[mid]){
-                return mid; // found in array
+                return mid;                // found in array
             }else if(target < nums[mid]){
-                end = mid - 1; // target exists in left 
+                end = mid - 1;             // target exists in left 
             }else{
-                start = mid + 1; // target exists in right
+                start = mid + 1;           // target exists in right
             }
 
         }
@@ -93,7 +93,7 @@ class Solution {
 
 ---
 
-## Sub-Pattern 2: Boundary & Insertion Search
+## Sub-Pattern 2: Boundary & Insertion Search------------------------- DISTINCT & SORTED
 **Core Goal:** Finding lower/upper bounds or approximate values where exact matches aren't guaranteed.
 
 ### 2. Search Insert Position (LeetCode 35)
@@ -130,22 +130,31 @@ class Solution {
 class Solution {
     public int searchInsert(int[] nums, int target) {
 
-        int start=0;         // search boundary
-        int end=nums.length; // search boundary
+        int start = 0;
+        int end = nums.length;             // search space [0 to n]
 
-        while(start < end){
-            int mid = start + ( end -start)/2;
-            if(nums[mid] < target){
-                start = mid+1;
-            }else{
-                end = mid; // why ?
+        // why "n" because target can be bigger than all elements
+
+        while( start < end ){              // no overlapping of start & end
+            
+            int mid = start + ( end - start ) / 2;
+
+            if(target <= nums[mid]){      
+                end = mid;    // eligible search space = [start to mid]        
+                
+                // mid-1 can be smaller than the target then target can not be at mid-1 so mid is the possible candidate for correct position
+                
+            }else if(target > nums[mid]){
+                // eligible search space = [mid+1 to end]
+                start = mid + 1;
             }
+
         }
+
         return start;
         
     }
-}
-```
+}```
 * **Time Complexity:** $O(\log N)$
 * **Space Complexity:** $O(1)$
 
