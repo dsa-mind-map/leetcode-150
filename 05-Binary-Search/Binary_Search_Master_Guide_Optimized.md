@@ -62,22 +62,31 @@ Every Binary Search problem operates on a single core principle: **Monotonicity*
 >
 
 ```java
-public int search(int[] nums, int target) {
-    int left = 0, right = nums.length - 1;
-    
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        
-        if (nums[mid] == target) {
-            return mid;
-        } else if (nums[mid] < target) {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
+class Solution {
+    public int search(int[] nums, int target) {
+
+        int start = 0;
+        int end = nums.length - 1; // search space [ 0 to n-1]
+
+        while( start <= end ){     // overlapping start & end
+
+            int mid = start + ( end - start ) / 2;
+
+            if(target == nums[mid]){
+                return mid; // found in array
+            }else if(target < nums[mid]){
+                end = mid - 1; // target exists in left 
+            }else{
+                start = mid + 1; // target exists in right
+            }
+
         }
+
+        return -1; // not found in array
+        
     }
-    return -1;
 }
+
 ```
 * **Time Complexity:** $O(\log N)$
 * **Space Complexity:** $O(1)$
