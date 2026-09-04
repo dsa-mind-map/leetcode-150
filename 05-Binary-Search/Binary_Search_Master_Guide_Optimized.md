@@ -338,7 +338,7 @@ class TimeMap {
     }
     
     public String get(String key, int timestamp) {
-        if (!map.containsKey(key)) return "";
+        if (!map.containsKey(key)) return "";         // key does not exists - case 1
         List<Pair> list = map.get(key);
         
         int left = 0, right = list.size() - 1;
