@@ -123,8 +123,13 @@ class Solution {
 **HINTS**
 >
 > **search space** [0....n]
->
->
+
+**HINTS**
+> if(target <= nums[mid]){      
+> 	 * end = mid;    // eligible search space = [start to mid]        
+> 	 * 
+> 	 * // target is smaller than mid but it can be greater than mid-1 then possible place for target would be mid
+> 	 * // target is equal to mid but target can be greater than the mid-1 then possible place for target would be mid.
 
 ```java
 class Solution {
@@ -142,7 +147,8 @@ class Solution {
             if(target <= nums[mid]){      
                 end = mid;    // eligible search space = [start to mid]        
                 
-                // mid-1 can be smaller than the target then target can not be at mid-1 so mid is the possible candidate for correct position
+                // target is smaller than mid but it can be greater than mid-1 then possible place for target would be mid
+                // target is equal to mid but target can be greater than the mid-1 then possible place for target would be mid.
                 
             }else if(target > nums[mid]){
                 // eligible search space = [mid+1 to end]
