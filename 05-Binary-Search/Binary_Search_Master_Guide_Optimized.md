@@ -134,31 +134,22 @@ class Solution {
 ```java
 class Solution {
     public int searchInsert(int[] nums, int target) {
-
-        int start = 0;
-        int end = nums.length;             // search space [0 to n]
-
-        // why "n" because target can be bigger than all elements
-
-        while( start < end ){              // no overlapping of start & end
-            
-            int mid = start + ( end - start ) / 2;
-
-            if(target <= nums[mid]){      
-                end = mid;    // eligible search space = [start to mid]        
-                
-                // target is smaller than mid but it can be greater than mid-1 then possible place for target would be mid
-                // target is equal to mid but target can be greater than the mid-1 then possible place for target would be mid.
-                
-            }else if(target > nums[mid]){
-                // eligible search space = [mid+1 to end]
-                start = mid + 1;
-            }
-
-        }
-
-        return start;
         
+        int start = 0;
+        int end = nums.length; // Search space includes index `n` as a valid insertion position
+
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+
+            if (nums[mid] >= target) {
+                end = mid;       // target can be greater than nums[mid-1], making mid the correct insertion position
+            } else {
+                start = mid + 1; // nums[mid] is too small; discard left half
+            }
+        }
+        
+        // by end of loop, start & end will be same.
+        return start;
     }
 }
 ```
