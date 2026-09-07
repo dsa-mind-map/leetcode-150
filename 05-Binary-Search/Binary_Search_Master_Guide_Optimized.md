@@ -216,25 +216,42 @@ class Solution {
 > * -10000 <= matrix[i][j], target <= 10000
 
 ```java
-public boolean searchMatrix(int[][] matrix, int target) {
-    if (matrix == null || matrix.length == 0) return false;
-    int m = matrix.length, n = matrix[0].length;
-    int left = 0, right = m * n - 1;
-    
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        int midVal = matrix[mid / n][mid % n]; // Map 1D index to 2D coordinates
-        
-        if (midVal == target) {
-            return true;
-        } else if (midVal < target) {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+
+        if (matrix == null || matrix.length == 0) return false;
+
+        int m = matrix.length; // rows
+        int n = matrix[0].length; // cols
+
+        int start = 0;
+
+        // 2D index to 1D index
+        // last index formaula = rowNum*cols + colNum
+        int end = m*n-1; 
+
+        while( start <= end){
+
+            int mid = start + ( end - start) / 2;
+
+            // 1D index to 2D index
+            int rowNum = mid/n; // rowNum from 1D index
+            int colNum = mid%n; // colNum from 1D index
+
+            if(matrix[rowNum][colNum] == target){
+                return true;
+            }else if(matrix[rowNum][colNum] < target){
+                start = mid + 1;
+            }else{
+                end = mid -1;
+            }
+
         }
+
+        return false;
     }
-    return false;
 }
+
 ```
 ```java
 class Solution {
