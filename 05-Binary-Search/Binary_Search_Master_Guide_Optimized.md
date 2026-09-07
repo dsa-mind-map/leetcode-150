@@ -227,8 +227,7 @@ class Solution {
         int start = 0;
 
         // 2D index to 1D index
-        // last index formaula = rowNum*cols + colNum
-        int end = m*n-1; 
+        int end = m*n-1; // last index formaula = rowNum*cols + colNum
 
         while( start <= end){
 
