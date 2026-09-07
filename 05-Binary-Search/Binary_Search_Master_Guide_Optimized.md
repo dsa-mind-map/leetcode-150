@@ -332,45 +332,57 @@ class Solution {
 
 ```java
 class TimeMap {
-    private Map<String, List<Pair>> map;
 
-    private class Pair {
-        String value;
-        int timestamp;
-        Pair(String value, int timestamp) {
+    private Map<String, List<TimeMapValue>> timemap;
+
+    class TimeMapValue{
+        public String value;
+        public int timestamp;
+
+        TimeMapValue(String value, int timestamp){
             this.value = value;
-            this.timestamp = timestamp;
+            this.timestamp =  timestamp;
         }
+
     }
 
     public TimeMap() {
-        map = new HashMap<>();
+        timemap = new HashMap<>();  
     }
     
     public void set(String key, String value, int timestamp) {
-        map.putIfAbsent(key, new ArrayList<>());
-        map.get(key).add(new Pair(value, timestamp));
+        timemap.putIfAbsent(key, new ArrayList<>()); // create a new entry
+        timemap.get(key).add(new TimeMapValue(value,timestamp)); // update existing entry
     }
     
     public String get(String key, int timestamp) {
-        if (!map.containsKey(key)) return "";         // key does not exists - case 1
-        List<Pair> list = map.get(key);
-        
-        int left = 0, right = list.size() - 1;
-        String ans = "";
-        
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (list.get(mid).timestamp <= timestamp) {
-                ans = list.get(mid).value;  // we are looking for "largest time stamp" which is equal or less than the "given timestamp"
-                left = mid + 1; // Look for a closer timestamp to the right
-            } else {
-                right = mid - 1;
+
+        List<TimeMapValue> valueTimeList = timemap.get(key);
+
+        if(valueTimeList==null) return ""; //key does not exists in List<Value,TimeStamp>
+
+        int start = 0;
+        int end = valueTimeList.size() - 1;
+
+        String largestValue = "";
+    
+        while(start <= end){
+            
+            int mid = start + ( end - start + 1)/2;
+
+            TimeMapValue midValueTime = valueTimeList.get(mid); // TimeMapValue at index "mid"
+
+            if(midValueTime.timestamp <= timestamp){
+                largestValue = midValueTime.value;
+                start = mid+1; // move to the next towards "end"
+            }else if(midValueTime.timestamp > timestamp){
+                end = mid - 1; // move to left towards "start"
             }
         }
-        return ans;
-    }
+        return largestValue;
+    }   
 }
+
 ```
 * **Time Complexity:** $O(1)$ for `set`, $O(\log K)$ for `get` where $K$ is the number of values for a key.
 * **Space Complexity:** $O(N)$ total space to store the key-value pairs.
