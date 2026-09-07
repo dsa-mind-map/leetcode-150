@@ -174,6 +174,8 @@ class Solution {
 > 
 > **convert 2D cordinates ( row, col ) to 1D index**
 >
+> * **first index = 0 and last index = m*n-1**
+> 
 > * **1D-index = (row*cols) + col**
 > *
 > * cordinates (1,2) and cols = 4
