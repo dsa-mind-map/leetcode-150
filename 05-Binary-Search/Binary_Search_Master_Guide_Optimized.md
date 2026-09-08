@@ -372,7 +372,7 @@ class TimeMap {
 
         while( start <= end){
 
-            int mid = start + ( end - start + 1) / 2;
+            int mid = start + ( end - start) / 2;
 
             Pair midPair = pairs.get(mid);
 
@@ -391,6 +391,7 @@ class TimeMap {
         
     }
 }
+
 
 
 ```
