@@ -437,6 +437,18 @@ class TimeMap {
 > 
 > * 1 <= nums.length <= 1000
 > * -1000 <= nums[i] <= 1000
+>
+> **HINTS**
+> *[1,2,3,4,5,6] - 0 rotation
+> *[6,1,2,3,4,5] - 1 rotation
+> *[5,6,1,2,3,4] - 2 rotation
+> *[4,5,6,1,2,3] - 3 rotation
+> *[3,4,5,6,1,2] - 4 rotation
+> *[2,3,4,5,6,1] - 5 rotation
+> *[1,2,3,4,5,6] - 6 rotation
+> **If nums[mid] < nums[end] then right side is sorted. "min element" would be in left side. As the right side is sorted, it is possible that "mid" is the smallest element in that case we need to include "mid" in our next search so we will set "end" to "mid"**
+> or
+> **If nums[mid] > nums[end] then right side is unsorted which means "min element" will be in the right side of "mid". As we looking for "min element" and "end is already smaller than "mid" then we will skip "mid" and move to "mid+1"** 
 
 
 ```java
@@ -453,6 +465,36 @@ public int findMin(int[] nums) {
     }
     return nums[left];
 }
+```
+```java
+class Solution {
+    public int findMin(int[] nums) {
+
+        // min element would be in the unsorted part of the array.
+
+        int start = 0;
+        int end = nums.length - 1;
+
+        while( start < end){
+
+            int mid = start + ( end - start) /2;
+
+            if(nums[mid] < nums[end]){
+                // sorted part [mid to end]
+                // min element would be in the left side but "mid" can be "smallest element" too
+                // so we will include "mid" in the next seacrh space
+                end = mid;
+            }else{
+                // unsorted part [start to mid]
+                // min element would in the right side
+                start = mid + 1;
+            }
+
+        }
+        return nums[start];
+    }
+}
+
 ```
 * **Time Complexity:** $O(\log N)$
 * **Space Complexity:** $O(1)$
