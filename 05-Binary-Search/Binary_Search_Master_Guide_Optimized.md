@@ -439,18 +439,20 @@ class TimeMap {
 > * -1000 <= nums[i] <= 1000
 >
 > **HINTS**
-> *[1,2,3,4,5,6] - 0 rotation
-> *[6,1,2,3,4,5] - 1 rotation
-> *[5,6,1,2,3,4] - 2 rotation
-> *[4,5,6,1,2,3] - 3 rotation
-> *[3,4,5,6,1,2] - 4 rotation
-> *[2,3,4,5,6,1] - 5 rotation
-> *[1,2,3,4,5,6] - 6 rotation
+> * [1,2,3,4,5,6] - 0 rotation
+> * [6,1,2,3,4,5] - 1 rotation
+> * [5,6,1,2,3,4] - 2 rotation
+> * [4,5,6,1,2,3] - 3 rotation
+> * [3,4,5,6,1,2] - 4 rotation
+> * [2,3,4,5,6,1] - 5 rotation
+> * [1,2,3,4,5,6] - 6 rotation
 >
 > Check if right side is sorted or not. if sorted then min would be in left side(including mid) . If not sorted then min would be in the right side.
 > 
 > **If nums[mid] < nums[end] then right side is sorted. "min element" would be in left side of "mid". As the right side is sorted, it is possible that "mid" is the smallest element so will include "mid" in search space and will set "end" to "mid"**
+> 
 > or
+> 
 > **If nums[mid] > nums[end] then right side is unsorted which means "min element" will be in the right side of "mid". As we looking for "min element" and "end is already smaller than "mid" then we will skip "mid" and move to "mid+1"** 
 
 
