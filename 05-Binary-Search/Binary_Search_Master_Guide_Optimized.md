@@ -333,55 +333,65 @@ class Solution {
 ```java
 class TimeMap {
 
-    private Map<String, List<TimeMapValue>> timemap;
+    private Map<String, List<Pair>> map;
 
-    class TimeMapValue{
-        public String value;
-        public int timestamp;
+    private class Pair{
+        String value;
+        int timestamp;
 
-        TimeMapValue(String value, int timestamp){
+        Pair(String value, int timestamp){
             this.value = value;
-            this.timestamp =  timestamp;
+            this.timestamp = timestamp;
         }
-
     }
 
     public TimeMap() {
-        timemap = new HashMap<>();  
+
+        map = new HashMap<>();
+        
     }
     
     public void set(String key, String value, int timestamp) {
-        timemap.putIfAbsent(key, new ArrayList<>()); // create a new entry
-        timemap.get(key).add(new TimeMapValue(value,timestamp)); // update existing entry
+
+        map.putIfAbsent(key, new ArrayList<>());
+        map.get(key).add(new Pair(value, timestamp));
+        
     }
     
     public String get(String key, int timestamp) {
+        
+        //key does not exists in List<Value,TimeStamp>
+        if(!map.containsKey(key)) return ""; 
 
-        List<TimeMapValue> valueTimeList = timemap.get(key);
-
-        if(valueTimeList==null) return ""; //key does not exists in List<Value,TimeStamp>
+        List<Pair> pairs = map.get(key);
 
         int start = 0;
-        int end = valueTimeList.size() - 1;
+        int end = pairs.size() - 1;
 
-        String largestValue = "";
-    
-        while(start <= end){
-            
-            int mid = start + ( end - start + 1)/2;
+        String largetValue = "";
 
-            TimeMapValue midValueTime = valueTimeList.get(mid); // TimeMapValue at index "mid"
+        while( start <= end){
 
-            if(midValueTime.timestamp <= timestamp){
-                largestValue = midValueTime.value;
-                start = mid+1; // move to the next towards "end"
-            }else if(midValueTime.timestamp > timestamp){
-                end = mid - 1; // move to left towards "start"
+            int mid = start + ( end - start + 1) / 2;
+
+            Pair midPair = pairs.get(mid);
+
+            if(midPair.timestamp == timestamp){
+                return midPair.value;
+            }else if(midPair.timestamp < timestamp){
+                largetValue = midPair.value; // keeping the eye on current lower value
+                start = mid + 1;
+            }else{
+                end = mid - 1;
             }
+
         }
-        return largestValue;
-    }   
+
+        return largetValue;
+        
+    }
 }
+
 
 ```
 * **Time Complexity:** $O(1)$ for `set`, $O(\log K)$ for `get` where $K$ is the number of values for a key.
