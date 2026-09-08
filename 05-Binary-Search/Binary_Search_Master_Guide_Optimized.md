@@ -446,25 +446,45 @@ class TimeMap {
 > *[3,4,5,6,1,2] - 4 rotation
 > *[2,3,4,5,6,1] - 5 rotation
 > *[1,2,3,4,5,6] - 6 rotation
-> **If nums[mid] < nums[end] then right side is sorted. "min element" would be in left side. As the right side is sorted, it is possible that "mid" is the smallest element in that case we need to include "mid" in our next search so we will set "end" to "mid"**
+>
+> Check if right side is sorted or not. if sorted then min would be in left side(including mid) . If not sorted then min would be in the right side.
+> 
+> **If nums[mid] < nums[end] then right side is sorted. "min element" would be in left side of "mid". As the right side is sorted, it is possible that "mid" is the smallest element so will include "mid" in search space and will set "end" to "mid"**
 > or
 > **If nums[mid] > nums[end] then right side is unsorted which means "min element" will be in the right side of "mid". As we looking for "min element" and "end is already smaller than "mid" then we will skip "mid" and move to "mid+1"** 
 
 
 ```java
-public int findMin(int[] nums) {
-    int left = 0, right = nums.length - 1;
-    
-    while (left < right) {
-        int mid = left + (right - left) / 2;
-        if (nums[mid] > nums[right]) {
-            left = mid + 1; // Minimum must be in the right half
-        } else {
-            right = mid; // Minimum is at mid or in the left half
+class Solution {
+    public int findMin(int[] nums) {
+        
+        // seach space [0 to n-1]
+        int start = 0;
+        int end = nums.length -1;
+
+        while( start < end){
+
+            int mid = start + ( end - start)/2;
+
+            if(nums[mid] > nums[end]){
+                // unsorted part [mid to end]
+                // "min element" would be in the right side of "mid"
+                // As "mid" > "end" ( "end" is smaller than "mid" and we are looking for "min element"), so will move "start" to "mid+1"
+                start = mid + 1;
+            }else{
+                // nums[mid] <= nums[end]
+                // sorted part [ mid to end]
+                // "min element" would be in the left side of "mid"
+                // It can be possible that "mid" is a smallest element because it is sorted from "mid" to "end"
+                end = mid;
+            }
+
         }
+
+        return nums[end];
     }
-    return nums[left];
 }
+
 ```
 ```java
 class Solution {
@@ -481,8 +501,8 @@ class Solution {
 
             if(nums[mid] < nums[end]){
                 // sorted part [mid to end]
-                // min element would be in the left side but "mid" can be "smallest element" too
-                // so we will include "mid" in the next seacrh space
+                // It can be possible that "mid" is a smallest element because it is sorted from "mid" to "end"
+                // so we will include "mid" in the next search space
                 end = mid;
             }else{
                 // unsorted part [start to mid]
