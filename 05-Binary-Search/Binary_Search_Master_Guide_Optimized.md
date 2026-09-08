@@ -469,7 +469,7 @@ class Solution {
             if(nums[mid] > nums[end]){
                 // unsorted part [mid to end]
                 // "min element" would be in the right side of "mid"
-                // As "mid" > "end" ( "end" is smaller than "mid" and we are looking for "min element"), so will move "start" to "mid+1"
+                // As "mid" > "end" ( end is smaller than mid and we are looking for min element), so will move "start" to "mid+"
                 start = mid + 1;
             }else{
                 // nums[mid] <= nums[end]
@@ -484,7 +484,6 @@ class Solution {
         return nums[end];
     }
 }
-
 ```
 ```java
 class Solution {
@@ -501,10 +500,11 @@ class Solution {
 
             if(nums[mid] < nums[end]){
                 // sorted part [mid to end]
-                // It can be possible that "mid" is a smallest element because it is sorted from "mid" to "end"
+                // min element would be in the left side but "mid" can be "smallest element" too
                 // so we will include "mid" in the next search space
                 end = mid;
             }else{
+                // mid >= end
                 // unsorted part [start to mid]
                 // min element would in the right side
                 start = mid + 1;
