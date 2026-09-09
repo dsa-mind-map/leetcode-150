@@ -196,21 +196,17 @@ class Solution {
 >
 
 ```java
-
 class Solution {
     public char nextGreatestLetter(char[] letters, char target) {
 
         int start = 0;
         int end = letters.length;
 
-        char ans=0;
-
         while(start < end){
 
             int mid = start + ( end - start) /2;
 
             if(letters[mid] > target){
-                ans = letters[mid];
                 end = mid;
             }else{
                 start = mid + 1;
@@ -218,7 +214,7 @@ class Solution {
 
         }
 
-        return (ans!=0) ? ans : letters[start%letters.length];
+        return letters[start%letters.length];
         
     }
 }
