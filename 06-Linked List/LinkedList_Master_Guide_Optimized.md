@@ -30,15 +30,40 @@ Every Linked List problem relies on mastering how to manipulate pointers (`head`
 > **Question:** Given `head`, the head of a linked list, determine if the linked list has a cycle in it. There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the `next` pointer. Return `true` if there is a cycle in the linked list. Otherwise, return `false`.
 
 ```java
-public boolean hasCycle(ListNode head) {
-    ListNode slow = head, fast = head;
-    while (fast != null && fast.next != null) {
-        slow = slow.next;
-        fast = fast.next.next;
-        if (slow == fast) return true;
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+class Solution {
+    public boolean hasCycle(ListNode head) {
+
+        // starting at the same position(head)
+        // moving in the same direction, fast pointer twice as fast as slow pointer.
+        // once reaches at the same position (slow == fast) -> cycle exists
+        // if not then no cycle.
+
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while(fast != null && fast.next != null){ 
+            // first & second element exists - first iteration and subsequent iteratrions.
+            slow = slow.next; // second element
+            fast = fast.next.next; // next of second element. If second element does not exist - then null pointer
+            if(slow == fast) return true;
+
+        }
+
+        return false;
     }
-    return false;
 }
+
 ```
 * **Time Complexity:** $O(N)$
 * **Space Complexity:** $O(1)$
@@ -248,7 +273,17 @@ public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 **Core Goal:** Multi-phase traversals, deep copies, and priority queue scheduling.
 
 ### 9. Reorder List (LeetCode 143)
-> **Question:** You are given the head of a singly linked-list. The list can be represented as: $L_0 ightarrow L_1 ightarrow \dots ightarrow L_{n-1} ightarrow L_n$. Reorder the list to be: $L_0 ightarrow L_n ightarrow L_1 ightarrow L_{n-1} ightarrow L_2 ightarrow L_{n-2} ightarrow \dots$
+> **Question:** You are given the head of a singly linked-list. The list can be represented as: $L_0 
+ightarrow L_1 
+ightarrow \dots 
+ightarrow L_{n-1} 
+ightarrow L_n$. Reorder the list to be: $L_0 
+ightarrow L_n 
+ightarrow L_1 
+ightarrow L_{n-1} 
+ightarrow L_2 
+ightarrow L_{n-2} 
+ightarrow \dots$
 
 ```java
 public void reorderList(ListNode head) {
