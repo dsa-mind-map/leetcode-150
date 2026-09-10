@@ -67,9 +67,9 @@ Every Linked List problem relies on mastering how to manipulate pointers (`head`
 >
 > **HINTS**
 > 
-> HASHSET - **cycle means duplicate node not duplicate "val"**
+> HASHSET - same node again came while already visited
 > 
-> SLOW & FAST pointers - **both starting at the same place and meet later at some point. ( slow increment by 1 and fast increment by 2)**
+> SLOW & FAST pointers - slow & fast pointer start at same node. slow move by 1 and fast move by 2 and at some point both points to same node ( cycle exists)
 >
 
 ```java
