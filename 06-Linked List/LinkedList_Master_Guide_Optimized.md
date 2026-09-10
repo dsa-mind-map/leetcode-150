@@ -66,7 +66,9 @@ Every Linked List problem relies on mastering how to manipulate pointers (`head`
 > * index is -1 or a valid index in the linked list.
 >
 > **HINTS**
+> 
 > HASHSET - **cycle means duplicate node not duplicate "val"**
+> 
 > SLOW & FAST pointers - **both starting at the same place and meet later at some point. ( slow increment by 1 and fast increment by 2)**
 
 ```java
