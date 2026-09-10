@@ -52,6 +52,7 @@ Every Linked List problem relies on mastering how to manipulate pointers (`head`
 > * Input: head = [1,2], index = -1
 > * 
 > * Output: false
+> * 
 > Constraints:
 > 
 > * 0 <= Length of the list <= 1000.
