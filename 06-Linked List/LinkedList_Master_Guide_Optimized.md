@@ -90,16 +90,16 @@ class Solution {
         Set<ListNode> seen = new HashSet<>();
 
         ListNode curr = head;
-        while(curr != null){ // VISIT EACH NODE ONCE
+        while(curr != null){ 
             
-            if(seen.contains(curr)) return true; // CHECK IF ALREADY VISITED
+            if(seen.contains(curr)) return true; // same node came again
 
-            seen.add(curr); // ADD TO HASHSET 
+            seen.add(curr); 
 
-            curr = curr.next; // MOVE NEXT
+            curr = curr.next; 
 
         }
-
+        // end of loop : curr will be null if no cycle
         return false;
         
     }
@@ -131,13 +131,15 @@ public class Solution {
 
         while(fast != null && fast.next != null){
 
-            slow = slow.next; // move by 1 position
-            fast = fast.next.next; // move by 2 position
+            slow = slow.next; // slow move one step
+            fast = fast.next.next; // fast move 2 steps
 
-            if(slow == fast) // BOTH POINTING TO THE SAME NODE
+            if(slow == fast) // both point to same node
                 return true;
 
         }
+
+        // end of loop : fast would be null if no cycle
         return false;
     }
 }
