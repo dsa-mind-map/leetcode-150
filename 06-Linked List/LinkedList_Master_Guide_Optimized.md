@@ -124,8 +124,6 @@ public class Solution {
     public boolean hasCycle(ListNode head) {
        // SLOW FAST POINTER
 
-        ListNode curr = head;
-
         ListNode slow = head;
         ListNode fast = head;
 
