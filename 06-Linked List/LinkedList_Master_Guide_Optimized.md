@@ -119,29 +119,28 @@ class Solution {
  * }
  */
 
-class Solution {
-    public boolean hasCycle(ListNode head) {
 
-        // starting at the same position(head)
-        // moving in the same direction, fast pointer twice as fast as slow pointer.
-        // once reaches at the same position (slow == fast) -> cycle exists
-        // if not then no cycle.
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+       // SLOW FAST POINTER
+
+        ListNode curr = head;
 
         ListNode slow = head;
         ListNode fast = head;
 
-        while(fast != null && fast.next != null){ 
-            // first & second element exists - first iteration and subsequent iteratrions.
-            slow = slow.next; // second element
-            fast = fast.next.next; // next of second element. If second element does not exist - then null pointer
-            if(slow == fast) return true;
+        while(fast != null && fast.next != null){
+
+            slow = slow.next; // move by 1 position
+            fast = fast.next.next; // move by 2 position
+
+            if(slow == fast) // BOTH POINTING TO THE SAME NODE
+                return true;
 
         }
-
         return false;
     }
 }
-
 ```
 * **Time Complexity:** $O(N)$
 * **Space Complexity:** $O(1)$
