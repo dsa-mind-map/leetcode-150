@@ -26,7 +26,7 @@ Every Linked List problem relies on mastering how to manipulate pointers (`head`
 ## Sub-Pattern 1: Fast & Slow Pointers
 **Core Goal:** Finding cycles, middle elements, or maintaining a fixed distance offset between nodes.
 
-### 1. Linked List Cycle (LeetCode 141)
+### 1. Linked List Cycle (LeetCode 141) - ZERO indexed List
 > **Question:**
 > Given the beginning of a linked list head, return true if there is a cycle in the linked list. Otherwise, return false.
 > 
@@ -35,7 +35,13 @@ Every Linked List problem relies on mastering how to manipulate pointers (`head`
 > Internally, index determines the index of the beginning of the cycle, if it exists. The tail node of the list will set it's next pointer to the index-th node. If index = -1, then the tail node points to null and no cycle exists.
 > 
 > Note: index is not given to you as a parameter.
+>
+> Example 1:
 > 
+> * Input: head = [1,2,1], index = -1
+> * 
+> * Output: false
+> * 
 > Example 1:
 > 
 > 
@@ -58,6 +64,10 @@ Every Linked List problem relies on mastering how to manipulate pointers (`head`
 > * 0 <= Length of the list <= 1000.
 > * -1000 <= Node.val <= 1000
 > * index is -1 or a valid index in the linked list.
+>
+> **HINTS**
+> HASHSET - **cycle means duplicate node not duplicate "val"**
+> SLOW & FAST pointers - **both starting at the same place and meet later at some point. ( slow increment by 1 and fast increment by 2)**
 
 ```java
 /**
