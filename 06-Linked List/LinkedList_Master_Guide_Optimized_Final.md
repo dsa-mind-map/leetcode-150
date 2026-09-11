@@ -190,9 +190,13 @@ public boolean hasCycle(ListNode head) {
 
 **Common Pitfall:** If the list has 5 nodes and you need to remove the 5th node from the end (the head), navigating without a Sentinel/Dummy node will cause a null pointer or lose the list entirely. Always start both pointers at the Dummy node.
 
-**Find node behind the node to delete from start of the list ( N-n)**
-**move to the node behind the node to be deleted**
-**if node to be deleted is the very first node of the list, there must be a node sitting behind the head, so need a dummy node behind the head node**
+> **Find node behind "the node to be deleted"**
+>
+> **move fast pointer to the node which is behind "the node to be deleted" while slow pointer is at dummy node**
+>
+> **Now slow & fast move at the same speed. Fast will reach the last element and slow at the node which is behind "the node to be deleted"**
+>
+> **do slow.next = slow.next.next; It will work for the case too when head itself is "the node to be deleted"** 
 
 ```java
 /**
