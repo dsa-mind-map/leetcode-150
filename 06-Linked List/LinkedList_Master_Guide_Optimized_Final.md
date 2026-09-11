@@ -190,26 +190,109 @@ public boolean hasCycle(ListNode head) {
 
 **Common Pitfall:** If the list has 5 nodes and you need to remove the 5th node from the end (the head), navigating without a Sentinel/Dummy node will cause a null pointer or lose the list entirely. Always start both pointers at the Dummy node.
 
+**Find node behind the node to delete from start of the list ( N-n)**
+**move to the node behind the node to be deleted**
+**if node to be deleted is the very first node of the list, there must be a node sitting behind the head, so need a dummy node behind the head node**
+
 ```java
-public ListNode removeNthFromEnd(ListNode head, int n) {
-    ListNode dummy = new ListNode(0, head);
-    ListNode slow = dummy, fast = dummy;
-    
-    // Create the gap of n
-    for (int i = 0; i <= n; i++) {
-        fast = fast.next;
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+class Solution {
+    // N-n approach
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+
+        // we need dummy behind the head
+        ListNode dummy = new ListNode(0, head);
+
+        ListNode curr = dummy;
+
+        // length from start
+        int totalLength = 0;
+
+        while(curr.next != null){ // excluding "dummy" from count
+            curr = curr.next;
+            totalLength++; 
+        }
+
+        int nodeFromStart = totalLength - n; 
+        // nodeFromStart = 2 => means 2nd node from start
+
+        curr = dummy; 
+        while(nodeFromStart > 0){
+            curr = curr.next;
+            nodeFromStart--;
+        }
+        // curr is node just behind the node to be deleted
+        curr.next = curr.next.next;
+
+        return dummy.next;
+
     }
-    
-    // Slide the window
-    while (fast != null) {
-        slow = slow.next;
-        fast = fast.next;
-    }
-    
-    // Skip the target node
-    slow.next = slow.next.next;
-    return dummy.next; // Pillar 3: Return dummy.next
 }
+
+```
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        
+        // Dummy node behind the "head" node
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        
+        ListNode slow = dummy;
+        ListNode fast = dummy; 
+
+        // fast will reach behind the node "to be deleted"
+        while(n>0){
+            fast = fast.next;
+            n--;
+        }
+
+        // slow & fast are separated by "n"
+        System.out.println("slow "  + slow.val);
+        System.out.println("fast "  + fast.val);
+
+        // slow & fast will move at the same speed
+        // fast will go till "last element"
+        while(fast != null && fast.next != null){
+            fast = fast.next;
+            slow = slow.next;
+            System.out.println("loop slow "  + slow.val);
+            System.out.println("loop fast "  + fast.val);
+        }
+        
+        // slow is the node behind "the node to be deleted"
+        // if "head" is the node to be deleted then we have "dummy" node behind it.
+        slow.next = slow.next.next;
+
+        // dummy.next would always be "head of the list"
+        return dummy.next;
+
+    }
+}
+
 ```
 
 ---
