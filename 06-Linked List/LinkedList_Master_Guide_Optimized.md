@@ -3,6 +3,86 @@
 Every Linked List problem relies on mastering how to manipulate pointers (`head`, `prev`, `curr`, `next`) without losing references, causing `NullPointerExceptions`, or breaking memory linkages. 
 
 ---
+# 🔗 Linked List Mastery: Foundational Pillars & Core Templates
+
+## 🏛️ Part 1: The 4 Foundational Pillars
+
+1. **The "Never Lose the Head" Rule**
+   * **Concept:** Unlike arrays, a Linked List relies entirely on references. If you move `head` without a backup, the list is lost in memory.
+   * **Rule:** Always use a secondary traversal pointer (`curr = head` or `dummy = head`). Never mutate `head` unless explicitly returning a new one.
+
+2. **The Pointer Re-routing Rule (The 3-Step Dance)**
+   * **Concept:** Singly linked lists point forward only. To reverse direction, you must systematically manage pointers.
+   * **Rule:** Requires 3 variables: `prev` (behind), `curr` (current), and `next` (ahead).
+
+3. **The Sentinel (Dummy Head) Pattern**
+   * **Concept:** Eliminates edge-case bugs when the head changes, gets deleted, or starts empty.
+   * **Rule:** Create a fake node (`ListNode dummy = new ListNode(0); dummy.next = head;`) and always return `dummy.next`.
+
+4. **Fast & Slow Pointers (Tortoise & Hare)**
+   * **Concept:** Used when list length is unknown (no `.length` property).
+   * **Rule:** `slow` moves 1 step, `fast` moves 2 steps to find midpoints or detect loops.
+
+---
+
+## 💻 Part 2: The 4 Essential Code Blocks
+
+### Block 1: The Reversal Engine (`Prev`, `Curr`, `Next`)
+```java
+public ListNode reverseList(ListNode head) {
+    ListNode prev = null;
+    ListNode curr = head;
+    
+    while (curr != null) {
+        ListNode nextTemp = curr.next; // 1. Save forward path
+        curr.next = prev;              // 2. Reverse pointer backward
+        prev = curr;                   // 3. Shift prev forward
+        curr = nextTemp;               // 4. Shift curr forward
+    }
+    return prev; // 'prev' is the new head
+}
+Block 2: The Tortoise & Hare (Middle Finder)Javapublic ListNode findMiddle(ListNode head) {
+    ListNode slow = head;
+    ListNode fast = head;
+    
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow; // 'slow' lands precisely on the middle node
+}
+Block 3: The Two-List Combiner (Sentinel Pattern)Javapublic ListNode mergeLists(ListNode l1, ListNode l2) {
+    ListNode dummy = new ListNode(-1); // Sentinel protection
+    ListNode tail = dummy;
+    
+    while (l1 != null && l2 != null) {
+        if (l1.val <= l2.val) {
+            tail.next = l1;
+            l1 = l1.next;
+        } else {
+            tail.next = l2;
+            l2 = l2.next;
+        }
+        tail = tail.next;
+    }
+    
+    tail.next = (l1 != null) ? l1 : l2;
+    return dummy.next;
+}
+Block 4: Cycle Detection (Floyd's Algorithm)Javapublic boolean hasCycle(ListNode head) {
+    ListNode slow = head;
+    ListNode fast = head;
+    
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+        if (slow == fast) return true; // Collision = Cycle exists
+    }
+    return false;
+}
+🗺️ Part 3: Composite Workflows in NeetCode 250Reorder List: Middle Finder (Block 2) $\rightarrow$ Reversal Engine (Block 1) $\rightarrow$ Two-Pointer Merging (Block 3).Palindrome Linked List: Middle Finder (Block 2) $\rightarrow$ Reversal Engine (Block 1) $\rightarrow$ Compare halves.Remove Nth Node From End: Two-pointer gap technique (moving a fast pointer $n$ steps ahead before starting the slow pointer).
+
+---
 
 ## The Master Comparison Table (Tier 1 / Tier 2 Core)
 
