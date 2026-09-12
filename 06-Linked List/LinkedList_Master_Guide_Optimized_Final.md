@@ -309,9 +309,12 @@ class Solution {
 ---
 
 ## 3. Find the Duplicate Number (LeetCode 287)
-**Alignment:** Pillar 4 (Fast & Slow), Block 4 (Cycle Detection), Workflow 3 (Array as Cycle)
-**Additional Learning:** Array values restricted from $1$ to $N$ can be treated as pointer references `nums[i] -> nums[nums[i]]`.
-**Because of the problem constraints (an array of size $n+1$ with values from $1$ to $n$), the Pigeonhole Principle guarantees that a duplicate must exist. That means a cycle is always present—fast will never run out of bounds; it will safely loop forever until it catches slow.**
+>
+> **Alignment:** Pillar 4 (Fast & Slow), Block 4 (Cycle Detection), Workflow 3 (Array as Cycle)
+> 
+> **Additional Learning:** Array values restricted from $1$ to $N$ can be treated as pointer references `nums[i] -> nums[nums[i]]`.
+> 
+> **Because of the problem constraints (an array of size $n+1$ with values from $1$ to $n$), the Pigeonhole Principle guarantees that a duplicate must exist. That means a cycle is always present—fast will never run out of bounds; it will safely loop forever until it catches slow.**
 
 > **Problem:** 
 > You are given an array of integers nums containing n + 1 integers. Each integer in nums is in the range [1, n] inclusive.
