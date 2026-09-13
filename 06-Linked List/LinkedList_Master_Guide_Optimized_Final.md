@@ -403,7 +403,18 @@ public ListNode reverseList(ListNode head) {
 
 > **Problem:** 
 > You are given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right (1-indexed), and return the reversed list.
-> 
+>
+> > Example 1:
+> * Input: head = [1,2,3,4,5], left = 2, right = 4
+> * Output: [1,4,3,2,5]
+> * dummynode at start 
+> * leftNode(2) is the node at left
+> * prevLeft(1) is the node just before the left node
+> * after reversal
+> * leftNode.next(2.next) = curr (5)
+> * prevLeft.next(1.next) = prev (4)
+> * 
+> * 
 > Example 1:
 > * Input: head = [1,2,3,4,5], left = 1, right = 3
 > * Output: [3,2,1,4,5]
