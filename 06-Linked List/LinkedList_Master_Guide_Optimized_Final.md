@@ -423,27 +423,50 @@ public ListNode reverseList(ListNode head) {
 **Common Pitfall:** Re-wiring the edges. After the reversal engine finishes, `prev` is the new head of the sub-list, but the original `curr` pointer (which was at `left`) is now the tail and must point to the node after `right`.
 
 ```java
-public ListNode reverseBetween(ListNode head, int left, int right) {
-    if (head == null || left == right) return head;
-    
-    ListNode dummy = new ListNode(0, head);
-    ListNode prev = dummy;
-    
-    // Reach the node right before the sub-list
-    for (int i = 0; i < left - 1; i++) {
-        prev = prev.next;
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        
+        // dummy is the new head
+        ListNode dummy = new ListNode(0, head); 
+        
+        ListNode curr = dummy; 
+
+        ListNode prevLeft = null; // "node just before left"
+        for(int i=0; i<left; i++){
+            prevLeft = curr;
+            curr = curr.next;
+        }
+
+        ListNode leftNode = prevLeft.next; // "node at left" 
+
+        ListNode prev = null;
+        while( curr != null && left <= right){
+
+            ListNode temp =  curr.next;
+            curr.next = prev;
+
+            prev = curr;
+            curr = temp;
+
+            left++;
+        }
+
+        leftNode.next = curr; // "node at left" will point to "curr" node
+        prevLeft.next = prev; // "node just before left" will point to "prev"
+
+        return dummy.next;
+        
     }
-    
-    // Start sub-range reversal (Modified Block 1)
-    ListNode curr = prev.next;
-    for (int i = 0; i < right - left; i++) {
-        ListNode nextNode = curr.next;
-        curr.next = nextNode.next;
-        nextNode.next = prev.next;
-        prev.next = nextNode;
-    }
-    
-    return dummy.next;
 }
 ```
 
