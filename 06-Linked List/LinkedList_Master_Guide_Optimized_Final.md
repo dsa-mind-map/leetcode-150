@@ -720,6 +720,11 @@ public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 **Common Pitfall:** Not setting `slow.next = null` after finding the middle. If you don't sever the connection, the lists will form a cycle when you attempt to merge them.
 
 ```java
+// slow is the last element of the first half.
+// 
+// You sever the list right after it (slow.next = null).
+// 
+// The second half starts strictly at slow.next.
 public void reorderList(ListNode head) {
     if (head == null || head.next == null) return;
     
