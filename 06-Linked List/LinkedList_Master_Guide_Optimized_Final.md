@@ -741,6 +741,8 @@ public void reorderList(ListNode head) {
     }
     
     // Block 3: Two-Pointer Merging (Alternating)
+    // In Reorder List, the very first node (head) never changes its position—it always remains at index 0. so not using dummy head
+    // void return type, meaning you must modify the exact same memory addresses in-place.
     ListNode first = head, second = prev;
     while (second != null) {
         ListNode t1 = first.next, t2 = second.next;
