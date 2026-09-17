@@ -806,6 +806,13 @@ class Solution {
         Map<Node, Node> clonedMap = new HashMap<>();
 
         // Pass 1: Create all clones and map Original -> Clone
+        // 1 -> 2-> 3->4
+        // 1 (clone)
+
+        // curr is at 1
+        // 1(clone) -> 2
+        // curr 1 -> 1(cloned)
+        // curr = clone.next (2), now curr will sit at 2
         Node curr = head;
         while(curr != null){
             clonedMap.put(curr, new Node(curr.val));
