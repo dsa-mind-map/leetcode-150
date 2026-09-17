@@ -796,6 +796,38 @@ public void reorderList(ListNode head) {
 
 **Common Pitfall:** Attempting to set `random` pointers in the same loop where you create the cloned nodes. The node that `random` points to might not have been cloned yet. It strictly requires 3 separate passes.
 
+
+```java
+// runs in $O(N)$ time with $O(N)$ space
+class Solution {
+    public Node copyRandomList(Node head) {
+        if (head == null) return null;
+
+        Map<Node, Node> clonedMap = new HashMap<>();
+
+        // Pass 1: Create all clones and map Original -> Clone
+        Node curr = head;
+        while(curr != null){
+            clonedMap.put(curr, new Node(curr.val));
+            curr = curr.next; // Fixed: Advance pointer!
+        }
+
+        // Pass 2: Wire up the next and random pointers using the map
+        curr = head;
+        while(curr != null){
+            Node cloneNode = clonedMap.get(curr);
+            cloneNode.next = clonedMap.get(curr.next);     // Maps original next to cloned next
+            cloneNode.random = clonedMap.get(curr.random); // Maps original random to cloned random
+
+            curr = curr.next;
+        }
+
+        // Return the head of the cloned list
+        return clonedMap.get(head);
+    }
+}
+```
+
 ```java
 public Node copyRandomList(Node head) {
     if (head == null) return null;
