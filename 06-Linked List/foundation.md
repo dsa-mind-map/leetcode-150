@@ -1,6 +1,5 @@
 Here is the complete single markdown file for `foundation.md`, with all Java blocks formatted with `java(start)` and ` (end) as requested:
 
-```markdown
 # Linked List Pattern: Master Reference Guide (Tier 1 & 2 Optimized for DSA & LLD)
 
 Every Linked List problem relies on mastering how to manipulate pointers (`head`, `prev`, `curr`, `next`) without losing references, causing `NullPointerExceptions`, or breaking memory linkages. 
