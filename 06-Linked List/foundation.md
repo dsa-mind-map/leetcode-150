@@ -1,15 +1,19 @@
-Here is the complete single markdown file for `foundation.md`, with all Java blocks formatted with `java(start)` and ` (end) as requested:
 
 # Linked List Pattern: Master Reference Guide (Tier 1 & 2 Optimized for DSA & LLD)
+
+> **Quick Navigation:** [Framework & Pillars](#-part-1-the-foundational-pillars) | [Essential Code Blocks](#-part-2-the-essential-code-blocks) | [Composite Workflows](#-part-3-composite-workflows-in-neetcode-250)
 
 Every Linked List problem relies on mastering how to manipulate pointers (`head`, `prev`, `curr`, `next`) without losing references, causing `NullPointerExceptions`, or breaking memory linkages. 
 
 This guide strictly aligns core LeetCode problems to **Foundational Pillars**, **Essential Code Blocks**, and **Composite Workflows**. 
 
 ---
+
 # 🔗 Linked List Mastery: The Framework
 
 ## 🏛️ Part 1: The Foundational Pillars
+
+> **Core Rule:** Master these 6 architectural pillars to solve any singly, doubly, or cycle-based linked list problem without crashing.
 
 1. **The "Never Lose the Head" Rule**
    * **Concept:** Unlike arrays, a Linked List relies entirely on references. If you move `head` without a backup, the list is lost in memory.
@@ -35,15 +39,14 @@ This guide strictly aligns core LeetCode problems to **Foundational Pillars**, *
 ### Block 1: The Reversal Engine (`Prev`, `Curr`, `Next`)
 ```java(start)
 public ListNode reverseList(ListNode head) {
-    ListNode prev = null;
-    ListNode curr = head;
+    ListNode prev = null, curr = head;
     while (curr != null) {
-        ListNode nextTemp = curr.next; // 1. Save forward path
-        curr.next = prev;             // 2. Reverse pointer backward
+        ListNode nextTemp = curr.next; // 1. Save forward path before breaking link
+        curr.next = prev;             // 2. Reverse link backward
         prev = curr;                   // 3. Shift prev forward
         curr = nextTemp;               // 4. Shift curr forward
     }
-    return prev; // 'prev' is the new head
+    return prev; // New head
 }
 
 ```
@@ -52,13 +55,12 @@ public ListNode reverseList(ListNode head) {
 
 ```java(start)
 public ListNode findMiddle(ListNode head) {
-    ListNode slow = head;
-    ListNode fast = head;
+    ListNode slow = head, fast = head;
     while (fast != null && fast.next != null) {
-        slow = slow.next;
-        fast = fast.next.next;
+        slow = slow.next;             // 1 step
+        fast = fast.next.next;        // 2 steps
     }
-    return slow; // 'slow' lands precisely on the middle node
+    return slow; // Lands precisely on middle
 }
 
 ```
@@ -67,19 +69,14 @@ public ListNode findMiddle(ListNode head) {
 
 ```java(start)
 public ListNode mergeLists(ListNode l1, ListNode l2) {
-    ListNode dummy = new ListNode(-1); // Sentinel protection
+    ListNode dummy = new ListNode(-1); // Sentinel protection for head
     ListNode tail = dummy;
     while (l1 != null && l2 != null) {
-        if (l1.val <= l2.val) {
-            tail.next = l1;
-            l1 = l1.next;
-        } else {
-            tail.next = l2;
-            l2 = l2.next;
-        }
+        if (l1.val <= l2.val) { tail.next = l1; l1 = l1.next; }
+        else { tail.next = l2; l2 = l2.next; }
         tail = tail.next;
     }
-    tail.next = (l1 != null) ? l1 : l2;
+    tail.next = (l1 != null) ? l1 : l2; // Append remaining nodes
     return dummy.next;
 }
 
@@ -89,12 +86,11 @@ public ListNode mergeLists(ListNode l1, ListNode l2) {
 
 ```java(start)
 public boolean hasCycle(ListNode head) {
-    ListNode slow = head;
-    ListNode fast = head;
+    ListNode slow = head, fast = head;
     while (fast != null && fast.next != null) {
         slow = slow.next;
         fast = fast.next.next;
-        if (slow == fast) return true; // Collision = Cycle exists
+        if (slow == fast) return true; // Collision = cycle exists
     }
     return false;
 }
@@ -104,19 +100,18 @@ public boolean hasCycle(ListNode head) {
 ### NEW BLOCK 5: The Min-Heap Combiner
 
 ```java(start)
-PriorityQueue<ListNode> minHeap = new PriorityQueue<>((list1, list2) -> list1.val - list2.val);
-// Add all heads, then poll and append to dummy tail.
+PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
+// Add non-null heads, poll smallest, and append to dummy tail.
 
 ```
 
-### remove a node from DDL
+### Remove a Node from DDL
 
 ```java(start)
-    public void remove(Node node){
-        // node.prev <-------> node <-------> node.next
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-    }
+public void remove(Node node){
+    node.prev.next = node.next; // Bypass target forward
+    node.next.prev = node.prev; // Bypass target backward
+}
 
 ```
 
@@ -136,16 +131,16 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((list1, list2) -> list1.va
 
 ```
 
-### insert a node after HEAD into DDL
+### Insert a Node after HEAD into DDL
 
 ```java(start)
-    public void insertAtHead(Node newNode){
-        newNode.next = head.next;
-        newNode.prev = head;
+public void insertAtHead(Node newNode){
+    newNode.next = head.next;
+    newNode.prev = head;
 
-        head.next.prev = newNode; // FIRST STATEMENT
-        head.next = newNode;
-    }
+    head.next.prev = newNode; // CRITICAL: Update old first node's prev first
+    head.next = newNode;      // Update head's next
+}
 
 ```
 
@@ -180,16 +175,16 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((list1, list2) -> list1.va
 
 ```
 
-### insert a node before TAIL into DDL
+### Insert a Node before TAIL into DDL
 
 ```java(start)
-    public void insertAtTail(Node newNode){
-        newNode.next = tail;
-        newNode.prev = tail.prev;
+public void insertAtTail(Node newNode){
+    newNode.next = tail;
+    newNode.prev = tail.prev;
 
-        tail.prev.next = newNode; // FIRST STATEMENT
-        head.prev = newNode;
-    }
+    tail.prev.next = newNode; // CRITICAL: Update old last node's next first
+    tail.prev = newNode;      // Update tail's prev
+}
 
 ```
 
