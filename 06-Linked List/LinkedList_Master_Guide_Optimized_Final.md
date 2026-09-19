@@ -998,6 +998,9 @@ public Node copyRandomList(Node head) {
 
  - <> is mandatory both side
 
+ - System.out.println(list); // TIMELIMIT EXCEEDS DUE TO THIS LINE
+
+
 **Additional Learning:** Utilizing Priority Queues (Min-Heaps) to continuously extract the smallest current node across $k$ different lists.
 
 > **Problem:** 
@@ -1048,7 +1051,7 @@ class Solution {
         PriorityQueue<ListNode> pq = new PriorityQueue<>((list1,list2)-> list1.val-list2.val); // <> is mandatory
 
         for(ListNode list : lists){
-            
+            // System.out.println(list); // TIMELIMIT EXCEEDS DUE TO THIS LINE
             // lists = [[]]
             // first list inside the array is "[]" ( empty list, means null)
             if(list != null){   
