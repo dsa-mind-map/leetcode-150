@@ -108,6 +108,25 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
 
     }
 ```
+=======================================================================================
+   SINGLE-VIEW DLL REMOVAL: Target Node's Connections & Bypass Re-routing
+=======================================================================================
+
+        Node A's next bypasses Target -> points straight to Node B
+        (node.prev.next = node.next)
+        ┌────────────────────────────────────────────────────────┐
+        │                                                        v
+   +----------+             +-------------+             +----------+
+   |          |    next     |             |    next     |          |
+   |  Node A  | ----------> | Target Node | ----------> |  Node B  |
+   |          | <---------- | (to delete) | <---------- |          |
+   +----------+             +-------------+             +----------+
+        ^                                                    |
+        │                                                    |
+        └────────────────────────────────────────────────────┘
+        Node B's prev bypasses Target -> points straight back to Node A
+        (node.next.prev = node.prev)
+        ---
 ### insert a node after HEAD into DDL
 ```java
     public void insertAtHead(Node node){
