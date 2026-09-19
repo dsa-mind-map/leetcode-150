@@ -1020,7 +1020,7 @@ public ListNode mergeKLists(ListNode[] lists) {
     if (lists == null || lists.length == 0) return null;
     
     // Block 5: Min-Heap Setup
-    PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
+    PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val); // "I missed <> in the right side"
     
     for (ListNode node : lists) {
         if (node != null) {
