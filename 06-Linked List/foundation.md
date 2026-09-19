@@ -1,19 +1,16 @@
+Here is the complete single markdown file for `foundation.md`, with all Java blocks formatted with `java(start)` and ` (end) as requested:
+
 ```markdown
 # Linked List Pattern: Master Reference Guide (Tier 1 & 2 Optimized for DSA & LLD)
-
-> **Quick Navigation:** [Framework & Pillars](#-part-1-the-foundational-pillars) | [Essential Code Blocks](#-part-2-the-essential-code-blocks) | [Composite Workflows](#-part-3-composite-workflows-in-neetcode-250)
 
 Every Linked List problem relies on mastering how to manipulate pointers (`head`, `prev`, `curr`, `next`) without losing references, causing `NullPointerExceptions`, or breaking memory linkages. 
 
 This guide strictly aligns core LeetCode problems to **Foundational Pillars**, **Essential Code Blocks**, and **Composite Workflows**. 
 
 ---
-
 # 🔗 Linked List Mastery: The Framework
 
 ## 🏛️ Part 1: The Foundational Pillars
-
-> **Core Rule:** Master these 6 architectural pillars to solve any singly, doubly, or cycle-based linked list problem without crashing.
 
 1. **The "Never Lose the Head" Rule**
    * **Concept:** Unlike arrays, a Linked List relies entirely on references. If you move `head` without a backup, the list is lost in memory.
@@ -113,7 +110,7 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((list1, list2) -> list1.va
 
 ```
 
-### Remove a Node from DDL
+### remove a node from DDL
 
 ```java(start)
     public void remove(Node node){
@@ -140,7 +137,7 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((list1, list2) -> list1.va
 
 ```
 
-### Insert a Node after HEAD into DDL
+### insert a node after HEAD into DDL
 
 ```java(start)
     public void insertAtHead(Node newNode){
@@ -184,7 +181,7 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((list1, list2) -> list1.va
 
 ```
 
-### Insert a Node before TAIL into DDL
+### insert a node before TAIL into DDL
 
 ```java(start)
     public void insertAtTail(Node newNode){
