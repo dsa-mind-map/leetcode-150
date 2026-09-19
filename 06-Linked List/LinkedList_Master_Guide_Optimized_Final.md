@@ -871,7 +871,22 @@ public void reorderList(ListNode head) {
 ---
 
 ## 10. Copy List with Random Pointer (LeetCode 138)
+
 **Alignment:** Pillar 5 (Multi-Pass Interweaving)
+### 🏛️ The Three Phases (Concise Code-to-Concept Mapping)
+
+* **Phase 1: Interweaving (`curr`, `clone`, `next`)**
+* *Concept:* Instead of using an extra `HashMap`, create a new `Node(curr.val)` (`clone`) and zip it directly into the list: point `clone.next = curr.next`, then `curr.next = clone`. Every original node is now immediately followed by its clone (`curr.next`).
+
+
+* **Phase 2: Wiring Random Pointers (`random`)**
+* *Concept:* Hook up the clone's random pointer (`curr.next.random`). Since the target clone sits right next to the original target (`curr.random`), set the pointer using its neighbor: `curr.next.random = curr.random.next`.
+
+
+
+
+* **Phase 3: Extraction / Untangling (`cloneHead`, `curr.next`)**
+* *Concept:* Peel the two lists apart. Restore the original list by skipping clones (`curr.next = clone.next`), and stitch the cloned list together by skipping originals (`clone.next = clone.next.next`). Return the saved starting clone head (`head.next`).
 **Additional Learning:** You can avoid a HashMap ($O(N)$ space) for deep copies by cloning nodes and placing them immediately after the original nodes.
 
 > **Problem:** 
@@ -908,79 +923,106 @@ public void reorderList(ListNode head) {
 
 ```java
 // runs in $O(N)$ time with $O(N)$ space
+/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+*/
+
 class Solution {
     public Node copyRandomList(Node head) {
         if (head == null) return null;
 
+        // HashMap to maintain the lookup reference: Key = Original Node, Value = Cloned Node
         Map<Node, Node> clonedMap = new HashMap<>();
 
-        // Pass 1: Create all clones and map Original -> Clone
-        // 1 -> 2-> 3->4
-        // 1 (clone)
-
-        // curr is at 1
-        // 1(clone) -> 2
-        // curr 1 -> 1(cloned)
-        // curr = clone.next (2), now curr will sit at 2
+        // ==========================================
+        // PHASE 1: Creating Clones & Mapping (Original -> Clone)
+        // ==========================================
         Node curr = head;
-        while(curr != null){
-            clonedMap.put(curr, new Node(curr.val));
-            curr = curr.next; // Fixed: Advance pointer!
+        while (curr != null) {
+            clonedMap.put(curr, new Node(curr.val));      // 1. Create a clone node for the current original node and map them
+            curr = curr.next;                             // 2. Advance pointer to the next original node
         }
 
-        // Pass 2: Wire up the next and random pointers using the map
+        // ==========================================
+        // PHASE 2: Wiring Pointers via HashMap Lookups
+        // ==========================================
         curr = head;
-        while(curr != null){
-            Node cloneNode = clonedMap.get(curr);
-            cloneNode.next = clonedMap.get(curr.next);     // Maps original next to cloned next
-            cloneNode.random = clonedMap.get(curr.random); // Maps original random to cloned random
+        while (curr != null) {
+            Node cloneNode = clonedMap.get(curr);         // Retrieve the clone corresponding to the current original node
+            
+            cloneNode.next = clonedMap.get(curr.next);     // Map original's next pointer to the cloned next node
+            cloneNode.random = clonedMap.get(curr.random); // Map original's random pointer to the cloned random node
 
-            curr = curr.next;
+            curr = curr.next;                             // Move curr forward to the next original node
         }
 
-        // Return the head of the cloned list
-        return clonedMap.get(head);
+        // ==========================================
+        // PHASE 3: Return the Deep-Copied List Head
+        // ==========================================
+        return clonedMap.get(head);                       // Retrieve and return the clone of the head node
     }
 }
-```
+*/
 
-```java
-public Node copyRandomList(Node head) {
-    if (head == null) return null;
-    
-    // Pass 1: Interweave cloned nodes
-    Node curr = head;
-    while (curr != null) {
-        Node clone = new Node(curr.val);
-        clone.next = curr.next;
-        curr.next = clone;
-        curr = clone.next;
-    }
-    
-    // Pass 2: Assign random pointers
-    curr = head;
-    while (curr != null) {
-        if (curr.random != null) {
-            // Cloned random is right next to original random
-            curr.next.random = curr.random.next; 
-            // curr.next.random = curr.random;  // curr.random is the original target node, cannot use this for deep copy
+class Solution {
+    public Node copyRandomList(Node head) {
+        if (head == null) return null;
+        
+        // ==========================================
+        // PHASE 1: The Neighbor Blueprint (Interweaving)
+        // ==========================================
+        Node curr = head;
+        while (curr != null) {
+            Node clone = new Node(curr.val);          // 1. Create a fresh copy of the current node
+            clone.next = curr.next;                   // 2. Point clone to the rest of the original list
+            curr.next = clone;                        // 3. Insert the clone right after the current original node
+            curr = clone.next;                        // 4. Move curr forward to the next original node
         }
-        curr = curr.next.next;
-    }
-    
-    // Pass 3: Extract the cloned list
-    curr = head;
-    Node cloneHead = head.next; // head of deep copy list
-    while (curr != null) {
-        Node clone = curr.next;
-        curr.next = clone.next; // next point of the original nodes
-        if (clone.next != null) {
-            clone.next = clone.next.next; // next pointer of the clone nodes
+        
+        // ==========================================
+        // PHASE 2: Setting the Secret Paths (Random Pointers)
+        // ==========================================
+        curr = head;
+        while (curr != null) {
+            if (curr.random != null) {
+                // Cloned random points to the target clone, which lives right next 
+                // to the original target node (curr.random.next)
+                curr.next.random = curr.random.next;  
+                
+                // Note: curr.next.random = curr.random; would be incorrect because 
+                // it makes the clone point back into the old, original list (violating deep copy rules)
+            }
+            curr = curr.next.next;                    // Jump two steps forward to reach the next original node
         }
-        curr = curr.next;
+        
+        // ==========================================
+        // PHASE 3: The Great Separation (Untangling)
+        // ==========================================
+        curr = head;
+        Node cloneHead = head.next;                   // Save the starting head of our deep-copied list
+        while (curr != null) {
+            Node clone = curr.next;                   // Isolate the clone node
+            curr.next = clone.next;                   // Reconnect original node to the next original node (skipping clone)
+            
+            if (clone.next != null) {
+                clone.next = clone.next.next;         // Connect clone node to the next clone node (skipping original)
+            }
+            curr = curr.next;                         // Move curr forward to the next original node
+        }
+        
+        return cloneHead;                             // Return the independent deep-copied list
     }
-    
-    return cloneHead;
 }
 ```
 
