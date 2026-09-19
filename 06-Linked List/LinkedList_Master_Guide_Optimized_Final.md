@@ -994,11 +994,11 @@ public Node copyRandomList(Node head) {
 
  - ListNode[] lists = [[]] --------**Means One list inside the array but the list is null (an empty linked list with no nodes)**
 
- - PriorityQueue<ListNode> pq = new PriorityQueue<>((list1,list2)-> list1.val-list2.val);  // min heap (list1-list2)
+ - PriorityQueue<ListNode> pq = new PriorityQueue<>((list1,list2)-> list1.val-list2.val);  // **min heap MEANS list1-list2**
 
- - <> is mandatory both side
+ - **<> is mandatory both side**
 
- - System.out.println(list); // TIMELIMIT EXCEEDS DUE TO THIS LINE
+ - System.out.println(list); // **TIMELIMIT EXCEEDS DUE TO THIS LINE**
 
 
 **Additional Learning:** Utilizing Priority Queues (Min-Heaps) to continuously extract the smallest current node across $k$ different lists.
