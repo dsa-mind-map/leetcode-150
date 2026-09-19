@@ -98,6 +98,38 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
 // Add all heads, then poll and append to dummy tail.
 ```
 
+### remove a node from DDL
+```java
+    public void remove(Node node){
+
+        // node.prev <-------> node <-------> node.next
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+
+    }
+```
+### insert a node after HEAD into DDL
+```java
+    public void insertAtHead(Node node){
+        // head   <--------> head.next
+        node.next = head.next;
+        node.prev = head;
+
+        head.next.prev = node; // dependent node on head
+        head.next = node;
+    }
+```
+### insert a node before TAIL into DDL
+```java
+    public void insertAtHead(Node node){
+        // tail.prev   <--------> tail
+        node.next = tail;
+        node.prev = tail.prev;
+
+        tail.prev.next = node; // dependent node on tail
+        head.prev = node;
+    }
+```
 ---
 
 ## 🗺️ Part 3: Composite Workflows in NeetCode 250
