@@ -109,19 +109,17 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
     }
 ```
 ```java
-        Node A's next bypasses Target -> points straight to Node B
         (node.prev.next = node.next)
         ┌────────────────────────────────────────────────────────┐
         │                                                        v
    +----------+             +-------------+             +----------+
    |          |    next     |             |    next     |          |
-   |  Node A  | ----------> | Target Node | ----------> |  Node B  |
-   |          | <---------- | (to delete) | <---------- |          |
+   |node.prev | ----------> | Target Node | ----------> |node.next |
+   |          | <---------- | (  node   ) | <---------- |          |
    +----------+             +-------------+             +----------+
         ^                                                    |
         │                                                    |
         └────────────────────────────────────────────────────┘
-        Node B's prev bypasses Target -> points straight back to Node A
         (node.next.prev = node.prev)
 ```
 
