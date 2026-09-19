@@ -201,9 +201,9 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
    tail.prev = newNode;
 
    +---------------+                       +---------------+                       +------------+
-   |               |                       |               | <-------(3)---------  |            |
+   |               |                       |               | <-------(4)---------  |            |
    |   tail.prev   |                       |    newNode    |                       |    tail    |
-   |  (Old Last)   | -----(4)------------> |               |                       |  Sentinel  |
+   |  (Old Last)   | -----(3)------------> |               |                       |  Sentinel  |
    +---------------+                       +---------------+                       +------------+
    
 ```
