@@ -126,12 +126,13 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
 ### insert a node after HEAD into DDL
 ```java
     public void insertAtHead(Node newNode){
-        // head   <--------> head.next
+
         newNode.next = head.next;
         newNode.prev = head;
 
-        head.next.prev = newNode; // dependent node on head
+        head.next.prev = newNode; // FIRST STATEMENT
         head.next = newNode;
+
     }
 ```
 ```java
@@ -143,7 +144,7 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
 
 
 2. EXECUTING:
-   newNode.next = head.next;
+   newNode.next = head.next; 
    newNode.prev = head;
 
    +------------+                                   +---------------+                       +---------------+
@@ -154,7 +155,7 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
 
 
 3. EXECUTING:
-   head.next.prev = newNode;
+   head.next.prev = newNode; // FIRST STATEMENT
    head.next = newNode;
 
    +------------+                  +---------------+                       +---------------+
@@ -166,12 +167,13 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
 ### insert a node before TAIL into DDL
 ```java
     public void insertAtTail(Node newNode){
-        // tail.prev   <--------> tail
+
         newNode.next = tail;
         newNode.prev = tail.prev;
 
-        tail.prev.next = newNode; // dependent node on tail
+        tail.prev.next = newNode; // FIRST STATEMENT
         head.prev = newNode;
+
     }
 ```
 
@@ -195,7 +197,7 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
 
 
 3. EXECUTING:
-   tail.prev.next = newNode;
+   tail.prev.next = newNode; // FIRST STATEMENT
    tail.prev = newNode;
 
    +---------------+                       +---------------+                       +------------+
