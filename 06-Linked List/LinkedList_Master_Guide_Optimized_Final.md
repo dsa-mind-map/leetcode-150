@@ -963,18 +963,19 @@ public Node copyRandomList(Node head) {
         if (curr.random != null) {
             // Cloned random is right next to original random
             curr.next.random = curr.random.next; 
+            // curr.next.random = curr.random;  // curr.random is the original target node, cannot use this for deep copy
         }
         curr = curr.next.next;
     }
     
     // Pass 3: Extract the cloned list
     curr = head;
-    Node cloneHead = head.next;
+    Node cloneHead = head.next; // head of deep copy list
     while (curr != null) {
         Node clone = curr.next;
-        curr.next = clone.next;
+        curr.next = clone.next; // next point of the original nodes
         if (clone.next != null) {
-            clone.next = clone.next.next;
+            clone.next = clone.next.next; // next pointer of the clone nodes
         }
         curr = curr.next;
     }
