@@ -1048,12 +1048,16 @@ public ListNode mergeKLists(ListNode[] lists) {
 ---
 
 ## 12. LRU Cache (LeetCode 146)
-## INVARIANTS : 
+## INVARIANTS of DDL : 
   1 - prev will be null only for "head"
   
   2 - next will be null only for "tail"
-  
+
   3 - rest all nodes will have 'not null' "next" & "prev"
+
+  4 - O(1) insert at head due to "sentinel head" node
+  
+  5 - O(1) remove at tail due to "sentinel tail" node
   
 **Alignment:** Pillar 6 (Doubly Linked Lists & Hashing)
 **Additional Learning:** Low-Level Design (LLD). A HashMap provides $O(1)$ key lookups, while a custom Doubly Linked List provides $O(1)$ positional updates (moving a node to the front, removing from the back).
