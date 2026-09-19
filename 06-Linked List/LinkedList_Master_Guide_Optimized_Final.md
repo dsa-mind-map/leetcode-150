@@ -125,25 +125,85 @@ PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
 
 ### insert a node after HEAD into DDL
 ```java
-    public void insertAtHead(Node node){
+    public void insertAtHead(Node newNode){
         // head   <--------> head.next
-        node.next = head.next;
-        node.prev = head;
+        newNode.next = head.next;
+        newNode.prev = head;
 
-        head.next.prev = node; // dependent node on head
-        head.next = node;
+        head.next.prev = newNode; // dependent node on head
+        head.next = newNode;
     }
+```
+```java
+1. INITIAL STATE:
+   +------------+                                   +---------------+
+   |    head    | <---------------------------->    |   head.next   |
+   |  Sentinel  |                                   |  (Old First)  |
+   +------------+                                   +---------------+
+
+
+2. EXECUTING:
+   newNode.next = head.next;
+   newNode.prev = head;
+
+   +------------+                                   +---------------+                       +---------------+
+   |            |                                   |               | --------(1)---------> |               |
+   |    head    |                                   |    newNode    |                       |   head.next   |
+   |  Sentinel  | <-------------(2)---------------- |               |                       |               |
+   +------------+                                   +---------------+                       +---------------+
+
+
+3. EXECUTING:
+   head.next.prev = newNode;
+   head.next = newNode;
+
+   +------------+                  +---------------+                       +---------------+
+   |            | ----(4)--------> |               |                       |               |
+   |    head    |                  |    newNode    |                       |   head.next   |
+   |  Sentinel  |                  |               | <------(3)----------  |  (Old First)  |
+   +------------+                  +---------------+                       +---------------+
 ```
 ### insert a node before TAIL into DDL
 ```java
-    public void insertAtHead(Node node){
+    public void insertAtTail(Node newNode){
         // tail.prev   <--------> tail
-        node.next = tail;
-        node.prev = tail.prev;
+        newNode.next = tail;
+        newNode.prev = tail.prev;
 
-        tail.prev.next = node; // dependent node on tail
-        head.prev = node;
+        tail.prev.next = newNode; // dependent node on tail
+        head.prev = newNode;
     }
+```
+
+```java
+1. INITIAL STATE:
+   +---------------+                                   +------------+
+   |   tail.prev   | <---------------------------->    |    tail    |
+   |  (Old Last)   |                                   |  Sentinel  |
+   +---------------+                                   +------------+
+
+
+2. EXECUTING:
+   newNode.next = tail;
+   newNode.prev = tail.prev;
+
+   +---------------+                       +---------------+                       +------------+
+   |               |                       |               | --------(1)---------> |            |
+   |   tail.prev   |                       |    newNode    |                       |    tail    |
+   |               | <-------------(2)---- |               |                       |  Sentinel  |
+   +---------------+                       +---------------+                       +------------+
+
+
+3. EXECUTING:
+   tail.prev.next = newNode;
+   tail.prev = newNode;
+
+   +---------------+                       +---------------+                       +------------+
+   |               |                       |               | <-------(3)---------  |            |
+   |   tail.prev   |                       |    newNode    |                       |    tail    |
+   |  (Old Last)   | -----(4)------------> |               |                       |  Sentinel  |
+   +---------------+                       +---------------+                       +------------+
+   
 ```
 ---
 
