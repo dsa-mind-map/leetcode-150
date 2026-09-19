@@ -94,7 +94,7 @@ public boolean hasCycle(ListNode head) {
 
 ### NEW BLOCK 5: The Min-Heap Combiner
 ```java
-PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
+PriorityQueue<ListNode> minHeap = new PriorityQueue<>((list1, list2) -> list1.val - list2.val);
 // Add all heads, then poll and append to dummy tail.
 ```
 
@@ -987,6 +987,17 @@ public Node copyRandomList(Node head) {
 
 ## 11. Merge k Sorted Lists (LeetCode 23)
 **Alignment:** Block 5 (Min-Heap Combiner)
+
+ - 'null' means "an empty linked list with no nodes"
+
+ - ListNode[] lists = [] --------**Means no list inside the array**
+
+ - ListNode[] lists = [[]] --------**Means One list inside the array but the list is null (an empty linked list with no nodes)**
+
+ - PriorityQueue<ListNode> pq = new PriorityQueue<>((list1,list2)-> list1.val-list2.val);  // min heap (list1-list2)
+
+ - <> is mandatory both side
+
 **Additional Learning:** Utilizing Priority Queues (Min-Heaps) to continuously extract the smallest current node across $k$ different lists.
 
 > **Problem:** 
@@ -1016,33 +1027,54 @@ public Node copyRandomList(Node head) {
 **Common Pitfall:** Passing a completely empty list (`[]`) or an array containing null heads (`[[]]`). You must ensure `node != null` before offering to the Min-Heap.
 
 ```java
-public ListNode mergeKLists(ListNode[] lists) {
-    if (lists == null || lists.length == 0) return null;
-    
-    // Block 5: Min-Heap Setup
-    PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val); // "I missed <> in the right side"
-    
-    for (ListNode node : lists) {
-        if (node != null) {
-            minHeap.offer(node);
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+
+        ListNode dummy = new ListNode(0); // new head
+        ListNode curr = dummy;
+
+        // min heap (list1-list2)
+        PriorityQueue<ListNode> pq = new PriorityQueue<>((list1,list2)-> list1.val-list2.val); // <> is mandatory
+
+        for(ListNode list : lists){
+            
+            // lists = [[]]
+            // first list inside the array is "[]" ( empty list, means null)
+            if(list != null){   
+                pq.offer(list);
+            }
         }
-    }
-    
-    ListNode dummy = new ListNode(0); // Pillar 3
-    ListNode tail = dummy;
-    
-    while (!minHeap.isEmpty()) {
-        ListNode smallest = minHeap.poll();
-        tail.next = smallest;
-        tail = tail.next;
-        
-        if (smallest.next != null) {
-            minHeap.offer(smallest.next);
+
+        while(pq.size() !=0){ 
+            
+            ListNode minElement = pq.poll(); // polling the min element
+
+            // final list
+            curr.next = minElement;
+            curr = curr.next;
+
+            // if minElement has any "next" element then add it to the min heap
+            if(minElement.next != null){
+                pq.offer(minElement.next);
+            }
         }
+
+        // dummy.next = head of the final list
+        return dummy.next;
     }
-    
-    return dummy.next;
 }
+
 ```
 
 ---
