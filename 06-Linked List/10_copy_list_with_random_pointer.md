@@ -1,6 +1,4 @@
-Here is the fully updated and formatted `readme.md` file for **10. Copy List with Random Pointer (LeetCode 138)**, featuring the **HashMap Implementation ($O(N)$ Space)** first as the intuitive foundational approach, followed by the **Three-Phase Interweaving Strategy ($O(1)$ Space)** as the optimal second solution.
 
-```markdown
 # 10. Copy List with Random Pointer (LeetCode 138)
 
 **Alignment:** Pillar 5 (Multi-Pass Interweaving & Auxiliary Mapping)  
