@@ -1,116 +1,20 @@
+Here is the fully updated and formatted `readme.md` file for **10. Copy List with Random Pointer (LeetCode 138)**, featuring the **HashMap Implementation ($O(N)$ Space)** first as the intuitive foundational approach, followed by the **Three-Phase Interweaving Strategy ($O(1)$ Space)** as the optimal second solution.
 
+```markdown
 # 10. Copy List with Random Pointer (LeetCode 138)
 
-**Alignment:** Pillar 5 (Multi-Pass Interweaving)  
-**Additional Learning:** You can achieve an optimal $O(1)$ space complexity for deep copies (bypassing the traditional $O(N)$ auxiliary `HashMap`) by interweaving cloned nodes directly adjacent to their original counterparts.
+**Alignment:** Pillar 5 (Multi-Pass Interweaving & Auxiliary Mapping)  
+**Additional Learning:** How to solve deep-copy pointer mapping using either an auxiliary memory lookup table ($O(N)$ space) or an ingenious $O(1)$ space interweaving technique.
 
 ---
 
-## 🏛️ The Three-Phase Framework ($O(1)$ Space Strategy)
-
-* **Phase 1: Interweaving (`curr`, `clone`, `next`)**  
-  * *Concept:* Create a new `Node(curr.val)` and zip it directly into the list (`clone.next = curr.next`, then `curr.next = clone`). Every original node is now immediately followed by its clone.
-* **Phase 2: Wiring Random Pointers (`random`)**  
-  * *Concept:* Hook up the clone's random pointer using its neighbor (`curr.next.random = curr.random.next`). Since the target clone sits right next to the original target, lookups take $O(1)$ time without a hash map.
-* **Phase 3: Extraction / Untangling (`cloneHead`, `curr.next`)**  
-  * *Concept:* Peel the two lists apart. Restore the original list (`curr.next = clone.next`) and stitch the cloned list together (`clone.next = clone.next.next`). Return the saved starting clone head (`cloneHead`).
-
----
-
-## 📋 Problem Description
-A linked list of length $n$ is given where each node contains an additional `random` pointer which could point to any node in the list or null. Construct a deep copy of the list.
-
-### Constraints
-* $0 \le n \le 100$
-* $-100 \le \text{Node.val} \le 100$
-* Node values are not guaranteed to be unique.
-* `random` is null or points to some node in the linked list.
-
----
-
-## ⚠️ Common Pitfalls
-Attempting to set `random` pointers in the same loop where you create the cloned nodes will fail because the target node that `random` points to might not have been cloned yet. This problem strictly requires separate, multi-pass iterations.
-
----
-
-## 💻 Optimized Java Implementation ($O(N)$ Time, $O(1)$ Space)
-
-```java
-/*
-// Definition for a Node.
-class Node {
-    int val;
-    Node next;
-    Node random;
-
-    public Node(int val) {
-        this.val = val;
-        this.next = null;
-        this.random = null;
-    }
-}
-*/
-
-class Solution {
-    public Node copyRandomList(Node head) {
-        if (head == null) return null;
-        
-        // ==========================================
-        // PHASE 1: The Neighbor Blueprint (Interweaving)
-        // ==========================================
-        Node curr = head;
-        while (curr != null) {
-            Node clone = new Node(curr.val);
-            clone.next = curr.next; // CRITICAL: Point clone to the remainder of the original list
-            curr.next = clone;      // CRITICAL: Insert clone immediately after original node
-            curr = clone.next;      // Advance to the next original node
-        }
-        
-        // ==========================================
-        // PHASE 2: Setting the Secret Paths (Random Pointers)
-        // ==========================================
-        curr = head;
-        while (curr != null) {
-            if (curr.random != null) {
-                // CRITICAL: Cloned random points to target clone, which lives right next 
-                // to the original target node (curr.random.next)
-                curr.next.random = curr.random.next;  
-            }
-            curr = curr.next.next; // Jump two steps forward to reach the next original node
-        }
-        
-        // ==========================================
-        // PHASE 3: The Great Separation (Untangling)
-        // ==========================================
-        curr = head;
-        Node cloneHead = head.next; // CRITICAL: Save the starting head of our deep-copied list
-        while (curr != null) {
-            Node clone = curr.next;
-            curr.next = clone.next; // CRITICAL: Reconnect original node, bypassing the clone
-            
-            if (clone.next != null) {
-                clone.next = clone.next.next; // CRITICAL: Connect clone node to the next clone
-            }
-            curr = curr.next; // Move curr forward to the next original node
-        }
-        
-        return cloneHead; // Return the fully isolated deep-copied list
-    }
-}
-
-```
-
----
-
-## 💻 Alternative Approach: HashMap Implementation ($O(N)$ Time, $O(N)$ Space)
+## 💻 Solution 1: HashMap Implementation ($O(N)$ Time, $O(N)$ Space)
 
 If you prefer a simpler mental model using auxiliary memory:
-
 * **Null Safety:** In Java, passing `null` as a key to `map.get(null)` will not throw a `NullPointerException`. If `null` is not found as a key in the map, it simply returns `null` safely.
 * **Return Target:** Always return `map.get(head)` to get the head of the **cloned** list, never the original `head`.
 
 ### 🗺️ Visualizing the Input
-
 ```text
        HEAD
         v
@@ -181,6 +85,112 @@ class Solution {
 
 ```
 
-```
+---
+
+## 🏛️ Solution 2: The Three-Phase Framework ($O(N)$ Time, $O(1)$ Space Strategy)
+
+An optimal approach that bypasses auxiliary memory by interweaving cloned nodes directly adjacent to their original counterparts.
+
+* **Phase 1: Interweave (Zip)**
+* *Action:* Create a `clone` node and insert it immediately after `curr` (`curr.next = clone`). Every original node is now followed by its clone.
+
+
+* **Phase 2: Wire Randoms (Neighbors)**
+* *Action:* Set the clone's random pointer using the adjacent neighbor trick: `clone.random = curr.random.next`.
+
+
+* **Phase 3: Untangle (Split)**
+* *Action:* Peel the two lists apart by restoring original links and stitching clone links. Return `cloneHead`.
+
+
+
+---
+
+## 📋 Problem Description
+
+A linked list of length $n$ is given where each node contains an additional `random` pointer which could point to any node in the list or null. Construct a deep copy of the list.
+
+### Constraints
+
+* $0 \le n \le 100$
+* $-100 \le \text{Node.val} \le 100$
+* Node values are not guaranteed to be unique.
+* `random` is null or points to some node in the linked list.
+
+---
+
+## ⚠️ Common Pitfalls
+
+Attempting to set `random` pointers in the same loop where you create the cloned nodes will fail because the target node that `random` points to might not have been cloned yet. This problem strictly requires separate, multi-pass iterations.
+
+---
+
+## 💻 Optimized Java Implementation ($O(1)$ Space Interweaving)
+
+```java
+/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+*/
+
+class Solution {
+    public Node copyRandomList(Node head) {
+        if (head == null) return null;
+
+        // ==========================================
+        // PHASE 1: The Neighbor Blueprint (Interweaving)
+        // ==========================================
+        Node curr = head;
+        while (curr != null) {
+            Node clone = new Node(curr.val);
+            clone.next = curr.next; // CRITICAL: Point clone to the remainder of the original list
+            
+            curr.next = clone;      // CRITICAL: Insert clone immediately after original node
+            curr = clone.next;      // Advance to the next original node
+        }
+
+        // ==========================================
+        // PHASE 2: Setting the Secret Paths (Random Pointers)
+        // ==========================================
+        curr = head;
+        while (curr != null) {
+            Node clone = curr.next;
+            if (curr.random != null) {
+                // CRITICAL: Cloned random points to target clone, which lives right next 
+                // to the original target node (curr.random.next)
+                clone.random = curr.random.next; 
+            }
+            curr = clone.next; // Jump two steps forward to reach the next original node
+        }
+
+        // ==========================================
+        // PHASE 3: The Great Separation (Untangling)
+        // ==========================================
+        curr = head;
+        Node cloneHead = curr.next; // CRITICAL: Save the starting head of our deep-copied list
+        while (curr != null) {
+            Node clone = curr.next;
+            curr.next = clone.next; // CRITICAL: Reconnect original node, bypassing the clone
+            
+            if (clone.next != null) {
+                // CRITICAL: Connect clone node to the next clone node (skipping original)
+                clone.next = clone.next.next;
+            }
+            curr = curr.next; // Move curr forward to the next original node
+        }
+
+        return cloneHead; // Return the fully isolated deep-copied list
+    }
+}
 
 ```
