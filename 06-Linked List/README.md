@@ -41,7 +41,7 @@ Welcome to the problem directory! This guide serves as a central hub to navigate
 10. **[Copy List with Random Pointer (LeetCode 138)](problems/lc_138_copy_list_with_random_pointer.md)**
     * **Pillar:** Multi-Pass Interweaving
     * **Key Focus:** Achieving $O(1)$ space deep copies via neighbor mapping.
-11. **[Merge k Sorted Lists (LeetCode 23)](problems/lc_023_merge_k_sorted_lists.md)**
+11. **[Merge k Sorted Lists (LeetCode 23)](11_merge_k_sorted_lists.md)**
     * **Pillar:** Min-Heap Combiner
     * **Key Focus:** Handling empty head arrays and preventing time-limit exceptions.
 12. **[LRU Cache (LeetCode 146)](problems/lc_146_lru_cache.md)**
