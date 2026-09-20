@@ -1,6 +1,4 @@
-Here is the fully maximized and structured markdown document for **LRU Cache**, optimized for maximum readability, clear structural invariants, and laser-focused critical code comments:
 
-```markdown
 # 12. LRU Cache (LeetCode 146)
 
 **Alignment:** Pillar 6 (Doubly Linked Lists & Hashing)  
