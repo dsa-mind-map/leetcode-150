@@ -105,6 +105,11 @@ class Solution {
 
 If you prefer a simpler mental model using auxiliary memory:
 
+1 - HashMap supports null lookups: In Java, passing null as a key to map.get(null) will not throw a NullPointerException. If null is not found as a key in the map, it simply returns null.
+
+2 - CRITICAL: Return the head of the CLONED list, not the original head!
+       **return map.get(head);**
+
 ```java
 class Solution {
     public Node copyRandomList(Node head) {
@@ -134,6 +139,3 @@ class Solution {
 
 ```
 
-```
-
-```
