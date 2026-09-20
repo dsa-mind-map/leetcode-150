@@ -1,3 +1,4 @@
+
 # 10. Copy List with Random Pointer (LeetCode 138)
 
 **Alignment:** Pillar 5 (Multi-Pass Interweaving)  
@@ -5,14 +6,14 @@
 
 ---
 
-## 🏛️ The Three-Phase Framework (O(1) Space Strategy)
+## 🏛️ The Three-Phase Framework ($O(1)$ Space Strategy)
 
 * **Phase 1: Interweaving (`curr`, `clone`, `next`)**  
   * *Concept:* Create a new `Node(curr.val)` and zip it directly into the list (`clone.next = curr.next`, then `curr.next = clone`). Every original node is now immediately followed by its clone.
 * **Phase 2: Wiring Random Pointers (`random`)**  
   * *Concept:* Hook up the clone's random pointer using its neighbor (`curr.next.random = curr.random.next`). Since the target clone sits right next to the original target, lookups take $O(1)$ time without a hash map.
 * **Phase 3: Extraction / Untangling (`cloneHead`, `curr.next`)**  
-  * *Concept:* Peel the two lists apart. Restore the original list (`curr.next = clone.next`) and stitch the cloned list together (`clone.next = clone.next.next`). Return the saved starting clone head (`head.next`).
+  * *Concept:* Peel the two lists apart. Restore the original list (`curr.next = clone.next`) and stitch the cloned list together (`clone.next = clone.next.next`). Return the saved starting clone head (`cloneHead`).
 
 ---
 
@@ -105,10 +106,50 @@ class Solution {
 
 If you prefer a simpler mental model using auxiliary memory:
 
-1 - HashMap supports null lookups: In Java, passing null as a key to map.get(null) will not throw a NullPointerException. If null is not found as a key in the map, it simply returns null.
+* **Null Safety:** In Java, passing `null` as a key to `map.get(null)` will not throw a `NullPointerException`. If `null` is not found as a key in the map, it simply returns `null` safely.
+* **Return Target:** Always return `map.get(head)` to get the head of the **cloned** list, never the original `head`.
 
-2 - CRITICAL: Return the head of the CLONED list, not the original head!
-       **return map.get(head);**
+### 🗺️ Visualizing the Input
+
+```text
+       HEAD
+        v
+      +--------------+      next      +--------------+      next      +--------------+      next
+      |   Node 1     | -------------> |   Node 2     | -------------> |   Node 3     | -------------> [ null ]
+      |  val = 7     |                |  val = 13    |                |  val = 11    |
+      +--------------+                +--------------+                +--------------+
+             |                                |                                |
+             | random                         | random                         | random
+             v                                v                                v
+         [ null ]                         Node 1                           Node 2
+
+```
+
+### 🗺️ Visualizing the HashMap Mapping Contents
+
+```text
++---------------------------------------------------------------------------------+
+|                                 HashMap Contents                                |
++------------------------------------+--------------------------------------------+
+|             KEY (Original)         |             VALUE (Clone)                  |
++====================================+============================================+
+| [ Node A ]                         | [ Clone A ]                                |
+|   • val    = 1                     |   • val    = 1                             |
+|   • next   = Node B                |   • next   = Clone B                       |
+|   • random = Node B                |   • random = Clone B                       |
++------------------------------------+--------------------------------------------+
+| [ Node B ]                         | [ Clone B ]                                |
+|   • val    = 2                     |   • val    = 2                             |
+|   • next   = null                  |   • next   = null                          |
+|   • random = Node A                |   • random = Clone A                       |
++------------------------------------+--------------------------------------------+
+| [ null ]                           | [ null ]                                   |
+|   (Safe lookup for null pointers)  |   (map.get(null) returns null safely)      |
++------------------------------------+--------------------------------------------+
+
+```
+
+### Java Implementation (HashMap)
 
 ```java
 class Solution {
@@ -133,9 +174,13 @@ class Solution {
             curr = curr.next;
         }
 
+        // CRITICAL: Return the head of the CLONED list, not the original head!
         return clonedMap.get(head);
     }
 }
 
 ```
 
+```
+
+```
