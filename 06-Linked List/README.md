@@ -132,6 +132,24 @@ public ListNode mergeLists(ListNode l1, ListNode l2) {
     return dummy.next;
 }
 ```
+```java
+// ==========================================
+// PHASE 3: Alternating Merge (In-Place)
+// ==========================================
+ListNode first = head;
+ListNode second = prev;
+
+while (second != null) {
+    ListNode t1 = first.next;  // CRITICAL: Save next node of first half
+    ListNode t2 = second.next; // CRITICAL: Save next node of second half
+    
+    first.next = second;       // Link first node to second node
+    second.next = t1;          // Link second node back to remainder of first half
+    
+    first = t1;                // Advance first pointer
+    second = t2;               // Advance second pointer
+}
+```
 
 ### Block 4: Cycle Detection (Floyd's Algorithm)
 ```java
