@@ -129,6 +129,10 @@ public ListNode findMiddle(ListNode head) {
 ```
 
 ### Block 3: The Two-List Combiner (Sentinel Pattern)
+
+- **create dummy node. Dummy node is the head of the final list.**
+- **cannot move this dummy node. so create another node to move further.**
+- 
 ```java
 public ListNode mergeLists(ListNode l1, ListNode l2) {
     ListNode dummy = new ListNode(-1); // Sentinel protection
