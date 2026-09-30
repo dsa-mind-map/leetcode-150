@@ -53,7 +53,12 @@ Welcome to the problem directory! This guide serves as a central hub to navigate
 
 # Linked List Pattern: Master Reference Guide (Tier 1 & 2 Optimized for DSA & LLD)
 
-> **CRITICAL ARCHITECTURAL WARNING:** Every Linked List flaw originates from mutating pointers without verifying null bounds or failing to save forward references before breaking them. Master the foundational rules below to eliminate $O(N)$ runtime crashes and memory leaks.
+> **CRITICAL ARCHITECTURAL WARNING:** Every Linked List flaw originates from
+> mutating pointers without verifying null bounds
+> 
+> failing to save forward references before breaking them.
+> 
+> Master the foundational rules below to eliminate $O(N)$ runtime crashes and memory leaks.
 
 ---
 
