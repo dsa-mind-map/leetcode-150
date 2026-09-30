@@ -66,8 +66,12 @@ Welcome to the problem directory! This guide serves as a central hub to navigate
 ## 🏛️ Part 1: The Foundational Pillars
 
 1. **The "Never Lose the Head" Rule**
-   * **Concept:** Unlike arrays, a Linked List relies entirely on references. If you move `head` without a backup, the list is lost in memory.
-   * **Rule:** Always use a secondary traversal pointer (`curr = head` or `dummy = head`). Never mutate `head` unless explicitly returning a new one.
+   * **Concept:** If you move `head` without a backup, the 'head' of the list will be lost.
+   * **Rule:** Always use a secondary traversal pointer (`curr = head` or `dummy = head`).
+   * Never mutate `head` unless explicitly returning a new one.
+   * **Inserting a new node at the beginning.**
+   * **deleting first node.**
+   * **reversing the entire list.**
 
 2. **The Pointer Re-routing Rule (The 3-Step Dance)**
    * **Concept:** Singly linked lists point forward only. To reverse direction, you must systematically manage pointers.
