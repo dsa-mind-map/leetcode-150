@@ -102,24 +102,29 @@ public ListNode reverseList(ListNode head) {
     ListNode curr = head;
     while (curr != null) {
         ListNode nextTemp = curr.next; // 1. Save forward path
-        curr.next = prev;             // 2. Reverse pointer backward
-        prev = curr;                  // 3. Shift prev forward
-        curr = nextTemp;              // 4. Shift curr forward
+        curr.next = prev;              // 2. Reverse pointer backward
+        prev = curr;                   // 3. Shift prev forward
+        curr = nextTemp;               // 4. Shift curr forward
     }
     return prev; // 'prev' is the new head
 }
 ```
 
 ### Block 2: The Tortoise & Hare (Middle Finder)
+
+- **slow and fast start at head**
+- 
+- **next of fast must be non-null**
+- 
 ```java
 public ListNode findMiddle(ListNode head) {
     ListNode slow = head;
-    ListNode fast = head;
-    while (fast != null && fast.next != null) {
+    ListNode fast = head;                       
+    while (fast != null && fast.next != null) {    
         slow = slow.next;
-        fast = fast.next.next;
+        fast = fast.next.next;                      //  next of "fast" must be non-null
     }
-    return slow; // 'slow' lands precisely on the middle node
+    return slow;                                    // 'slow' lands precisely on the middle node
 }
 ```
 
