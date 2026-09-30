@@ -1,6 +1,7 @@
 # 11. Merge k Sorted Lists (LeetCode 23)
 
-**Alignment:** Block 5 (Min-Heap Combiner)  
+**Alignment:** Block 5 (Min-Heap Combiner)  - **If multiple elements are tied for the smallest value, the queue does not guarantee which one will be removed first.**
+
 **Additional Learning:** Utilizing Priority Queues (Min-Heaps) to continuously extract the smallest current node across $k$ different lists in $O(N \log k)$ time.
 
 ---
