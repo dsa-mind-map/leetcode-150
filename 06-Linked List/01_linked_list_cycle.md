@@ -35,6 +35,39 @@
 
 **Common Pitfall:** Checking `fast != null` but forgetting to check `fast.next != null` before executing `fast.next.next`, leading to a `NullPointerException`. Comparing node values instead of node references.
 
+## HASHSET - idea is to remember every node we visit. 
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode curr = head;
+
+        Set<ListNode> set = new HashSet<>();
+
+        while(curr != null){
+            if(set.contains(curr)){
+                return true;
+            }
+            set.add(curr);
+            curr = curr.next;
+        }
+        return false;
+    }
+}
+```
+
+## Fast and Slow Pointers (Floyd's Algorithm) -
 ```java
 public boolean hasCycle(ListNode head) {
     ListNode slow = head;
