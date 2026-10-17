@@ -93,7 +93,23 @@ public static void postOrder(Node root) {
 * **Sources:** Phyley CS & Code Campaign
 
 ```java
-public List<Integer> preorderTraversal(TreeNode root) {
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
 
         if(root == null) return result;
@@ -110,52 +126,54 @@ public List<Integer> preorderTraversal(TreeNode root) {
         }
         return result; 
     }
-
-```
-
-### Iterative In-Order (Phyley CS Style - Nested While)
-
-* **Logic:** Keep moving to the left (first push to stack & then move to left). When no more left, pop stack, print, and move current to the right.
-* **Source:** Phyley CS
-
-```java
-public void inOrderIterative(Node root) {
-    java.util.Stack<Node> st = new java.util.Stack<>();
-    Node current = root;
-    while (current != null || !st.isEmpty()) {
-        while (current != null) {
-            st.push(current);
-            current = current.left;
-        }
-        current = st.pop();
-        System.out.print(current.data + " ");
-        current = current.right;
-    }
 }
 
 ```
+
 
 ### Iterative In-Order (Code Campaign Style - If-Else)
 
 * **Logic:** Uses an explicit branching condition inside the main traversal loop to handle stack pushes and right shifts.
 * **Source:** Code Campaign (Video #3)
 
-```java
-public void inOrderIterative(Node root) {
-    if (root == null) return;
+```java/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+ 
+        List<Integer> result = new ArrayList<>();
+        if(root == null) return result;
 
-    Stack<Node> stack = new Stack<>();
-    Node curr = root;
+        Stack<TreeNode> stack = new Stack<>();
 
-    while (curr != null || !stack.isEmpty()) {
-        if (curr != null) {
-            stack.push(curr);
-            curr = curr.left;
-        } else {
-            Node top = stack.pop(); // top is the mid element ( root)
-            System.out.println(top.data);
-            curr = top.right; // curr will go to "the right node"
+        TreeNode curr = root;
+        while(curr != null || !stack.isEmpty()){
+            
+            if(curr != null){
+                stack.push(curr);
+                curr = curr.left;
+            }else{
+                
+                TreeNode top = stack.pop(); // last of left nodes
+                result.add(top.val);
+                curr = top.right; // move to the right node -> while loop iterate on this node in next iteration
+            }
         }
+        
+        return result;
     }
 }
 
