@@ -135,19 +135,20 @@ public void inOrderIterative(Node root) {
 * **Source:** Code Campaign (Video #3)
 
 ```java
-public void inOrderIterativeCodeCampaign(Node root) {
+public void inOrderIterative(Node root) {
     if (root == null) return;
-    java.util.Stack<Node> stack = new java.util.Stack<>();
-    Node node = root;
 
-    while (node != null || !stack.isEmpty()) {
-        if (node != null) {
-            stack.push(node);
-            node = node.left;
+    Stack<Node> stack = new Stack<>();
+    Node curr = root;
+
+    while (curr != null || !stack.isEmpty()) {
+        if (curr != null) {
+            stack.push(curr);
+            curr = curr.left;
         } else {
-            node = stack.pop();
-            System.out.print(node.data + " ");
-            node = node.right;
+            Node top = stack.pop(); // top is the mid element ( root)
+            System.out.println(top.data);
+            curr = top.right; // curr will go to "the right node"
         }
     }
 }
