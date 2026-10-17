@@ -239,6 +239,46 @@ class Solution {
 * **Source:** Phyley CS
 
 ```java
+public static void postOrderIterative1Stack(Node root) {
+    if (root == null) return;
+
+    Stack<Node> st = new Stack<>();
+    Node current = root;
+
+    while (current != null || !st.isEmpty()) {
+
+        // Phase 1: Dive all the way to the leftmost node, 
+        // pushing every node along the way onto the stack.
+        if (current != null) {
+            st.push(current);
+            current = current.left;
+        } 
+        // Phase 2: We hit a null left child. Now we need to inspect 
+        // the top of the stack to see what to do next.
+        else {
+            Node peekNode = st.peek();
+
+            // Case A: If the node at the top of the stack has a right child 
+            // and we haven't visited it yet, pivot and go down that right subtree.
+            if (peekNode.right != null && current != peekNode.right) {
+                current = peekNode.right;
+            } 
+            // Case B: The node has no right child, OR its right child 
+            // has already been visited. That means this node is fully done!
+            else {
+                Node visitedNode = st.pop();
+                System.out.print(visitedNode.data + " ");
+                
+                // Keep track of what we just processed so the outer loop 
+                // knows we are coming up from a right child.
+                current = visitedNode; 
+            }
+        }
+    }
+}
+```
+
+```java
 public void postOrderIterative1Stack(Node root) {
     if (root == null) return;
     java.util.Stack<Node> st = new java.util.Stack<>();
