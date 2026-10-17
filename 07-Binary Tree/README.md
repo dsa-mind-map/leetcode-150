@@ -190,19 +190,44 @@ class Solution {
 * **Source:** Phyley CS
 
 ```java
-public void postOrderIterative2Stacks(Node root) {
-    if (root == null) return;
-    java.util.Stack<Node> st = new java.util.Stack<>();
-    java.util.Stack<Node> result = new java.util.Stack<>();
-    st.push(root);
-    while (!st.isEmpty()) {
-        Node current = st.pop();
-        result.push(current);
-        if (current.left != null) st.push(current.left);
-        if (current.right != null) st.push(current.right);
-    }
-    while (!result.isEmpty()) {
-        System.out.print(result.pop().data + " ");
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+
+        if(root == null) return result;
+
+        Stack<TreeNode> stack1 = new Stack<>();
+        Stack<TreeNode> stack2 = new Stack<>();
+
+        stack1.push(root);
+        while(!stack1.isEmpty()){
+            TreeNode top = stack1.pop();
+            stack2.push(top);
+            if(top.left != null) stack1.push(top.left);
+            if(top.right != null) stack1.push(top.right);
+        }
+
+        while(!stack2.isEmpty()){
+            result.add(stack2.pop().val);
+        }
+
+        return result;
+        
     }
 }
 
