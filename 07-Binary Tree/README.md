@@ -310,7 +310,8 @@ public void postOrderIterative1Stack(Node root) {
 ## 2. Tree Properties & Structural Checks (DFS)
 
 ### Find Height of a Binary Tree
-
+The philosophy behind recursion here is: If I know the height of my left subtree and my right subtree, I can easily find my own height.
+Note: This convention means a tree with just a single root node will have a height of 0, because Math.max(-1, -1) + 1 = 0
 ```java
 public int height(Node root) {
     if (root == null) return -1;
@@ -322,6 +323,8 @@ public int height(Node root) {
 ```
 
 ### Find Size of a Binary Tree
+The logic relies on a simple rule: The size of any tree is equal to the size of its left subtree plus the size of its right subtree, plus 1 (for the current node itself).
+If the current node is null (meaning we've reached past a leaf node), it contributes 0 to the total count.
 
 ```java
 public int findSize(Node root) {
@@ -332,24 +335,26 @@ public int findSize(Node root) {
 ```
 
 ### Find Node in Binary Tree
+The philosophy here is straightforward: "Is the target at my current position? If not, check my left branch. If it's still not there, check my right branch."
 
 ```java
 public boolean findNode(Node root, int target) {
-    if (root == null) return false;
-    if (root.data == target) return true;
+    if (root == null) return false; // root null
+    if (root.data == target) return true; // target at my current position
     return findNode(root.left, target) || findNode(root.right, target);
 }
 
 ```
 
 ### Check If Two Binary Trees Are Equal
+The philosophy here is: "Two trees are identical if their current roots have the same data, their left subtrees are identical, and their right subtrees are identical."
 
 ```java
 public boolean areEqual(Node root1, Node root2) {
-    if (root1 == null && root2 == null) return true;
-    if (root1 == null || root2 == null) return false;
-    if (root1.data != root2.data) return false;
-    return areEqual(root1.left, root2.left) && areEqual(root1.right, root2.right);
+    if (root1 == null && root2 == null) return true;  // If both current nodes are null
+    if (root1 == null || root2 == null) return false; // If one node is null
+    if (root1.data != root2.data) return false;       //Data Mismatch
+    return areEqual(root1.left, root2.left) && areEqual(root1.right, root2.right); //Recursive Subtree Check
 }
 
 ```
