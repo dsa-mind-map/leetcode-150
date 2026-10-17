@@ -93,17 +93,23 @@ public static void postOrder(Node root) {
 * **Sources:** Phyley CS & Code Campaign
 
 ```java
-public void preOrderIterative(Node root) { 
-    if (root == null) return;
-    java.util.Stack<Node> st = new java.util.Stack<>();
-    st.push(root);
-    while (!st.isEmpty()) {
-        Node current = st.pop();
-        System.out.print(current.data + " ");
-        if (current.right != null) st.push(current.right);
-        if (current.left != null) st.push(current.left);
+public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+
+        if(root == null) return result;
+
+        Stack<TreeNode> stack = new Stack<>();
+
+        stack.push(root);
+
+        while(!stack.isEmpty()){
+            TreeNode top = stack.pop();
+            result.add(top.val);
+            if(top.right != null) stack.push(top.right);
+            if(top.left != null) stack.push(top.left); // LIFO
+        }
+        return result; 
     }
-}
 
 ```
 
