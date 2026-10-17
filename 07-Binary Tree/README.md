@@ -137,6 +137,7 @@ class Solution {
 * **Source:** Code Campaign (Video #3)
 
 ```java/**
+/*
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
@@ -363,7 +364,14 @@ public boolean areEqual(Node root1, Node root2) {
 
 ## 3. BFS (Breadth-First Search) & Level Order Variations
 
-### Standard Level Order Traversal
+### Standard Level Order Traversal ( LEFT TO RIGHT)
+- Using Queue
+- L0
+- L1
+- L2
+- L3
+- LEVEL ORDER = L0 - L1 - L2 - L3
+
 
 ```java
 public void levelOrder(Node root) {
@@ -373,26 +381,44 @@ public void levelOrder(Node root) {
     while (!q.isEmpty()) {
         Node current = q.poll();
         System.out.print(current.data + " ");
-        if (current.left != null) q.add(current.left);
-        if (current.right != null) q.add(current.right);
+
+        // LEFT TO RIGHT
+        if (current.left != null) q.add(current.left); // LEFT TO RIGHT
+        if (current.right != null) q.add(current.right); //LEFT TO RIGHT
+
+        // RIGHT TO LEFT
+        // if(current.right != null) q.add(current.right);
+        // if(current.left != null) q.add(current.left);
     }
 }
 
 ```
 
-### Reverse Level Order Traversal
+### Reverse Level Order Traversal ( LEFT TO RIGHT)
+- Using Queue + Stack
+- L0
+- L1
+- L2
+- L3
+- REVERSE LEVEL ORDER = L3 - L2 - L1 - L0
 
 ```java
 public void reverseLevelOrder(Node root) {
     if (root == null) return;
     java.util.Queue<Node> q = new java.util.LinkedList<>();
-    java.util.Stack<Node> st = new java.util.Stack<>();
+    java.util.Stack<Node> st = new java.util.Stack<>();    // LEVELS ARE REVERSED
     q.add(root);
     while (!q.isEmpty()) {
         Node current = q.poll();
         st.push(current);
+
+        // LEFT TO RIGHT - DIRECTION
         if (current.right != null) q.add(current.right);
         if (current.left != null) q.add(current.left);
+
+        //RIGHT TO LEFT - DIRECTION
+        // if(current.left != null) q.add(current.left);
+        // if(current.right != null) q.add(current.right);
     }
     while (!st.isEmpty()) {
         System.out.print(st.pop().data + " ");
