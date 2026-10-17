@@ -37,7 +37,10 @@ public static void postOrder(Node root) {
 }
 
 // Iterative Pre-Order (Source: Phyley CS & Code Campaign)
-public void preOrderIterative(Node root) {
+while stack is not empty , 
+1 - keep poppng & print top 
+2 - and push riht-left child.
+public void preOrderIterative(Node root) { 
     if (root == null) return;
     java.util.Stack<Node> st = new java.util.Stack<>();
     st.push(root);
@@ -50,6 +53,9 @@ public void preOrderIterative(Node root) {
 }
 
 // Iterative In-Order (Source: Phyley CS & Code Campaign)
+keep moving to the left ( first push to stack & then move to left)
+when no more left, print top of stack.
+move current to right of the stack.
 public void inOrderIterative(Node root) {
     java.util.Stack<Node> st = new java.util.Stack<>();
     Node current = root;
@@ -64,7 +70,28 @@ public void inOrderIterative(Node root) {
     }
 }
 
+// Source: Code Campaign (Video #3: Inorder Traversal Iterative)
+public void inOrderIterativeCodeCampaign(Node root) {
+    if (root == null) return;
+    java.util.Stack<Node> stack = new java.util.Stack<>();
+    Node node = root;
+
+    while (node != null || !stack.isEmpty()) {
+        if (node != null) {
+            stack.push(node);
+            node = node.left;
+        } else {
+            node = stack.pop();
+            System.out.print(node.data + " ");
+            node = node.right;
+        }
+    }
+}
+
 // Iterative Post-Order using 2 Stacks (Source: Phyley CS)
+1 - keep poppng & push to result stack.
+2 - and push left-right child.
+3 - pop the result stack.
 public void postOrderIterative2Stacks(Node root) {
     if (root == null) return;
     java.util.Stack<Node> st = new java.util.Stack<>();
