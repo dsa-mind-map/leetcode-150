@@ -482,6 +482,58 @@ public void printLevelByLevel(Node root) {
 
 ```
 
+---
+
+#Invert Binary Tree
+You are given the root of a binary tree root. Invert the binary tree and return its root.
+
+Solution 1: Recursive Approach (DFS / Call Stack)
+This approach dives recursively down the tree, swapping the left and right children at each node on the way.
+
+```Java
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if(root == null) return null;
+        
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+
+        root.left = right;
+        root.right = left;
+
+        invertTree(root.left);
+        invertTree(root.right);
+
+        return root;
+    }
+}
+```
+Solution 2: Iterative Approach (BFS / Queue)
+This approach avoids recursion by using a Queue to process the tree level-by-level, swapping children iteratively.
+
+```Java
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if(root == null) return null;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while(!queue.isEmpty()){
+            TreeNode curr = queue.poll();
+
+            TreeNode left = curr.left;
+            TreeNode right = curr.right;
+
+            curr.left = right;
+            curr.right = left;
+
+            if(curr.left != null) queue.offer(curr.left);
+            if(curr.right != null) queue.offer(curr.right);
+        }
+
+        return root;
+    }
+}
 ```
 
-```
