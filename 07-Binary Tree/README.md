@@ -355,7 +355,9 @@ public boolean areEqual(Node root1, Node root2) {
     if (root1 == null && root2 == null) return true;  // If both current nodes are null
     if (root1 == null || root2 == null) return false; // If one node is null
     if (root1.data != root2.data) return false;       //Data Mismatch
-    return areEqual(root1.left, root2.left) && areEqual(root1.right, root2.right); //Recursive Subtree Check
+
+    // on this line, root values are same & we need to check children for equality.
+    return areEqual(root1.left, root2.left) && areEqual(root1.right, root2.right); 
 }
 
 ```
