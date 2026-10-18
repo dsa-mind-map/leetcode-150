@@ -482,9 +482,8 @@ public void printLevelByLevel(Node root) {
 
 ```
 
----
+### Invert Binary Tree
 
-#Invert Binary Tree
 You are given the root of a binary tree root. Invert the binary tree and return its root.
 
 Solution 1: Recursive Approach (DFS / Call Stack)
@@ -536,4 +535,79 @@ class Solution {
     }
 }
 ```
+
+### Maximum Depth of Binary Tree
+
+Given the root of a binary tree, return its depth.
+
+The depth of a binary tree is defined as the number of nodes along the longest path from the root node down to the farthest leaf node.
+
+## Code Review & Solution Evaluation
+
+Both of your solutions for finding the maximum depth of a binary tree are **clever, completely functional, and correct**!
+
+---
+
+### Solution 1: The Wrapper-Function Approach (Recursive DFS)
+
+```java
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if(root == null) return 0;
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+        
+    }
+}
+
+```
+
+* **Why it's cool:** You adapted the standard height calculation (where a `null` node returns `-1`) into a depth calculation by adding `1` at the entry wrapper and offsetting the base case.
+* **Cleaner Alternative:** Typically, to avoid needing a helper function or offsetting with `-1`, you can write it directly as a single function where `null` returns `0`:
+```java
+public int maxDepth(TreeNode root) {
+    if (root == null) return 0;
+    return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+}
+
+```
+
+
+
+---
+
+### Solution 2: Level-Order Traversal with Marker (Iterative BFS)
+
+```java
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if(root == null) return 0;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        queue.offer(null); // Level marker
+
+        int depth = 0;
+
+        while(!queue.isEmpty()){
+            TreeNode curr = queue.poll();
+            if(curr == null){
+                depth++;
+                if(queue.isEmpty()) break;
+                queue.offer(null); // Add marker for the next level
+            }else{
+                if(curr.left != null) queue.offer(curr.left);
+                if(curr.right != null) queue.offer(curr.right);
+            }
+        }
+        return depth;
+    }
+}
+
+```
+
+* **Why it's brilliant:** Using a `null` sentinel marker as a delimiter between levels is a classic and elegant technique for tracking depths/levels in a queue without having to check `queue.size()` loops.
+
+---
+
+
 
