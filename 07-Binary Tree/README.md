@@ -484,6 +484,47 @@ public void printLevelByLevel(Node root) {
 
 ```
 
+### Binary Tree Level Order Traversal
+Given a binary tree root, return the level order traversal of it as a nested list, where each sublist contains the values of nodes at a particular level in the tree, from left to right.
+
+```java
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+
+        List<Integer> list = new ArrayList<>();
+        List<List<Integer>> finalList = new ArrayList<>();
+
+        if(root == null) return finalList;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        queue.offer(null); // delimiter
+
+
+        while(!queue.isEmpty()){
+            
+            TreeNode curr = queue.poll();
+            
+            if(curr == null){
+                finalList.add(list);
+                list = new ArrayList<>();
+
+                if(!queue.isEmpty()) queue.offer(null); // delimiter
+            }else{
+                list.add(curr.val);
+                if(curr.left != null) queue.offer(curr.left);
+                if(curr.right !=null) queue.offer(curr.right);
+            }
+
+        }
+
+        return finalList;
+        
+    }
+}
+
+```
+
 ### Invert Binary Tree
 
 You are given the root of a binary tree root. Invert the binary tree and return its root.
