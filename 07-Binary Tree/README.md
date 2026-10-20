@@ -653,4 +653,111 @@ class Solution {
 ---
 
 
+### 314. Binary Tree Vertical Order Traversal - Explanation
+You are given the root node of a binary tree, return the vertical order traversal of its nodes' values.
+
+For the vertical order traversal, list the nodes column by column starting from the leftmost column and moving to the right.
+
+Within each column, the nodes should be listed in the order they appear from the top of the tree to the bottom.
+
+If two nodes are located at the same row and column, the node that appears to the left should come before the other.
+
+BFS + TREEMAP
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    public List<List<Integer>> verticalOrder(TreeNode root) {
+        if (root == null) return new ArrayList<>();
+
+        Map<Integer, List<Integer>> cols = new TreeMap<>();
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+        queue.offer(new Pair<>(root, 0));
+
+        while (!queue.isEmpty()) {
+            Pair<TreeNode, Integer> p = queue.poll();
+            TreeNode node = p.getKey();
+            int pos = p.getValue();
+
+            cols.computeIfAbsent(pos, k -> new ArrayList<>()).add(node.val);
+
+            if (node.left != null) queue.offer(new Pair<>(node.left, pos - 1));
+            if (node.right != null) queue.offer(new Pair<>(node.right, pos + 1));
+        }
+
+        return new ArrayList<>(cols.values());
+    }
+}
+```
+Time & Space Complexity
+Time complexity: O(nlogn)
+Space complexity: O(n)
+
+3. Breadth First Search (Optimal) - BFS + MIN-MAX COLUMNS
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    public List<List<Integer>> verticalOrder(TreeNode root) {
+        if (root == null) return new ArrayList<>();
+
+        Map<Integer, List<Integer>> cols = new HashMap<>();
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+        queue.offer(new Pair<>(root, 0));
+        int minCol = 0, maxCol = 0;
+
+        while (!queue.isEmpty()) {
+            Pair<TreeNode, Integer> p = queue.poll();
+            TreeNode node = p.getKey();
+            int col = p.getValue();
+
+            cols.computeIfAbsent(col, x -> new ArrayList<>()).add(node.val);
+            minCol = Math.min(minCol, col);
+            maxCol = Math.max(maxCol, col);
+
+            if (node.left != null) queue.offer(new Pair<>(node.left, col - 1));
+            if (node.right != null) queue.offer(new Pair<>(node.right, col + 1));
+        }
+
+        List<List<Integer>> res = new ArrayList<>();
+        for (int c = minCol; c <= maxCol; c++) {
+            res.add(cols.get(c));
+        }
+        return res;
+    }
+}
+```
+Time & Space Complexity
+Time complexity: O(n)
+Space complexity: O(n)
+
+
+
 
