@@ -6,44 +6,37 @@ A production-grade, high-density reference manual covering fundamental tree data
 
 ## 📋 Navigation Index
 
-* [1. TreeNode Class Definition](https://www.google.com/search?q=%231-treenode-class-definition)
-* [2. Recursive & Iterative Traversals](https://www.google.com/search?q=%232-recursive--iterative-traversals)
-* [Permanent Mental Anchors](https://www.google.com/search?q=%23permanent-mental-anchors)
-* [A. Recursive Pre-Order Traversal](https://www.google.com/search?q=%23a-recursive-pre-order-traversal)
-* [B. Recursive In-Order Traversal](https://www.google.com/search?q=%23b-recursive-in-order-traversal)
-* [C. Recursive Post-Order Traversal](https://www.google.com/search?q=%23c-recursive-post-order-traversal)
-* [D. Iterative Pre-Order Traversal](https://www.google.com/search?q=%23d-iterative-pre-order-traversal)
-* [E. Iterative In-Order Traversal](https://www.google.com/search?q=%23e-iterative-in-order-traversal)
-* [F. Iterative Post-Order Traversal (2-Stack Approach)](https://www.google.com/search?q=%23f-iterative-post-order-traversal-2-stack-approach)
-* [G. Iterative Post-Order Traversal (1-Stack with Tracking)](https://www.google.com/search?q=%23g-iterative-post-order-traversal-1-stack-with-tracking)
+- [1. TreeNode Class Definition](#1-treenode-class-definition)
+- [2. Recursive & Iterative Traversals](#2-recursive--iterative-traversals)
+  - [Permanent Mental Anchors](#permanent-mental-anchors)
+  - [A. Recursive Pre-Order Traversal](#a-recursive-pre-order-traversal)
+  - [B. Recursive In-Order Traversal](#b-recursive-in-order-traversal)
+  - [C. Recursive Post-Order Traversal](#c-recursive-post-order-traversal)
+  - [D. Iterative Pre-Order Traversal](#d-iterative-pre-order-traversal)
+  - [E. Iterative In-Order Traversal](#e-iterative-in-order-traversal)
+  - [F. Iterative Post-Order Traversal (2-Stack Approach)](#f-iterative-post-order-traversal-2-stack-approach)
+  - [G. Iterative Post-Order Traversal (1-Stack with Tracking)](#g-iterative-post-order-traversal-1-stack-with-tracking)
+- [3. Tree Properties & Structural Checks (DFS)](#3-tree-properties--structural-checks-dfs)
+  - [A. Find Height of a Binary Tree](#a-find-height-of-a-binary-tree)
+  - [B. Find Size of a Binary Tree](#b-find-size-of-a-binary-tree)
+  - [C. Find Node in Binary Tree](#c-find-node-in-binary-tree)
+  - [D. Check If Two Binary Trees Are Equal](#d-check-if-two-binary-trees-are-equal)
+  - [E. Maximum Depth of Binary Tree](#e-maximum-depth-of-binary-tree)
+  - [F. Invert Binary Tree](#f-invert-binary-tree)
+- [4. BFS (Breadth-First Search) & Level Order Variations](#4-bfs-breadth-first-search--level-order-variations)
+  - [A. Level-by-Level Core Variations](#a-level-by-level-core-variations)
+    - [1. Standard Level Order Traversal](#1-standard-level-order-traversal)
+    - [2. Reverse Level Order Traversal (Bottom-Up)](#2-reverse-level-order-traversal-bottom-up)
+    - [3. Zigzag (Spiral) Level Order Traversal](#3-zigzag-spiral-level-order-traversal)
+  - [B. Vertical Column Projections](#b-vertical-column-projections)
+    - [1. Binary Tree Vertical Order Traversal ($\mathcal{O}(N)$ Optimal)](#1-binary-tree-vertical-order-traversal-on-optimal)
+    - [2. Top View of Binary Tree](#2-top-view-of-binary-tree)
+    - [3. Bottom View of Binary Tree](#3-bottom-view-of-binary-tree)
+  - [C. Boundary & Side Views](#c-boundary--side-views)
+    - [1. Left View of Binary Tree](#1-left-view-of-binary-tree)
+    - [2. Right View of Binary Tree](#2-right-view-of-binary-tree)
 
-
-* [3. Tree Properties & Structural Checks (DFS)](https://www.google.com/search?q=%233-tree-properties--structural-checks-dfs)
-* [A. Find Height of a Binary Tree](https://www.google.com/search?q=%23a-find-height-of-a-binary-tree)
-* [B. Find Size of a Binary Tree](https://www.google.com/search?q=%23b-find-size-of-a-binary-tree)
-* [C. Find Node in Binary Tree](https://www.google.com/search?q=%23c-find-node-in-binary-tree)
-* [D. Check If Two Binary Trees Are Equal](https://www.google.com/search?q=%23d-check-if-two-binary-trees-are-equal)
-* [E. Maximum Depth of Binary Tree](https://www.google.com/search?q=%23e-maximum-depth-of-binary-tree)
-* [F. Invert Binary Tree](https://www.google.com/search?q=%23f-invert-binary-tree)
-
-
-* [4. BFS (Breadth-First Search) & Level Order Variations](https://www.google.com/search?q=%234-bfs-breadth-first-search--level-order-variations)
-* [A. Level-by-Level Core Variations](https://www.google.com/search?q=%23a-level-by-level-core-variations)
-* [1. Standard Level Order Traversal](https://www.google.com/search?q=%231-standard-level-order-traversal)
-* [2. Reverse Level Order Traversal (Bottom-Up)](https://www.google.com/search?q=%232-reverse-level-order-traversal-bottom-up)
-* [3. Zigzag (Spiral) Level Order Traversal](https://www.google.com/search?q=%233-zigzag-spiral-level-order-traversal)
-
-
-* [B. Vertical Column Projections](https://www.google.com/search?q=%23b-vertical-column-projections)
-* [1. Binary Tree Vertical Order Traversal ($\mathcal{O}(N)$ Optimal)](https://www.google.com/search?q=%231-binary-tree-vertical-order-traversal-on-optimal)
-* [2. Top View of Binary Tree](https://www.google.com/search?q=%232-top-view-of-binary-tree)
-* [3. Bottom View of Binary Tree](https://www.google.com/search?q=%233-bottom-view-of-binary-tree)
-
-
-* [C. Boundary & Side Views](https://www.google.com/search?q=%23c-boundary--side-views)
-* [1. Left View of Binary Tree](https://www.google.com/search?q=%231-left-view-of-binary-tree)
-* [2. Right View of Binary Tree](https://www.google.com/search?q=%232-right-view-of-binary-tree)
-
+```
 
 
 
