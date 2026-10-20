@@ -865,6 +865,111 @@ public class Solution {
 }
 ```
 
+### Binary Tree Views: Left View & Right View (Standard BFS Implementations)
 
+The canonical, production-grade approach for both Left View and Right View utilizes Level-Order Traversal (Breadth-First Search) with queue.size().
+
+Both algorithms share the exact same traversal structure; they differ only in which node index is captured during each level loop:
+
+Left View: Capture the first element (i == 0).
+
+Right View: Capture the last element (i == levelSize - 1).
+
+1. Left View of Binary Tree
+
+```Java
+import java.util.*;
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> leftSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode curr = queue.poll();
+
+                // Capture the FIRST node of the current level
+                if (i == 0) {
+                    result.add(curr.val);
+                }
+
+                if (curr.left != null) queue.offer(curr.left);
+                if (curr.right != null) queue.offer(curr.right);
+            }
+        }
+
+        return result;
+    }
+}
+```
+2. Right View of Binary Tree
+
+```Java
+import java.util.*;
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode curr = queue.poll();
+
+                // Capture the LAST node of the current level
+                if (i == levelSize - 1) {
+                    result.add(curr.val);
+                }
+
+                if (curr.left != null) queue.offer(curr.left);
+                if (curr.right != null) queue.offer(curr.right);
+            }
+        }
+
+        return result;
+    }
+}
+```
 
 
