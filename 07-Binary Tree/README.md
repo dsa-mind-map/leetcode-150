@@ -8,14 +8,14 @@ A production-grade, high-density reference manual covering fundamental tree data
 
 * [1. TreeNode Class Definition](https://www.google.com/search?q=%231-treenode-class-definition)
 * [2. Recursive & Iterative Traversals](https://www.google.com/search?q=%232-recursive--iterative-traversals)
-        * [Permanent Mental Anchors](https://www.google.com/search?q=%23permanent-mental-anchors)
-        * [A. Recursive Pre-Order Traversal](https://www.google.com/search?q=%23a-recursive-pre-order-traversal)
-        * [B. Recursive In-Order Traversal](https://www.google.com/search?q=%23b-recursive-in-order-traversal)
-        * [C. Recursive Post-Order Traversal](https://www.google.com/search?q=%23c-recursive-post-order-traversal)
-        * [D. Iterative Pre-Order Traversal](https://www.google.com/search?q=%23d-iterative-pre-order-traversal)
-        * [E. Iterative In-Order Traversal](https://www.google.com/search?q=%23e-iterative-in-order-traversal)
-        * [F. Iterative Post-Order Traversal (2-Stack Approach)](https://www.google.com/search?q=%23f-iterative-post-order-traversal-2-stack-approach)
-        * [G. Iterative Post-Order Traversal (1-Stack with Tracking)](https://www.google.com/search?q=%23g-iterative-post-order-traversal-1-stack-with-tracking)
+        - * [Permanent Mental Anchors](https://www.google.com/search?q=%23permanent-mental-anchors)
+        - * [A. Recursive Pre-Order Traversal](https://www.google.com/search?q=%23a-recursive-pre-order-traversal)
+        - * [B. Recursive In-Order Traversal](https://www.google.com/search?q=%23b-recursive-in-order-traversal)
+        - * [C. Recursive Post-Order Traversal](https://www.google.com/search?q=%23c-recursive-post-order-traversal)
+        - * [D. Iterative Pre-Order Traversal](https://www.google.com/search?q=%23d-iterative-pre-order-traversal)
+        - * [E. Iterative In-Order Traversal](https://www.google.com/search?q=%23e-iterative-in-order-traversal)
+        - * [F. Iterative Post-Order Traversal (2-Stack Approach)](https://www.google.com/search?q=%23f-iterative-post-order-traversal-2-stack-approach)
+        - * [G. Iterative Post-Order Traversal (1-Stack with Tracking)](https://www.google.com/search?q=%23g-iterative-post-order-traversal-1-stack-with-tracking)
 
 
 * [3. Tree Properties & Structural Checks (DFS)](https://www.google.com/search?q=%233-tree-properties--structural-checks-dfs)
