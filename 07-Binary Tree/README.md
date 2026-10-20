@@ -39,9 +39,6 @@ A production-grade, high-density reference manual covering fundamental tree data
 ```
 
 
-
----
-
 ## 1. TreeNode Class Definition
 
 ```java
