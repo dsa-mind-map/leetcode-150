@@ -483,6 +483,39 @@ public void printLevelByLevel(Node root) {
 }
 
 ```
+### PRINT/RETURN LEVEL BY LEVEL
+```java
+import java.util.*;
+
+class Solution {
+    // 1. PRINT/RETURN LEVEL BY LEVEL
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            List<Integer> currentLevel = new ArrayList<>(); // Sublist for current level
+
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode curr = queue.poll();
+                
+                currentLevel.add(curr.val); // <--- ADD EVERY NODE
+
+                if (curr.left != null) queue.offer(curr.left);
+                if (curr.right != null) queue.offer(curr.right);
+            }
+
+            result.add(currentLevel); // <--- Add level list to final result
+        }
+
+        return result;
+    }
+}
+```
 
 ### Binary Tree Level Order Traversal
 Given a binary tree root, return the level order traversal of it as a nested list, where each sublist contains the values of nodes at a particular level in the tree, from left to right.
