@@ -758,6 +758,113 @@ Time & Space Complexity
 Time complexity: O(n)
 Space complexity: O(n)
 
+---
+
+### Top View of Binary Tree
+In Top View, we keep the first node encountered at each vertical column (if (!map.containsKey(col))). Because BFS processes level-by-level from top to bottom, the first node seen at any column is the topmost node.
+
+```Java
+import java.util.*;
+
+public class Solution {
+    // Helper class to hold TreeNode and its horizontal column position
+    static class Pair {
+        TreeNode node;
+        int col;
+        Pair(TreeNode node, int col) {
+            this.node = node;
+            this.col = col;
+        }
+    }
+
+    public List<Integer> topViewBinaryTree(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+
+        Map<Integer, Integer> map = new HashMap<>();
+        Queue<Pair> queue = new LinkedList<>();
+        queue.offer(new Pair(root, 0));
+
+        int minCol = 0, maxCol = 0;
+
+        while (!queue.isEmpty()) {
+            Pair p = queue.poll();
+            TreeNode node = p.node;
+            int col = p.col;
+
+            // Put ONLY if column hasn't been seen before (keeps topmost node)
+            if (!map.containsKey(col)) {
+                map.put(col, node.val);
+            }
+
+            minCol = Math.min(minCol, col);
+            maxCol = Math.max(maxCol, col);
+
+            if (node.left != null) queue.offer(new Pair(node.left, col - 1));
+            if (node.right != null) queue.offer(new Pair(node.right, col + 1));
+        }
+
+        for (int c = minCol; c <= maxCol; c++) {
+            res.add(map.get(c));
+        }
+
+        return res;
+    }
+}
+
+```
+
+### Bottom View of Binary Tree
+In Bottom View, we always overwrite the map value (map.put(col, node.val)) whenever a node is processed at a given column. Because BFS processes nodes level-by-level, the last node written to any column will be the bottom-most node.
+
+```Java
+import java.util.*;
+
+public class Solution {
+    // Helper class to hold TreeNode and its horizontal column position
+    static class Pair {
+        TreeNode node;
+        int col;
+        Pair(TreeNode node, int col) {
+            this.node = node;
+            this.col = col;
+        }
+    }
+
+    public List<Integer> bottomViewBinaryTree(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) return res;
+
+        Map<Integer, Integer> map = new HashMap<>();
+        Queue<Pair> queue = new LinkedList<>();
+        queue.offer(new Pair(root, 0));
+
+        int minCol = 0, maxCol = 0;
+
+        while (!queue.isEmpty()) {
+            Pair p = queue.poll();
+            TreeNode node = p.node;
+            int col = p.col;
+
+            // Always overwrite to ensure the LAST (bottom-most) node is stored
+            map.put(col, node.val);
+
+            minCol = Math.min(minCol, col);
+            maxCol = Math.max(maxCol, col);
+
+            if (node.left != null) queue.offer(new Pair(node.left, col - 1));
+            if (node.right != null) queue.offer(new Pair(node.right, col + 1));
+        }
+
+        for (int c = minCol; c <= maxCol; c++) {
+            res.add(map.get(c));
+        }
+
+        return res;
+    }
+}
+```
+
 
 
 
