@@ -17,7 +17,6 @@ A production-grade, high-density reference manual covering fundamental tree data
         - * [F. Iterative Post-Order Traversal (2-Stack Approach)](https://www.google.com/search?q=%23f-iterative-post-order-traversal-2-stack-approach)
         - * [G. Iterative Post-Order Traversal (1-Stack with Tracking)](https://www.google.com/search?q=%23g-iterative-post-order-traversal-1-stack-with-tracking)
 
-
 * [3. Tree Properties & Structural Checks (DFS)](https://www.google.com/search?q=%233-tree-properties--structural-checks-dfs)
         * [A. Find Height of a Binary Tree](https://www.google.com/search?q=%23a-find-height-of-a-binary-tree)
         * [B. Find Size of a Binary Tree](https://www.google.com/search?q=%23b-find-size-of-a-binary-tree)
