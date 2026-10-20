@@ -36,10 +36,9 @@ A production-grade, high-density reference manual covering fundamental tree data
     - [1. Left View of Binary Tree](#1-left-view-of-binary-tree)
     - [2. Right View of Binary Tree](#2-right-view-of-binary-tree)
 
-```
 
+## 2. Node Definition
 
-## 1. TreeNode Class Definition
 
 ```java
 public class TreeNode {
