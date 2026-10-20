@@ -684,7 +684,7 @@ public class Solution {
     public List<List<Integer>> verticalOrder(TreeNode root) {
         if (root == null) return new ArrayList<>();
 
-        Map<Integer, List<Integer>> cols = new TreeMap<>();
+        Map<Integer, List<Integer>> map = new TreeMap<>();
         Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
         queue.offer(new Pair<>(root, 0));
 
@@ -693,13 +693,13 @@ public class Solution {
             TreeNode node = p.getKey();
             int pos = p.getValue();
 
-            cols.computeIfAbsent(pos, k -> new ArrayList<>()).add(node.val);
+            map.computeIfAbsent(pos, k -> new ArrayList<>()).add(node.val);
 
             if (node.left != null) queue.offer(new Pair<>(node.left, pos - 1));
             if (node.right != null) queue.offer(new Pair<>(node.right, pos + 1));
         }
 
-        return new ArrayList<>(cols.values());
+        return new ArrayList<>(map.values());
     }
 }
 ```
@@ -728,7 +728,7 @@ public class Solution {
     public List<List<Integer>> verticalOrder(TreeNode root) {
         if (root == null) return new ArrayList<>();
 
-        Map<Integer, List<Integer>> cols = new HashMap<>();
+        Map<Integer, List<Integer>> map = new HashMap<>();
         Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
         queue.offer(new Pair<>(root, 0));
         int minCol = 0, maxCol = 0;
@@ -738,7 +738,7 @@ public class Solution {
             TreeNode node = p.getKey();
             int col = p.getValue();
 
-            cols.computeIfAbsent(col, x -> new ArrayList<>()).add(node.val);
+            map.computeIfAbsent(col, x -> new ArrayList<>()).add(node.val);
             minCol = Math.min(minCol, col);
             maxCol = Math.max(maxCol, col);
 
@@ -748,7 +748,7 @@ public class Solution {
 
         List<List<Integer>> res = new ArrayList<>();
         for (int c = minCol; c <= maxCol; c++) {
-            res.add(cols.get(c));
+            res.add(map.get(c));
         }
         return res;
     }
