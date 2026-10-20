@@ -22,6 +22,10 @@ Here is the revised code with each traversal split into its own distinct section
 
 ---
 
+Here is the complete, high-density revision document incorporating both mental rules (Root-First vs. Left-First execution axiom and Stack Push Order / LIFO property).
+
+---
+
 ### 1. TreeNode Class Definition
 
 ```java
@@ -49,11 +53,9 @@ public class TreeNode {
 
 #### A. Recursive Pre-Order Traversal
 
-* **Order:** Root $\rightarrow$ Left Subtree $\rightarrow$ Right Subtree
-* **Concept:** Processes the current parent node before exploring its child subtrees.
-* **Time Complexity:** $\mathcal{O}(N)$ — Every node is visited once.
-* **Space Complexity:** $\mathcal{O}(H)$ — Implicit call stack overhead, where $H$ is the height of the tree ($\mathcal{O}(\log N)$ for balanced trees, $\mathcal{O}(N)$ worst-case for skewed trees).
-* **Use Case:** Serializing/deserializing a binary tree or creating a deep copy of a tree structure.
+* **Order:** Root $\rightarrow$ Left $\rightarrow$ Right
+* **Concept:** Process current root, then recursively traverse left and right subtrees.
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$ stack space
 
 ```java
 import java.util.ArrayList;
@@ -70,9 +72,9 @@ public class RecursivePreOrder {
     private void helper(TreeNode root, List<Integer> result) {
         if (root == null) return;
         
-        result.add(root.val);      // Process Root
-        helper(root.left, result);  // Traverse Left Subtree
-        helper(root.right, result); // Traverse Right Subtree
+        result.add(root.val);
+        helper(root.left, result);
+        helper(root.right, result);
     }
 }
 
@@ -82,11 +84,9 @@ public class RecursivePreOrder {
 
 #### B. Recursive In-Order Traversal
 
-* **Order:** Left Subtree $\rightarrow$ Root $\rightarrow$ Right Subtree
-* **Concept:** Traverses down the leftmost branch completely before processing the parent node and moving to the right child.
-* **Time Complexity:** $\mathcal{O}(N)$
-* **Space Complexity:** $\mathcal{O}(H)$
-* **Use Case:** Retrieves elements in sorted non-decreasing order when executed on a Binary Search Tree (BST).
+* **Order:** Left $\rightarrow$ Root $\rightarrow$ Right
+* **Concept:** Traverse leftmost path fully, process parent, then traverse right subtree.
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$ stack space
 
 ```java
 import java.util.ArrayList;
@@ -103,9 +103,9 @@ public class RecursiveInOrder {
     private void helper(TreeNode root, List<Integer> result) {
         if (root == null) return;
         
-        helper(root.left, result);  // Traverse Left Subtree
-        result.add(root.val);      // Process Root
-        helper(root.right, result); // Traverse Right Subtree
+        helper(root.left, result);
+        result.add(root.val);
+        helper(root.right, result);
     }
 }
 
@@ -115,11 +115,9 @@ public class RecursiveInOrder {
 
 #### C. Recursive Post-Order Traversal
 
-* **Order:** Left Subtree $\rightarrow$ Right Subtree $\rightarrow$ Root
-* **Concept:** Processes all descendant nodes bottom-up before inspecting or modifying the parent node.
-* **Time Complexity:** $\mathcal{O}(N)$
-* **Space Complexity:** $\mathcal{O}(H)$
-* **Use Case:** Deleting a tree safely from bottom to top, computing tree height, or evaluating postfix arithmetic expression trees.
+* **Order:** Left $\rightarrow$ Right $\rightarrow$ Root
+* **Concept:** Process both subtrees bottom-up before processing parent root node.
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$ stack space
 
 ```java
 import java.util.ArrayList;
@@ -136,9 +134,9 @@ public class RecursivePostOrder {
     private void helper(TreeNode root, List<Integer> result) {
         if (root == null) return;
         
-        helper(root.left, result);  // Traverse Left Subtree
-        helper(root.right, result); // Traverse Right Subtree
-        result.add(root.val);      // Process Root
+        helper(root.left, result);
+        helper(root.right, result);
+        result.add(root.val);
     }
 }
 
@@ -148,17 +146,68 @@ public class RecursivePostOrder {
 
 ### 3. Iterative Traversals
 
-#### A. Iterative In-Order Traversal
+> **Permanent Mental Anchors:**
+> 1. **Pre-Push vs. No Pre-Push Axiom (Deferred Work):**
+> * **Root-First Traversals (Push Before `while`):** Process root *immediately* upon seeing it (never deferred). Stack acts purely as a work-backlog (`while (!stack.isEmpty())`). *(Pre-Order, 2-Stack Post-Order)*
+> * **Left-First Traversals (No Push Before `while`):** Cannot process root yet (left subtree must come first). Pointer `curr` drives loop entry (`while (curr != null || !stack.isEmpty())`) and stashes parents dynamically as it dives down the left spine. *(In-Order, 1-Stack Post-Order)*
+> 
+> 
+> 2. **Push Order Rule (Stack LIFO Property):**
+> * To process child $A$ before child $B$, you must push child $B$ **before** child $A$.
+> 
+> 
+> 
+> 
 
-* **Strategy:** Explicit Stack with `curr` Pointer
-* **Concept:**
-1. Drills down along left pointers, pushing each node onto an explicit stack until `curr` becomes `null`.
-2. Pops from the stack to process the leftmost unprocessed node (Root phase).
-3. Directs `curr = top.right` to evaluate the right branch in the subsequent iteration.
+---
+
+#### A. Iterative Pre-Order Traversal
+
+* **Strategy:** Explicit LIFO Stack (Work List Model)
+* **Mental Rule:**
+* **Push Before `while`:** Process Root immediately; stack holds work-backlog.
+* **Push Order:** Push **Right** child first, then **Left** child $\rightarrow$ Left sits on TOP of stack to be popped and processed first ($\text{Root} \rightarrow \text{Left} \rightarrow \text{Right}$).
 
 
-* **Time Complexity:** $\mathcal{O}(N)$
-* **Space Complexity:** $\mathcal{O}(H)$ explicit stack space.
+* **Concept:** Pop top, process root, push right then left child (ensures left popped first).
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$ explicit stack space
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+public class IterativePreOrder {
+
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root); // PRE-PUSH: Stack holds initial work item
+
+        while (!stack.isEmpty()) {
+            TreeNode top = stack.pop();
+            result.add(top.val);
+            
+            // Push Right first so Left sits on top (LIFO)
+            if (top.right != null) stack.push(top.right);
+            if (top.left != null) stack.push(top.left);
+        }
+        return result;
+    }
+}
+
+```
+
+---
+
+#### B. Iterative In-Order Traversal
+
+* **Strategy:** Explicit Stack with `curr` Pointer (Pointer Navigation Model)
+* **Mental Rule:** **No Push Before `while**` — Cannot process root yet; `curr` drives loop entry and dives left while stashing parents on stack.
+* **Concept:** Push all left nodes, pop/process top, then pivot to right subtree.
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$ explicit stack space
 
 ```java
 import java.util.ArrayList;
@@ -172,16 +221,16 @@ public class IterativeInOrder {
         if (root == null) return result;
 
         Stack<TreeNode> stack = new Stack<>();
-        TreeNode curr = root;
+        TreeNode curr = root; // NO PRE-PUSH: Pointer drives loop entry
 
         while (curr != null || !stack.isEmpty()) {
             if (curr != null) {
                 stack.push(curr);
-                curr = curr.left; // Phase 1: Go as left as possible
+                curr = curr.left;
             } else {
-                TreeNode top = stack.pop(); // Phase 2: Process top node
+                TreeNode top = stack.pop();
                 result.add(top.val);
-                curr = top.right; // Phase 3: Move to right subtree
+                curr = top.right;
             }
         }
         return result;
@@ -192,17 +241,16 @@ public class IterativeInOrder {
 
 ---
 
-#### B. Iterative Post-Order Traversal (2-Stack Approach)
+#### C. Iterative Post-Order Traversal (2-Stack Approach)
 
-* **Strategy:** Modified Pre-Order Inversion
-* **Concept:**
-* Standard Pre-Order traverses: **Root $\rightarrow$ Left $\rightarrow$ Right**.
-* Reversing stack push operations yields: **Root $\rightarrow$ Right $\rightarrow$ Left**.
-* Pushing elements into a secondary stack instead of directly printing them reverses the sequence completely to: **Left $\rightarrow$ Right $\rightarrow$ Root** (Post-Order).
+* **Strategy:** Inverted Pre-Order (Work List Model)
+* **Mental Rule:**
+* **Push Before `while`:** Primary stack starts with root to drive $\text{Root} \rightarrow \text{Right} \rightarrow \text{Left}$ processing into `stack2`.
+* **Push Order:** Push **Left** child first, then **Right** child into `stack1` $\rightarrow$ Right sits on TOP of `stack1`, gets popped and pushed into `stack2` first. Popping `stack2` at the end reverses it to $\text{Left} \rightarrow \text{Right} \rightarrow \text{Root}$.
 
 
-* **Time Complexity:** $\mathcal{O}(N)$
-* **Space Complexity:** $\mathcal{O}(N)$ — Requires storage for all tree nodes in the second stack.
+* **Concept:** Traverse Root-Right-Left into `stack1`, push to `stack2` to reverse order to Left-Right-Root.
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(N)$ stack space
 
 ```java
 import java.util.ArrayList;
@@ -218,17 +266,16 @@ public class IterativePostOrderTwoStacks {
         Stack<TreeNode> stack1 = new Stack<>();
         Stack<TreeNode> stack2 = new Stack<>();
 
-        stack1.push(root);
+        stack1.push(root); // PRE-PUSH: Stack1 starts with root
         while (!stack1.isEmpty()) {
             TreeNode top = stack1.pop();
             stack2.push(top);
 
-            // Push left first so right is popped first from stack1
+            // Push Left first so Right sits on top of stack1
             if (top.left != null) stack1.push(top.left);
             if (top.right != null) stack1.push(top.right);
         }
 
-        // Empty stack2 into result to produce correct Post-Order
         while (!stack2.isEmpty()) {
             result.add(stack2.pop().val);
         }
@@ -241,20 +288,12 @@ public class IterativePostOrderTwoStacks {
 
 ---
 
-#### C. Iterative Post-Order Traversal (1-Stack with Tracking)
+#### D. Iterative Post-Order Traversal (1-Stack with Tracking)
 
-* **Strategy:** Single Stack with `peekNode` & `lastVisited` Pointer
-* **Concept:**
-1. Descends left as far as possible, pushing nodes onto the stack.
-2. Inspects (`peek()`) the top node:
-* If it has an unvisited right child (`peekNode.right != null && current != peekNode.right`), pivot to process the right child.
-* If the right child is `null` or was just visited (`current == peekNode.right`), pop and process the node. Update `current` to track this node as `visited`.
-
-
-
-
-* **Time Complexity:** $\mathcal{O}(N)$
-* **Space Complexity:** $\mathcal{O}(H)$ optimal space usage.
+* **Strategy:** Single Stack with `lastVisited` Pointer (Pointer Navigation Model)
+* **Mental Rule:** **No Push Before `while**` — `current` drives left dive; stack evaluates right child on ascent.
+* **Concept:** Go left; inspect `peek().right`—pivot if unvisited, else pop and mark visited.
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$ optimal stack space
 
 ```java
 import java.util.ArrayList;
@@ -268,23 +307,21 @@ public class IterativePostOrderOneStack {
         if (root == null) return result;
 
         Stack<TreeNode> stack = new Stack<>();
-        TreeNode current = root;
+        TreeNode current = root; // NO PRE-PUSH: Pointer drives loop entry
 
         while (current != null || !stack.isEmpty()) {
             if (current != null) {
                 stack.push(current);
-                current = current.left; // Phase 1: Go left
+                current = current.left;
             } else {
                 TreeNode peekNode = stack.peek();
                 
-                // Phase 2: Check if unvisited right child exists
                 if (peekNode.right != null && current != peekNode.right) {
                     current = peekNode.right;
                 } else {
-                    // Phase 3: Both left and right subtrees complete
                     TreeNode visitedNode = stack.pop();
                     result.add(visitedNode.val);
-                    current = visitedNode; // Mark node as last visited
+                    current = visitedNode;
                 }
             }
         }
