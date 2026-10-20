@@ -333,64 +333,139 @@ public class IterativePostOrderOneStack {
 
 ---
 
+Here is the complete, updated, and consolidated **Tree Properties & Structural Checks (DFS)** document:
+
+---
+
 ## 2. Tree Properties & Structural Checks (DFS)
 
-### Find Height of a Binary Tree
-The philosophy behind recursion here is: If I know the height of my left subtree and my right subtree, I can easily find my own height.
-Note: This convention means a tree with just a single root node will have a height of 0, because Math.max(-1, -1) + 1 = 0
+### A. Find Height of a Binary Tree
+
+* **Convention:** Edges path count ($\text{single node} = 0$).
+* **Base Case:** `null` $\rightarrow$ `-1`.
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$
+
 ```java
-public int height(Node root) {
+public int height(TreeNode root) {
     if (root == null) return -1;
-    int leftHeight = height(root.left);
-    int rightHeight = height(root.right);
-    return Math.max(leftHeight, rightHeight) + 1;
-}
-
-```
-
-### Find Size of a Binary Tree
-The logic relies on a simple rule: The size of any tree is equal to the size of its left subtree plus the size of its right subtree, plus 1 (for the current node itself).
-If the current node is null (meaning we've reached past a leaf node), it contributes 0 to the total count.
-
-```java
-public int findSize(Node root) {
-    if (root == null) return 0;
-    return findSize(root.left) + findSize(root.right) + 1;
-}
-
-```
-
-### Find Node in Binary Tree
-The philosophy here is straightforward: "Is the target at my current position? If not, check my left branch. If it's still not there, check my right branch."
-
-```java
-public boolean findNode(Node root, int target) {
-    if (root == null) return false; // root null
-    if (root.data == target) return true; // target at my current position
-    return findNode(root.left, target) || findNode(root.right, target);
-}
-
-```
-
-### Check If Two Binary Trees Are Equal
-The philosophy here is: "Two trees are identical if their current roots have the same data, their left subtrees are identical, and their right subtrees are identical."
-
-```java
-public boolean areEqual(Node root1, Node root2) {
-    if (root1 == null && root2 == null) return true;  // If both current nodes are null
-    if (root1 == null || root2 == null) return false; // If one node is null
-    if (root1.data != root2.data) return false;       //Data Mismatch
-
-    // on this line, root values are same & we need to check children for equality.
-    return areEqual(root1.left, root2.left) && areEqual(root1.right, root2.right); 
+    return Math.max(height(root.left), height(root.right)) + 1;
 }
 
 ```
 
 ---
 
-Here is the consolidated, high-density **BFS & Level Order Variations** revision guide updated with all your requested edits and structure:
+### B. Find Size of a Binary Tree
 
+* **Formula:** $\text{Left Size} + \text{Right Size} + 1$.
+* **Base Case:** `null` $\rightarrow$ `0`.
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$
+
+```java
+public int findSize(TreeNode root) {
+    if (root == null) return 0;
+    return findSize(root.left) + findSize(root.right) + 1;
+}
+
+```
+
+---
+
+### C. Find Node in Binary Tree
+
+* **Strategy:** Short-circuit `||` search.
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$
+
+```java
+public boolean findNode(TreeNode root, int target) {
+    if (root == null) return false;
+    if (root.val == target) return true;
+    return findNode(root.left, target) || findNode(root.right, target);
+}
+
+```
+
+---
+
+### D. Check If Two Binary Trees Are Equal
+
+* **Invariants:** Match nullability $\rightarrow$ Match `val` $\rightarrow$ Recurse children with `&&`.
+* **Time/Space:** $\mathcal{O}(\min(N_1, N_2))$ / $\mathcal{O}(\min(H_1, H_2))$
+
+```java
+public boolean areEqual(TreeNode root1, TreeNode root2) {
+    if (root1 == null && root2 == null) return true;
+    if (root1 == null || root2 == null) return false;
+    if (root1.val != root2.val) return false;
+    return areEqual(root1.left, root2.left) && areEqual(root1.right, root2.right);
+}
+
+```
+
+---
+
+### E. Maximum Depth of Binary Tree
+
+* **Convention:** Node count ($\text{single node} = 1$).
+* **Base Case:** `null` $\rightarrow$ `0`.
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$
+
+```java
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+    }
+}
+
+```
+
+---
+
+### F. Invert Binary Tree
+
+#### 1. DFS (Recursive)
+
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$
+
+```java
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) return null;
+        TreeNode left = root.left, right = root.right;
+        root.left = right;
+        root.right = left;
+        invertTree(root.left);
+        invertTree(root.right);
+        return root;
+    }
+}
+
+```
+
+#### 2. BFS (Iterative Queue)
+
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(W)$
+
+```java
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) return null;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode curr = queue.poll();
+            TreeNode left = curr.left, right = curr.right;
+            curr.left = right;
+            curr.right = left;
+            if (curr.left != null) queue.offer(curr.left);
+            if (curr.right != null) queue.offer(curr.right);
+        }
+        return root;
+    }
+}
+
+```
 ---
 
 ## 3. BFS (Breadth-First Search) & Level Order Variations
