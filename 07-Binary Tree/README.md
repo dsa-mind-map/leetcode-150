@@ -18,17 +18,26 @@ This repository/reference contains all binary tree traversal implementations, st
 
 ---
 
-## Node Definition
-```java
-class Node {
-    int data;
-    Node left;
-    Node right;
+Here is the revised code with each traversal split into its own distinct section, accompanied by detailed conceptual breakdowns covering execution flow, time/space complexity, and practical use cases.
 
-    Node(int val) {
-        data = val;
-        left = null;
-        right = null;
+---
+
+### 1. TreeNode Class Definition
+
+```java
+public class TreeNode {
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+
+    public TreeNode() {}
+    public TreeNode(int val) { 
+        this.val = val; 
+    }
+    public TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
     }
 }
 
@@ -36,271 +45,250 @@ class Node {
 
 ---
 
-## 1. DFS (Depth-First Search) Traversals
+### 2. Recursive Traversals
 
-### Recursive Pre-Order
+#### A. Recursive Pre-Order Traversal
 
-* **Logic:** Visit current node $\rightarrow$ Visit left subtree preorder $\rightarrow$ Visit right subtree preorder.
-* **Sources:** Code Campaign & Phyley CS
-
-```java
-public static void preOrder(Node root) {
-    if (root == null) return;
-    System.out.print(root.data + " ");
-    preOrder(root.left);
-    preOrder(root.right);
-}
-
-```
-
-### Recursive In-Order
-
-* **Logic:** Visit left subtree In-Order $\rightarrow$ Visit current node $\rightarrow$ Visit right subtree In-Order.
-* **Sources:** Code Campaign & Phyley CS
+* **Order:** Root $\rightarrow$ Left Subtree $\rightarrow$ Right Subtree
+* **Concept:** Processes the current parent node before exploring its child subtrees.
+* **Time Complexity:** $\mathcal{O}(N)$ — Every node is visited once.
+* **Space Complexity:** $\mathcal{O}(H)$ — Implicit call stack overhead, where $H$ is the height of the tree ($\mathcal{O}(\log N)$ for balanced trees, $\mathcal{O}(N)$ worst-case for skewed trees).
+* **Use Case:** Serializing/deserializing a binary tree or creating a deep copy of a tree structure.
 
 ```java
-public static void inOrder(Node root) {
-    if (root == null) return;
-    inOrder(root.left);
-    System.out.print(root.data + " ");
-    inOrder(root.right);
-}
+import java.util.ArrayList;
+import java.util.List;
 
-```
+public class RecursivePreOrder {
 
-### Recursive Post-Order
-
-* **Logic:** Visit left subtree Post-Order $\rightarrow$ Visit right subtree Post-Order $\rightarrow$ Visit current node.
-* **Sources:** Code Campaign & Phyley CS
-
-```java
-public static void postOrder(Node root) {
-    if (root == null) return;
-    postOrder(root.left);
-    postOrder(root.right);
-    System.out.print(root.data + " ");
-}
-
-```
-
-### Iterative Pre-Order
-
-* **Logic:** While stack is not empty:
-1. Keep popping & printing top.
-2. Push right child, then left child (ensuring left is processed first due to LIFO).
-
-
-* **Sources:** Phyley CS & Code Campaign
-
-```java
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
-class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
+    public List<Integer> preorderRecursive(TreeNode root) {
         List<Integer> result = new ArrayList<>();
+        helper(root, result);
+        return result;
+    }
 
-        if(root == null) return result;
-
-        Stack<TreeNode> stack = new Stack<>();
-
-        stack.push(root);
-
-        while(!stack.isEmpty()){
-            TreeNode top = stack.pop();
-            result.add(top.val);
-            if(top.right != null) stack.push(top.right);
-            if(top.left != null) stack.push(top.left); // LIFO
-        }
-        return result; 
+    private void helper(TreeNode root, List<Integer> result) {
+        if (root == null) return;
+        
+        result.add(root.val);      // Process Root
+        helper(root.left, result);  // Traverse Left Subtree
+        helper(root.right, result); // Traverse Right Subtree
     }
 }
 
 ```
 
+---
 
-### Iterative In-Order (Code Campaign Style - If-Else)
+#### B. Recursive In-Order Traversal
 
-* **Logic:** Uses an explicit branching condition inside the main traversal loop to handle stack pushes and right shifts.
-* **Source:** Code Campaign (Video #3)
+* **Order:** Left Subtree $\rightarrow$ Root $\rightarrow$ Right Subtree
+* **Concept:** Traverses down the leftmost branch completely before processing the parent node and moving to the right child.
+* **Time Complexity:** $\mathcal{O}(N)$
+* **Space Complexity:** $\mathcal{O}(H)$
+* **Use Case:** Retrieves elements in sorted non-decreasing order when executed on a Binary Search Tree (BST).
 
-```java/**
-/*
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
-class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
- 
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class RecursiveInOrder {
+
+    public List<Integer> inorderRecursive(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        if(root == null) return result;
+        helper(root, result);
+        return result;
+    }
+
+    private void helper(TreeNode root, List<Integer> result) {
+        if (root == null) return;
+        
+        helper(root.left, result);  // Traverse Left Subtree
+        result.add(root.val);      // Process Root
+        helper(root.right, result); // Traverse Right Subtree
+    }
+}
+
+```
+
+---
+
+#### C. Recursive Post-Order Traversal
+
+* **Order:** Left Subtree $\rightarrow$ Right Subtree $\rightarrow$ Root
+* **Concept:** Processes all descendant nodes bottom-up before inspecting or modifying the parent node.
+* **Time Complexity:** $\mathcal{O}(N)$
+* **Space Complexity:** $\mathcal{O}(H)$
+* **Use Case:** Deleting a tree safely from bottom to top, computing tree height, or evaluating postfix arithmetic expression trees.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class RecursivePostOrder {
+
+    public List<Integer> postorderRecursive(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        helper(root, result);
+        return result;
+    }
+
+    private void helper(TreeNode root, List<Integer> result) {
+        if (root == null) return;
+        
+        helper(root.left, result);  // Traverse Left Subtree
+        helper(root.right, result); // Traverse Right Subtree
+        result.add(root.val);      // Process Root
+    }
+}
+
+```
+
+---
+
+### 3. Iterative Traversals
+
+#### A. Iterative In-Order Traversal
+
+* **Strategy:** Explicit Stack with `curr` Pointer
+* **Concept:**
+1. Drills down along left pointers, pushing each node onto an explicit stack until `curr` becomes `null`.
+2. Pops from the stack to process the leftmost unprocessed node (Root phase).
+3. Directs `curr = top.right` to evaluate the right branch in the subsequent iteration.
+
+
+* **Time Complexity:** $\mathcal{O}(N)$
+* **Space Complexity:** $\mathcal{O}(H)$ explicit stack space.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+public class IterativeInOrder {
+
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
 
         Stack<TreeNode> stack = new Stack<>();
-
         TreeNode curr = root;
-        while(curr != null || !stack.isEmpty()){
-            
-            if(curr != null){
+
+        while (curr != null || !stack.isEmpty()) {
+            if (curr != null) {
                 stack.push(curr);
-                curr = curr.left;
-            }else{
-                
-                TreeNode top = stack.pop(); // last of left nodes
+                curr = curr.left; // Phase 1: Go as left as possible
+            } else {
+                TreeNode top = stack.pop(); // Phase 2: Process top node
                 result.add(top.val);
-                curr = top.right; // move to the right node -> while loop iterate on this node in next iteration
+                curr = top.right; // Phase 3: Move to right subtree
             }
         }
-        
         return result;
     }
 }
 
 ```
 
-### Iterative Post-Order using 2 Stacks
+---
 
-* **Logic:**
-1. Keep popping from primary stack & push to result stack.
-2. Push left child, then right child to primary stack.
-3. Pop all elements from the result stack to print in correct post-order.
+#### B. Iterative Post-Order Traversal (2-Stack Approach)
+
+* **Strategy:** Modified Pre-Order Inversion
+* **Concept:**
+* Standard Pre-Order traverses: **Root $\rightarrow$ Left $\rightarrow$ Right**.
+* Reversing stack push operations yields: **Root $\rightarrow$ Right $\rightarrow$ Left**.
+* Pushing elements into a secondary stack instead of directly printing them reverses the sequence completely to: **Left $\rightarrow$ Right $\rightarrow$ Root** (Post-Order).
 
 
-* **Source:** Phyley CS
+* **Time Complexity:** $\mathcal{O}(N)$
+* **Space Complexity:** $\mathcal{O}(N)$ — Requires storage for all tree nodes in the second stack.
 
 ```java
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
-class Solution {
-    public List<Integer> postorderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
-        if(root == null) return result;
+public class IterativePostOrderTwoStacks {
+
+    public List<Integer> postorderTraversal2Stacks(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
 
         Stack<TreeNode> stack1 = new Stack<>();
         Stack<TreeNode> stack2 = new Stack<>();
 
         stack1.push(root);
-        while(!stack1.isEmpty()){
+        while (!stack1.isEmpty()) {
             TreeNode top = stack1.pop();
             stack2.push(top);
-            if(top.left != null) stack1.push(top.left);
-            if(top.right != null) stack1.push(top.right);
+
+            // Push left first so right is popped first from stack1
+            if (top.left != null) stack1.push(top.left);
+            if (top.right != null) stack1.push(top.right);
         }
 
-        while(!stack2.isEmpty()){
+        // Empty stack2 into result to produce correct Post-Order
+        while (!stack2.isEmpty()) {
             result.add(stack2.pop().val);
         }
 
         return result;
-        
     }
 }
 
 ```
 
-### Iterative Post-Order using 1 Stack
+---
 
-* **Logic:** Simulates recursive stack unwinding via a single stack, tracking right-child node states to process `Left -> Right -> Root`.
-* **Source:** Phyley CS
+#### C. Iterative Post-Order Traversal (1-Stack with Tracking)
 
-```java
-public static void postOrderIterative1Stack(Node root) {
-    if (root == null) return;
+* **Strategy:** Single Stack with `peekNode` & `lastVisited` Pointer
+* **Concept:**
+1. Descends left as far as possible, pushing nodes onto the stack.
+2. Inspects (`peek()`) the top node:
+* If it has an unvisited right child (`peekNode.right != null && current != peekNode.right`), pivot to process the right child.
+* If the right child is `null` or was just visited (`current == peekNode.right`), pop and process the node. Update `current` to track this node as `visited`.
 
-    Stack<Node> st = new Stack<>();
-    Node current = root;
 
-    while (current != null || !st.isEmpty()) {
 
-        // Phase 1: Dive all the way to the leftmost node, 
-        // pushing every node along the way onto the stack.
-        if (current != null) {
-            st.push(current);
-            current = current.left;
-        } 
-        // Phase 2: We hit a null left child. Now we need to inspect 
-        // the top of the stack to see what to do next.
-        else {
-            Node peekNode = st.peek();
 
-            // Case A: If the node at the top of the stack has a right child 
-            // and we haven't visited it yet, pivot and go down that right subtree.
-            if (peekNode.right != null && current != peekNode.right) {
-                current = peekNode.right;
-            } 
-            // Case B: The node has no right child, OR its right child 
-            // has already been visited. That means this node is fully done!
-            else {
-                Node visitedNode = st.pop();
-                System.out.print(visitedNode.data + " ");
-                
-                // Keep track of what we just processed so the outer loop 
-                // knows we are coming up from a right child.
-                current = visitedNode; 
-            }
-        }
-    }
-}
-```
+* **Time Complexity:** $\mathcal{O}(N)$
+* **Space Complexity:** $\mathcal{O}(H)$ optimal space usage.
 
 ```java
-public void postOrderIterative1Stack(Node root) {
-    if (root == null) return;
-    java.util.Stack<Node> st = new java.util.Stack<>();
-    Node current = root;
-    while (current != null || !st.isEmpty()) {
-        if (current != null) {
-            st.push(current);
-            current = current.left;
-        } else {
-            Node temp = st.peek().right;
-            if (temp == null) {
-                temp = st.pop();
-                System.out.print(temp.data + " ");
-                while (!st.isEmpty() && temp == st.peek().right) {
-                    temp = st.pop();
-                    System.out.print(temp.data + " ");
-                }
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+public class IterativePostOrderOneStack {
+
+    public List<Integer> postorderTraversal1Stack(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode current = root;
+
+        while (current != null || !stack.isEmpty()) {
+            if (current != null) {
+                stack.push(current);
+                current = current.left; // Phase 1: Go left
             } else {
-                current = temp;
+                TreeNode peekNode = stack.peek();
+                
+                // Phase 2: Check if unvisited right child exists
+                if (peekNode.right != null && current != peekNode.right) {
+                    current = peekNode.right;
+                } else {
+                    // Phase 3: Both left and right subtrees complete
+                    TreeNode visitedNode = stack.pop();
+                    result.add(visitedNode.val);
+                    current = visitedNode; // Mark node as last visited
+                }
             }
         }
+        return result;
     }
 }
 
