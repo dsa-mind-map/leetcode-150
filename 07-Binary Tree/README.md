@@ -1,32 +1,56 @@
-
 # Binary Tree Master Reference & Implementation Guide
-*(Consolidated Java Codebase from Phyley CS & Code Campaign Playlists)*
 
-This repository/reference contains all binary tree traversal implementations, structural property checks, and level-order variations taught across both course playlists. Each algorithm is accompanied by its high-level logic and exact source attribution.
-
----
-
-## 📋 Table of Contents
-1. [Node Definition](#node-definition)
-2. [DFS (Depth-First Search) Traversals](#1-dfs-depth-first-search-traversals)
-   * Recursive Pre-Order, In-Order, Post-Order
-   * Iterative Pre-Order
-   * Iterative In-Order (Nested While vs. If-Else)
-   * Iterative Post-Order (1 Stack & 2 Stacks)
-3. [Tree Properties & Structural Checks (DFS)](#2-tree-properties--structural-checks-dfs)
-4. [BFS (Breadth-First Search) & Level Order Variations](#3-bfs-breadth-first-search--level-order-variations)
+A production-grade, high-density reference manual covering fundamental tree data structures, mental traversal models, structural property invariants, and level-order/projection variations.
 
 ---
 
-Here is the revised code with each traversal split into its own distinct section, accompanied by detailed conceptual breakdowns covering execution flow, time/space complexity, and practical use cases.
+## 📋 Navigation Index
+
+* [1. TreeNode Class Definition](https://www.google.com/search?q=%231-treenode-class-definition)
+* [2. Recursive & Iterative Traversals](https://www.google.com/search?q=%232-recursive--iterative-traversals)
+* [Permanent Mental Anchors](https://www.google.com/search?q=%23permanent-mental-anchors)
+* [A. Recursive Pre-Order Traversal](https://www.google.com/search?q=%23a-recursive-pre-order-traversal)
+* [B. Recursive In-Order Traversal](https://www.google.com/search?q=%23b-recursive-in-order-traversal)
+* [C. Recursive Post-Order Traversal](https://www.google.com/search?q=%23c-recursive-post-order-traversal)
+* [D. Iterative Pre-Order Traversal](https://www.google.com/search?q=%23d-iterative-pre-order-traversal)
+* [E. Iterative In-Order Traversal](https://www.google.com/search?q=%23e-iterative-in-order-traversal)
+* [F. Iterative Post-Order Traversal (2-Stack Approach)](https://www.google.com/search?q=%23f-iterative-post-order-traversal-2-stack-approach)
+* [G. Iterative Post-Order Traversal (1-Stack with Tracking)](https://www.google.com/search?q=%23g-iterative-post-order-traversal-1-stack-with-tracking)
+
+
+* [3. Tree Properties & Structural Checks (DFS)](https://www.google.com/search?q=%233-tree-properties--structural-checks-dfs)
+* [A. Find Height of a Binary Tree](https://www.google.com/search?q=%23a-find-height-of-a-binary-tree)
+* [B. Find Size of a Binary Tree](https://www.google.com/search?q=%23b-find-size-of-a-binary-tree)
+* [C. Find Node in Binary Tree](https://www.google.com/search?q=%23c-find-node-in-binary-tree)
+* [D. Check If Two Binary Trees Are Equal](https://www.google.com/search?q=%23d-check-if-two-binary-trees-are-equal)
+* [E. Maximum Depth of Binary Tree](https://www.google.com/search?q=%23e-maximum-depth-of-binary-tree)
+* [F. Invert Binary Tree](https://www.google.com/search?q=%23f-invert-binary-tree)
+
+
+* [4. BFS (Breadth-First Search) & Level Order Variations](https://www.google.com/search?q=%234-bfs-breadth-first-search--level-order-variations)
+* [A. Level-by-Level Core Variations](https://www.google.com/search?q=%23a-level-by-level-core-variations)
+* [1. Standard Level Order Traversal](https://www.google.com/search?q=%231-standard-level-order-traversal)
+* [2. Reverse Level Order Traversal (Bottom-Up)](https://www.google.com/search?q=%232-reverse-level-order-traversal-bottom-up)
+* [3. Zigzag (Spiral) Level Order Traversal](https://www.google.com/search?q=%233-zigzag-spiral-level-order-traversal)
+
+
+* [B. Vertical Column Projections](https://www.google.com/search?q=%23b-vertical-column-projections)
+* [1. Binary Tree Vertical Order Traversal ($\mathcal{O}(N)$ Optimal)](https://www.google.com/search?q=%231-binary-tree-vertical-order-traversal-on-optimal)
+* [2. Top View of Binary Tree](https://www.google.com/search?q=%232-top-view-of-binary-tree)
+* [3. Bottom View of Binary Tree](https://www.google.com/search?q=%233-bottom-view-of-binary-tree)
+
+
+* [C. Boundary & Side Views](https://www.google.com/search?q=%23c-boundary--side-views)
+* [1. Left View of Binary Tree](https://www.google.com/search?q=%231-left-view-of-binary-tree)
+* [2. Right View of Binary Tree](https://www.google.com/search?q=%232-right-view-of-binary-tree)
+
+
+
+
 
 ---
 
-Here is the complete, high-density revision document incorporating both mental rules (Root-First vs. Left-First execution axiom and Stack Push Order / LIFO property).
-
----
-
-### 1. TreeNode Class Definition
+## 1. TreeNode Class Definition
 
 ```java
 public class TreeNode {
@@ -49,9 +73,25 @@ public class TreeNode {
 
 ---
 
-### 2. Recursive Traversals
+## 2. Recursive & Iterative Traversals
 
-#### A. Recursive Pre-Order Traversal
+### Permanent Mental Anchors
+
+> 1. **Pre-Push vs. No Pre-Push Axiom (Deferred Work):**
+> * **Root-First Traversals (Push Before `while`):** Process root *immediately* upon seeing it (never deferred). Stack acts purely as a work-backlog (`while (!stack.isEmpty())`). *(Pre-Order, 2-Stack Post-Order)*
+> * **Left-First Traversals (No Push Before `while`):** Cannot process root yet (left subtree must come first). Pointer `curr` drives loop entry (`while (curr != null || !stack.isEmpty())`) and stashes parents dynamically as it dives down the left spine. *(In-Order, 1-Stack Post-Order)*
+> 
+> 
+> 2. **Push Order Rule (Stack LIFO Property):**
+> * To process child $A$ before child $B$, you must push child $B$ **before** child $A$.
+> 
+> 
+> 
+> 
+
+---
+
+### A. Recursive Pre-Order Traversal
 
 * **Order:** Root $\rightarrow$ Left $\rightarrow$ Right
 * **Concept:** Process current root, then recursively traverse left and right subtrees.
@@ -82,7 +122,7 @@ public class RecursivePreOrder {
 
 ---
 
-#### B. Recursive In-Order Traversal
+### B. Recursive In-Order Traversal
 
 * **Order:** Left $\rightarrow$ Root $\rightarrow$ Right
 * **Concept:** Traverse leftmost path fully, process parent, then traverse right subtree.
@@ -113,7 +153,7 @@ public class RecursiveInOrder {
 
 ---
 
-#### C. Recursive Post-Order Traversal
+### C. Recursive Post-Order Traversal
 
 * **Order:** Left $\rightarrow$ Right $\rightarrow$ Root
 * **Concept:** Process both subtrees bottom-up before processing parent root node.
@@ -144,24 +184,7 @@ public class RecursivePostOrder {
 
 ---
 
-### 3. Iterative Traversals
-
-> **Permanent Mental Anchors:**
-> 1. **Pre-Push vs. No Pre-Push Axiom (Deferred Work):**
-> * **Root-First Traversals (Push Before `while`):** Process root *immediately* upon seeing it (never deferred). Stack acts purely as a work-backlog (`while (!stack.isEmpty())`). *(Pre-Order, 2-Stack Post-Order)*
-> * **Left-First Traversals (No Push Before `while`):** Cannot process root yet (left subtree must come first). Pointer `curr` drives loop entry (`while (curr != null || !stack.isEmpty())`) and stashes parents dynamically as it dives down the left spine. *(In-Order, 1-Stack Post-Order)*
-> 
-> 
-> 2. **Push Order Rule (Stack LIFO Property):**
-> * To process child $A$ before child $B$, you must push child $B$ **before** child $A$.
-> 
-> 
-> 
-> 
-
----
-
-#### A. Iterative Pre-Order Traversal
+### D. Iterative Pre-Order Traversal
 
 * **Strategy:** Explicit LIFO Stack (Work List Model)
 * **Mental Rule:**
@@ -202,7 +225,7 @@ public class IterativePreOrder {
 
 ---
 
-#### B. Iterative In-Order Traversal
+### E. Iterative In-Order Traversal
 
 * **Strategy:** Explicit Stack with `curr` Pointer (Pointer Navigation Model)
 * **Mental Rule:** **No Push Before `while**` — Cannot process root yet; `curr` drives loop entry and dives left while stashing parents on stack.
@@ -241,7 +264,7 @@ public class IterativeInOrder {
 
 ---
 
-#### C. Iterative Post-Order Traversal (2-Stack Approach)
+### F. Iterative Post-Order Traversal (2-Stack Approach)
 
 * **Strategy:** Inverted Pre-Order (Work List Model)
 * **Mental Rule:**
@@ -288,7 +311,7 @@ public class IterativePostOrderTwoStacks {
 
 ---
 
-#### D. Iterative Post-Order Traversal (1-Stack with Tracking)
+### G. Iterative Post-Order Traversal (1-Stack with Tracking)
 
 * **Strategy:** Single Stack with `lastVisited` Pointer (Pointer Navigation Model)
 * **Mental Rule:** **No Push Before `while**` — `current` drives left dive; stack evaluates right child on ascent.
@@ -333,11 +356,7 @@ public class IterativePostOrderOneStack {
 
 ---
 
-Here is the complete, updated, and consolidated **Tree Properties & Structural Checks (DFS)** document:
-
----
-
-## 2. Tree Properties & Structural Checks (DFS)
+## 3. Tree Properties & Structural Checks (DFS)
 
 ### A. Find Height of a Binary Tree
 
@@ -466,9 +485,10 @@ class Solution {
 }
 
 ```
+
 ---
 
-## 3. BFS (Breadth-First Search) & Level Order Variations
+## 4. BFS (Breadth-First Search) & Level Order Variations
 
 > **Universal Level-Size Paradigm:** Always capture `int levelSize = queue.size()` at the start of the outer `while` loop to process nodes level-by-level cleanly in $\mathcal{O}(N)$ Time and $\mathcal{O}(W)$ Space without sentinel markers.
 
