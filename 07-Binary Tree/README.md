@@ -351,10 +351,24 @@ public class IterativePostOrderOneStack {
 * **Convention:** Edges path count ($\text{single node} = 0$).
 * **Base Case:** `null` $\rightarrow$ `-1`.
 * **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$
+* **HEIGHT as the number of EDGES in the longest path**
 
 ```java
 public int height(TreeNode root) {
     if (root == null) return -1;
+    return Math.max(height(root.left), height(root.right)) + 1;
+}
+
+```
+
+* **Convention:** Nodes count ($\text{single node} = 1$).
+* **Base Case:** `null` $\rightarrow$ `0`.
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$
+* **HEIGHT as the number of NODES in the longest path**
+
+```java
+public int height(TreeNode root) {
+    if (root == null) return 0;
     return Math.max(height(root.left), height(root.right)) + 1;
 }
 
