@@ -372,6 +372,139 @@ public int height(TreeNode root) {
 }
 
 ```
+---
+### Diameter of Binary Tree : 
+The diameter of a binary tree is defined as the length of the longest path between any two nodes within the tree. The path does not necessarily have to pass through the root.
+
+The length of a path between two nodes in a binary tree is the number of edges between the nodes. Note that the path can not include the same node twice.
+
+Given the root of a binary tree root, return the diameter of the tree.
+
+```text
+🌳 DIAMETER OF BINARY TREE - MASTER MINDMAP
+│
+├── 🧠 1. The Core Philosophy & Mindset Shift
+│   ├── ❌ Top-Down Question: "Hey subtrees, tell me your heights so I can compute your diameter."
+│   │   └── Result: Redundant calculations, repeated scanning ($O(N^2)$ time trap).
+│   └── ✅ Bottom-Up Approach: "Hey children, give me your heights. As I receive them, I will compute the diameter passing through me right now, update a global scoreboard, and pass my own height up to my parent."
+│       └── Result: Dual-purpose post-order traversal ($O(N)$ time efficiency).
+│
+├── 🔴 2. Approach 1: Top-Down Brute Force
+│   ├── 💻 Code Implementation:
+│   │   └── (See Solution 1 Code below)
+│   └── ⏱️ Complexities:
+│       ├── Time: O(N²) [Scans subtrees repeatedly; worst-case on skewed trees]
+│       └── Space: O(N) [Call stack depth]
+│
+└── 🟢 Approach 2: Bottom-Up Elite Optimization (Top 1% Standard)
+    ├── 💻 Code Implementation:
+    │   └── (See Solution 2 Code below)
+    └── ⏱️ Complexities:
+        ├── Time: O(N) [Visits every node exactly once]
+        └── Space: O(H) [H = tree height, call stack memory]
+
+```
+
+---
+
+### Reference Code & Technical Breakdown
+
+#### Approach 1: Top-Down (Brute Force)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    public int diameterOfBinaryTree(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int leftHeight = maxHeight(root.left);
+        int rightHeight = maxHeight(root.right);
+        int diameter = leftHeight + rightHeight; // DIAMETER AT ROOT NODE
+        int subtreeDiametersMax = Math.max(diameterOfBinaryTree(root.left),
+                                    diameterOfBinaryTree(root.right));
+        return Math.max(diameter, subtreeDiametersMax);
+    }
+
+    public int maxHeight(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return 1 + Math.max(maxHeight(root.left), maxHeight(root.right));
+    }
+}
+
+```
+
+* **Complexity:** Time: $O(N^2)$ | Space: $O(N)$
+
+---
+
+#### Approach 2: Bottom-Up Optimized (Global Scoreboard)
+
+```java
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode() {}
+    TreeNode(int val) { this.val = val; }
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+public class BinaryTreeDiameter {
+    private int maxDiameter = 0;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        maxDiameter = 0; // Reset for multiple test cases if needed
+        calculateHeight(root);
+        return maxDiameter;
+    }
+
+    private int calculateHeight(TreeNode node) {
+        // Base case: null node has a height of 0
+        if (node == null) {
+            return 0;
+        }
+
+        // Recursively find the height of left and right subtrees
+        int leftHeight = calculateHeight(node.left);
+        int rightHeight = calculateHeight(node.right);
+
+        // Update the global maximum diameter if the path through the current node is larger
+        maxDiameter = Math.max(maxDiameter, leftHeight + rightHeight);
+
+        // Return the height of the current node to its parent
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+}
+
+```
+
+* **Complexity:** Time: $O(N)$ | Space: $O(H)$
+
+---
+
+Would you like to save this pattern or tackle the next tree problem using this bottom-up template?
 
 ---
 
