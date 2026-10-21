@@ -347,10 +347,10 @@ public class IterativePostOrderOneStack {
 ## 3. Tree Properties & Structural Checks (DFS)
 
 ### A. Find Height of a Binary Tree
+* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$
 
 * **Convention:** Edges path count ($\text{single node} = 0$).
 * **Base Case:** `null` $\rightarrow$ `-1`.
-* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$
 * **HEIGHT as the number of EDGES in the longest path**
 
 ```java
@@ -363,7 +363,6 @@ public int height(TreeNode root) {
 
 * **Convention:** Nodes count ($\text{single node} = 1$).
 * **Base Case:** `null` $\rightarrow$ `0`.
-* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$
 * **HEIGHT as the number of NODES in the longest path**
 
 ```java
