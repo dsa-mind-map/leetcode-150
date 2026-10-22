@@ -647,6 +647,56 @@ public boolean areEqual(TreeNode root1, TreeNode root2) {
 
 ---
 
+### Subtree of Another Tree (LeetCode 572)
+
+## ⚠️ The Trap
+Treating a value match as an **exclusive fork**:
+```java
+if (root.val != subRoot.val) {
+    return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+} else {
+    return isSameTree(root, subRoot); // ❌ FAILS if this candidate fails, missing deeper matches!
+}
+
+```
+
+## 💡 The Expert Fix ("Anchor vs. Explorer")
+
+A matching value is not a destination; it's a **suspect**. If the structural check fails, **fall through and keep searching**.
+
+## 🚀 Optimal Code
+
+```java
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if (root == null) return false;
+        
+        // 1. Anchor: Try matching here. If true, we win.
+        if (root.val == subRoot.val && isSameTree(root, subRoot)) return true;
+        
+        // 2. Explorer: Fall through & keep searching left OR right.
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+    
+    private boolean isSameTree(TreeNode root1, TreeNode root2) {
+    if (root1 == null && root2 == null) return true;
+    if (root1 == null || root2 == null) return false;
+    if (root1.val != root2.val) return false;
+    return areEqual(root1.left, root2.left) && areEqual(root1.right, root2.right);
+}
+}
+
+```
+
+## 📊 Complexity
+
+* **Time:** $\mathcal{O}(M \times \mathcal{N})$ worst-case (skewed trees with duplicate values).
+* **Space:** $\mathcal{O}(H)$ call stack height.
+
+```
+
+---
+
 ### E. Maximum Depth of Binary Tree
 
 * **Convention:** Node count ($\text{single node} = 1$).
