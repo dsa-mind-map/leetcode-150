@@ -1,3 +1,6 @@
+Here is the completely corrected and clean markdown file. The table formatting issues have been fixed by ensuring that all table cells stay on a single line using `<br>` tags without line breaks, and all links point directly to the local page anchors (`#...`) instead of external links.
+
+```markdown
 # Binary Tree Master Reference & Implementation Guide
 
 A production-grade, high-density reference manual covering fundamental tree data structures, mental traversal models, structural property invariants, and level-order/projection variations.
@@ -7,90 +10,51 @@ A production-grade, high-density reference manual covering fundamental tree data
 ## 🗺️ Master Problem-to-Pattern Taxonomy
 
 | Pattern Group | Problems Included | Core Algorithmic Technique | Top 1% Expert One-Liner Analysis |
-| --- | --- | --- | --- |
-| **1. Linear Traversals** | • [Binary Tree Inorder Traversal](https://www.google.com/search?q=%23binary-tree-inorder-traversal)<br>
-
-<br>• [Binary Tree Preorder Traversal](https://www.google.com/search?q=%23binary-tree-preorder-traversal)<br>
-
-<br>• [Binary Tree Postorder Traversal](https://www.google.com/search?q=%23binary-tree-postorder-traversal) | Recursion / Explicit Stack | *Control execution order by decoupling when you visit the root relative to its subtrees.* |
-| **2. Structural DFS (Bottom-Up Accumulation)** | • [Invert Binary Tree](https://www.google.com/search?q=%23invert-binary-tree)<br>
-
-<br>• [Maximum Depth of Binary Tree](https://www.google.com/search?q=%23maximum-depth-of-binary-tree)<br>
-
-<br>• [Diameter of Binary Tree](https://www.google.com/search?q=%23diameter-of-binary-tree)<br>
-
-<br>• [Balanced Binary Tree](https://www.google.com/search?q=%23balanced-binary-tree)<br>
-
-<br>• [Same Tree](https://www.google.com/search?q=%23same-tree)<br>
-
-<br>• [Subtree of Another Tree](https://www.google.com/search?q=%23subtree-of-another-tree) | Post-Order DFS with Return Values & Globals | *Drive parent decisions bottom-up by aggregating child heights, boolean flags, or metrics.* |
-| **3. Path Property & State Propagation** | • [Count Good Nodes In Binary Tree](https://www.google.com/search?q=%23count-good-nodes-in-binary-tree)<br>
-
-<br>• [Binary Tree Maximum Path Sum](https://www.google.com/search?q=%23binary-tree-maximum-path-sum)<br>
-
-<br>• [House Robber III](https://www.google.com/search?q=%23house-robber-iii) | Pre-Order / Post-Order with Ancestor State / Tuples | *Carry ancestor context downward or compute local vs. global profitability to isolate optimal paths.* |
-| **4. Level-Order Projections & BFS** | • [Binary Tree Level Order Traversal](https://www.google.com/search?q=%23binary-tree-level-order-traversal)<br>
-
-<br>• [Binary Tree Right Side View](https://www.google.com/search?q=%23binary-tree-right-side-view) | Queue + Generational Snapshot (`levelSize`) | *Isolate generational boundaries using level-size snapshots to extract spatial projections.* |
-| **5. BST Property & Range Invariants** | • [Validate Binary Search Tree](https://www.google.com/search?q=%23validate-binary-search-tree)<br>
-
-<br>• [Kth Smallest Element In a Bst](https://www.google.com/search?q=%23kth-smallest-element-in-a-bst)<br>
-
-<br>• [Lowest Common Ancestor of a Binary Search Tree](https://www.google.com/search?q=%23lowest-common-ancestor-of-a-binary-search-tree) | In-Order Traversal or Bounded DFS | *Leverage left < root < right ordering invariants to prune invalid branches or achieve sorted output.* |
-| **6. Structural Modification & Construction** | • [Insert into a Binary Search Tree](https://www.google.com/search?q=%23insert-into-a-binary-search-tree)<br>
-
-<br>• [Delete Node in a BST](https://www.google.com/search?q=%23delete-node-in-a-bst)<br>
-
-<br>• [Construct Binary Tree From Preorder And Inorder Traversal](https://www.google.com/search?q=%23construct-binary-tree-from-preorder-and-inorder-traversal)<br>
-
-<br>• [Delete Leaves With a Given Value](https://www.google.com/search?q=%23delete-leaves-with-a-given-value)<br>
-
-<br>• [Construct Quad Tree](https://www.google.com/search?q=%23construct-quad-tree) | Divide & Conquer / Pointer Re-linking | *Rebuild or mutate tree pointers by returning updated child references to parent callers.* |
-| **7. Serialization & Complex State Handling** | • [Serialize And Deserialize Binary Tree](https://www.google.com/search?q=%23serialize-and-deserialize-binary-tree) | BFS / Pre-Order with Null Markers | *Flatten multidimensional hierarchical topology into a sequential stream using explicit null sentinels.* |
+| :--- | :--- | :--- | :--- |
+| **1. Linear Traversals** | • [Binary Tree Inorder Traversal](#binary-tree-inorder-traversal)<br>• [Binary Tree Preorder Traversal](#binary-tree-preorder-traversal)<br>• [Binary Tree Postorder Traversal](#binary-tree-postorder-traversal) | Recursion / Explicit Stack | *Control execution order by decoupling when you visit the root relative to its subtrees.* |
+| **2. Structural DFS (Bottom-Up Accumulation)** | • [Invert Binary Tree](#invert-binary-tree)<br>• [Maximum Depth of Binary Tree](#maximum-depth-of-binary-tree)<br>• [Diameter of Binary Tree](#diameter-of-binary-tree)<br>• [Balanced Binary Tree](#balanced-binary-tree)<br>• [Same Tree](#same-tree)<br>• [Subtree of Another Tree](#subtree-of-another-tree) | Post-Order DFS with Return Values & Globals | *Drive parent decisions bottom-up by aggregating child heights, boolean flags, or metrics.* |
+| **3. Path Property & State Propagation** | • [Count Good Nodes In Binary Tree](#count-good-nodes-in-binary-tree)<br>• [Binary Tree Maximum Path Sum](#binary-tree-maximum-path-sum)<br>• [House Robber III](#house-robber-iii) | Pre-Order / Post-Order with Ancestor State / Tuples | *Carry ancestor context downward or compute local vs. global profitability to isolate optimal paths.* |
+| **4. Level-Order Projections & BFS** | • [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)<br>• [Binary Tree Right Side View](#binary-tree-right-side-view) | Queue + Generational Snapshot (`levelSize`) | *Isolate generational boundaries using level-size snapshots to extract spatial projections.* |
+| **5. BST Property & Range Invariants** | • [Validate Binary Search Tree](#validate-binary-search-tree)<br>• [Kth Smallest Element In a Bst](#kth-smallest-element-in-a-bst)<br>• [Lowest Common Ancestor of a Binary Search Tree](#lowest-common-ancestor-of-a-binary-search-tree) | In-Order Traversal or Bounded DFS | *Leverage left < root < right ordering invariants to prune invalid branches or achieve sorted output.* |
+| **6. Structural Modification & Construction** | • [Insert into a Binary Search Tree](#insert-into-a-binary-search-tree)<br>• [Delete Node in a BST](#delete-node-in-a-bst)<br>• [Construct Binary Tree From Preorder And Inorder Traversal](#construct-binary-tree-from-preorder-and-inorder-traversal)<br>• [Delete Leaves With a Given Value](#delete-leaves-with-a-given-value)<br>• [Construct Quad Tree](#construct-quad-tree) | Divide & Conquer / Pointer Re-linking | *Rebuild or mutate tree pointers by returning updated child references to parent callers.* |
+| **7. Serialization & Complex State Handling** | • [Serialize And Deserialize Binary Tree](#serialize-and-deserialize-binary-tree) | BFS / Pre-Order with Null Markers | *Flatten multidimensional hierarchical topology into a sequential stream using explicit null sentinels.* |
 
 ---
 
 ## 📋 Detailed Pattern Analysis & Selection Rationale
 
 ### Pattern 1: Linear Traversals
-
-* **Included Problems:** [Binary Tree Inorder Traversal](https://www.google.com/search?q=%23binary-tree-inorder-traversal), [Binary Tree Preorder Traversal](https://www.google.com/search?q=%23binary-tree-preorder-traversal), [Binary Tree Postorder Traversal](https://www.google.com/search?q=%23binary-tree-postorder-traversal).
-* **Why this pattern?** These problems require visiting every node in a specific sequence (Pre, In, Post) to generate a sequential list.
+* **Included Problems:** [Binary Tree Inorder Traversal](#binary-tree-inorder-traversal), [Binary Tree Preorder Traversal](#binary-tree-preorder-traversal), [Binary Tree Postorder Traversal](#binary-tree-postorder-traversal).
+* **Why this pattern?** These problems require visiting every node in a specific sequence (Pre, In, Post) to generate a sequential list. 
 * **Expert Rationale:** They form the foundational grammar of tree navigation. Mastering recursive and iterative stack implementations trains your brain to handle pointer movement without losing state.
 
 ### Pattern 2: Structural DFS (Bottom-Up Accumulation)
-
-* **Included Problems:** [Invert Binary Tree](https://www.google.com/search?q=%23invert-binary-tree), [Maximum Depth of Binary Tree](https://www.google.com/search?q=%23maximum-depth-of-binary-tree), [Diameter of Binary Tree](https://www.google.com/search?q=%23diameter-of-binary-tree), [Balanced Binary Tree](https://www.google.com/search?q=%23balanced-binary-tree), [Same Tree](https://www.google.com/search?q=%23same-tree), [Subtree of Another Tree](https://www.google.com/search?q=%23subtree-of-another-tree).
-* **Why this pattern?** Each node's property depends entirely on the aggregated results of its left and right subtrees.
+* **Included Problems:** [Invert Binary Tree](#invert-binary-tree), [Maximum Depth of Binary Tree](#maximum-depth-of-binary-tree), [Diameter of Binary Tree](#diameter-of-binary-tree), [Balanced Binary Tree](#balanced-binary-tree), [Same Tree](#same-tree), [Subtree of Another Tree](#subtree-of-another-tree).
+* **Why this pattern?** Each node's property depends entirely on the aggregated results of its left and right subtrees. 
 * **Expert Rationale:** We use post-order traversal to ask children for their metrics before computing the parent's state, collapsing exponential checks into $\mathcal{O}(N)$ passes.
 
 ### Pattern 3: Path Property & State Propagation
-
-* **Included Problems:** [Count Good Nodes In Binary Tree](https://www.google.com/search?q=%23count-good-nodes-in-binary-tree), [Binary Tree Maximum Path Sum](https://www.google.com/search?q=%23binary-tree-maximum-path-sum), [House Robber III](https://www.google.com/search?q=%23house-robber-iii).
+* **Included Problems:** [Count Good Nodes In Binary Tree](#count-good-nodes-in-binary-tree), [Binary Tree Maximum Path Sum](#binary-tree-maximum-path-sum), [House Robber III](#house-robber-iii).
 * **Why this pattern?** The computation requires tracking constraints across ancestors or managing mutually exclusive choices.
 * **Expert Rationale:** Employs top-down state propagation or bottom-up dynamic programming tuples to isolate optimal paths.
 
 ### Pattern 4: Level-Order Projections & BFS
-
-* **Included Problems:** [Binary Tree Level Order Traversal](https://www.google.com/search?q=%23binary-tree-level-order-traversal), [Binary Tree Right Side View](https://www.google.com/search?q=%23binary-tree-right-side-view).
+* **Included Problems:** [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal), [Binary Tree Right Side View](#binary-tree-right-side-view).
 * **Why this pattern?** The problem asks for properties grouped by depth level or spatial columns.
 * **Expert Rationale:** Capturing `levelSize = queue.size()` locks down generational boundaries to extract spatial projections efficiently.
 
 ### Pattern 5: BST Property & Range Invariants
-
-* **Included Problems:** [Validate Binary Search Tree](https://www.google.com/search?q=%23validate-binary-search-tree), [Kth Smallest Element In a Bst](https://www.google.com/search?q=%23kth-smallest-element-in-a-bst), [Lowest Common Ancestor of a Binary Search Tree](https://www.google.com/search?q=%23lowest-common-ancestor-of-a-binary-search-tree).
+* **Included Problems:** [Validate Binary Search Tree](#validate-binary-search-tree), [Kth Smallest Element In a Bst](#kth-smallest-element-in-a-bst), [Lowest Common Ancestor of a Binary Search Tree](#lowest-common-ancestor-of-a-binary-search-tree).
 * **Why this pattern?** The tree follows the Binary Search Tree invariant ($\text{Left} < \text{Root} < \text{Right}$).
 * **Expert Rationale:** Exploits value ordering to prune search spaces or achieve sorted output via in-order traversals.
 
 ### Pattern 6: Structural Modification & Construction
-
-* **Included Problems:** [Insert into a Binary Search Tree](https://www.google.com/search?q=%23insert-into-a-binary-search-tree), [Delete Node in a BST](https://www.google.com/search?q=%23delete-node-in-a-bst), [Construct Binary Tree From Preorder And Inorder Traversal](https://www.google.com/search?q=%23construct-binary-tree-from-preorder-and-inorder-traversal), [Delete Leaves With a Given Value](https://www.google.com/search?q=%23delete-leaves-with-a-given-value), [Construct Quad Tree](https://www.google.com/search?q=%23construct-quad-tree).
+* **Included Problems:** [Insert into a Binary Search Tree](#insert-into-a-binary-search-tree), [Delete Node in a BST](#delete-node-in-a-bst), [Construct Binary Tree From Preorder And Inorder Traversal](#construct-binary-tree-from-preorder-and-inorder-traversal), [Delete Leaves With a Given Value](#delete-leaves-with-a-given-value), [Construct Quad Tree](#construct-quad-tree).
 * **Why this pattern?** These problems alter tree topology, build trees from arrays, or prune nodes based on leaf conditions.
 * **Expert Rationale:** Utilizes Divide & Conquer paradigms and pointer re-linking up the call stack.
 
 ### Pattern 7: Serialization & Complex State Handling
-
-* **Included Problems:** [Serialize And Deserialize Binary Tree](https://www.google.com/search?q=%23serialize-and-deserialize-binary-tree).
+* **Included Problems:** [Serialize And Deserialize Binary Tree](#serialize-and-deserialize-binary-tree).
 * **Why this pattern?** The tree must be converted into a persistent string format and accurately reconstructed without structural ambiguity.
 * **Expert Rationale:** Relies on pre-order traversal with explicit null markers to flatten hierarchical structures.
 
@@ -99,30 +63,19 @@ A production-grade, high-density reference manual covering fundamental tree data
 ## 📚 Problem Solutions & Mental Models Index
 
 ### Permanent Mental Anchors
-
 > 1. **Pre-Push vs. No Pre-Push Axiom (Deferred Work):**
-> 
-> 
 > * **Root-First Traversals (Push Before `while`):** Process root *immediately* upon seeing it (never deferred). Stack acts purely as a work-backlog (`while (!stack.isEmpty())`). *(Pre-Order, 2-Stack Post-Order)*
 > * **Left-First Traversals (No Push Before `while`):** Cannot process root yet (left subtree must come first). Pointer `curr` drives loop entry (`while (curr != null || !stack.isEmpty())`) and stashes parents dynamically as it dives down the left spine. *(In-Order, 1-Stack Post-Order)*
-> 
-> 
 > 2. **Push Order Rule (Stack LIFO Property):**
-> 
-> 
 > * To process child $A$ before child $B$, you must push child $B$ **before** child $A$.
-> 
-> 
 
 ---
 
 ### Binary Tree Inorder Traversal
-
 > 💡 **Expert Mental Model:** Left spine dive first; process root upon ascent, then pivot right. No pre-push; pointer `curr` drives loop entry.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 
 **Recursive In-Order Traversal**
-
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -699,4 +652,8 @@ class Solution {
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(N)$
 > *(Complete details and code implementation will come soon.)*
 
----
+```
+
+<FollowUp label="Would you like to add code implementations for any remaining stubbed problems?" query="Show me the complete code implementation for Validate Binary Search Tree."/>
+
+```
