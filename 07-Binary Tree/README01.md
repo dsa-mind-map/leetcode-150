@@ -4,39 +4,6 @@ A production-grade, high-density reference manual covering fundamental tree data
 
 ---
 
-## 📋 Navigation Index
-
-* [Master Problem-to-Pattern Taxonomy](https://www.google.com/search?q=%23master-problem-to-pattern-taxonomy)
-* [Detailed Pattern Analysis & Selection Rationale](https://www.google.com/search?q=%23detailed-pattern-analysis--selection-rationale)
-* [Problem Solutions & Mental Models Index](https://www.google.com/search?q=%23problem-solutions--mental-models-index)
-* [Binary Tree Inorder Traversal](https://www.google.com/search?q=%23binary-tree-inorder-traversal)
-* [Binary Tree Preorder Traversal](https://www.google.com/search?q=%23binary-tree-preorder-traversal)
-* [Binary Tree Postorder Traversal](https://www.google.com/search?q=%23binary-tree-postorder-traversal)
-* [Invert Binary Tree](https://www.google.com/search?q=%23invert-binary-tree)
-* [Maximum Depth of Binary Tree](https://www.google.com/search?q=%23maximum-depth-of-binary-tree)
-* [Diameter of Binary Tree](https://www.google.com/search?q=%23diameter-of-binary-tree)
-* [Balanced Binary Tree](https://www.google.com/search?q=%23balanced-binary-tree)
-* [Same Tree](https://www.google.com/search?q=%23same-tree)
-* [Subtree of Another Tree](https://www.google.com/search?q=%23subtree-of-another-tree)
-* [Lowest Common Ancestor of a Binary Search Tree](https://www.google.com/search?q=%23lowest-common-ancestor-of-a-binary-search-tree)
-* [Insert into a Binary Search Tree](https://www.google.com/search?q=%23insert-into-a-binary-search-tree)
-* [Delete Node in a BST](https://www.google.com/search?q=%23delete-node-in-a-bst)
-* [Binary Tree Level Order Traversal](https://www.google.com/search?q=%23binary-tree-level-order-traversal)
-* [Binary Tree Right Side View](https://www.google.com/search?q=%23binary-tree-right-side-view)
-* [Construct Quad Tree](https://www.google.com/search?q=%23construct-quad-tree)
-* [Count Good Nodes In Binary Tree](https://www.google.com/search?q=%23count-good-nodes-in-binary-tree)
-* [Validate Binary Search Tree](https://www.google.com/search?q=%23validate-binary-search-tree)
-* [Kth Smallest Element In a Bst](https://www.google.com/search?q=%23kth-smallest-element-in-a-bst)
-* [Construct Binary Tree From Preorder And Inorder Traversal](https://www.google.com/search?q=%23construct-binary-tree-from-preorder-and-inorder-traversal)
-* [House Robber III](https://www.google.com/search?q=%23house-robber-iii)
-* [Delete Leaves With a Given Value](https://www.google.com/search?q=%23delete-leaves-with-a-given-value)
-* [Binary Tree Maximum Path Sum](https://www.google.com/search?q=%23binary-tree-maximum-path-sum)
-* [Serialize And Deserialize Binary Tree](https://www.google.com/search?q=%23serialize-and-deserialize-binary-tree)
-
-
-
----
-
 ## 🗺️ Master Problem-to-Pattern Taxonomy
 
 | Pattern Group | Problems Included | Core Algorithmic Technique | Top 1% Expert One-Liner Analysis |
@@ -69,12 +36,12 @@ A production-grade, high-density reference manual covering fundamental tree data
 
 <br>• [Kth Smallest Element In a Bst](https://www.google.com/search?q=%23kth-smallest-element-in-a-bst)<br>
 
-<br>• [Lowest Common Ancestor of a BST](https://www.google.com/search?q=%23lowest-common-ancestor-of-a-binary-search-tree) | In-Order Traversal or Bounded DFS | *Leverage left < root < right ordering invariants to prune invalid branches or achieve sorted output.* |
+<br>• [Lowest Common Ancestor of a Binary Search Tree](https://www.google.com/search?q=%23lowest-common-ancestor-of-a-binary-search-tree) | In-Order Traversal or Bounded DFS | *Leverage left < root < right ordering invariants to prune invalid branches or achieve sorted output.* |
 | **6. Structural Modification & Construction** | • [Insert into a Binary Search Tree](https://www.google.com/search?q=%23insert-into-a-binary-search-tree)<br>
 
 <br>• [Delete Node in a BST](https://www.google.com/search?q=%23delete-node-in-a-bst)<br>
 
-<br>• [Construct Binary Tree From Pre/Inorder](https://www.google.com/search?q=%23construct-binary-tree-from-preorder-and-inorder-traversal)<br>
+<br>• [Construct Binary Tree From Preorder And Inorder Traversal](https://www.google.com/search?q=%23construct-binary-tree-from-preorder-and-inorder-traversal)<br>
 
 <br>• [Delete Leaves With a Given Value](https://www.google.com/search?q=%23delete-leaves-with-a-given-value)<br>
 
@@ -111,13 +78,13 @@ A production-grade, high-density reference manual covering fundamental tree data
 
 ### Pattern 5: BST Property & Range Invariants
 
-* **Included Problems:** [Validate Binary Search Tree](https://www.google.com/search?q=%23validate-binary-search-tree), [Kth Smallest Element In a Bst](https://www.google.com/search?q=%23kth-smallest-element-in-a-bst), [Lowest Common Ancestor of a BST](https://www.google.com/search?q=%23lowest-common-ancestor-of-a-binary-search-tree).
+* **Included Problems:** [Validate Binary Search Tree](https://www.google.com/search?q=%23validate-binary-search-tree), [Kth Smallest Element In a Bst](https://www.google.com/search?q=%23kth-smallest-element-in-a-bst), [Lowest Common Ancestor of a Binary Search Tree](https://www.google.com/search?q=%23lowest-common-ancestor-of-a-binary-search-tree).
 * **Why this pattern?** The tree follows the Binary Search Tree invariant ($\text{Left} < \text{Root} < \text{Right}$).
 * **Expert Rationale:** Exploits value ordering to prune search spaces or achieve sorted output via in-order traversals.
 
 ### Pattern 6: Structural Modification & Construction
 
-* **Included Problems:** [Insert into a Binary Search Tree](https://www.google.com/search?q=%23insert-into-a-binary-search-tree), [Delete Node in a BST](https://www.google.com/search?q=%23delete-node-in-a-bst), [Construct Binary Tree From Pre/Inorder](https://www.google.com/search?q=%23construct-binary-tree-from-preorder-and-inorder-traversal), [Delete Leaves With a Given Value](https://www.google.com/search?q=%23delete-leaves-with-a-given-value), [Construct Quad Tree](https://www.google.com/search?q=%23construct-quad-tree).
+* **Included Problems:** [Insert into a Binary Search Tree](https://www.google.com/search?q=%23insert-into-a-binary-search-tree), [Delete Node in a BST](https://www.google.com/search?q=%23delete-node-in-a-bst), [Construct Binary Tree From Preorder And Inorder Traversal](https://www.google.com/search?q=%23construct-binary-tree-from-preorder-and-inorder-traversal), [Delete Leaves With a Given Value](https://www.google.com/search?q=%23delete-leaves-with-a-given-value), [Construct Quad Tree](https://www.google.com/search?q=%23construct-quad-tree).
 * **Why this pattern?** These problems alter tree topology, build trees from arrays, or prune nodes based on leaf conditions.
 * **Expert Rationale:** Utilizes Divide & Conquer paradigms and pointer re-linking up the call stack.
 
@@ -152,12 +119,9 @@ A production-grade, high-density reference manual covering fundamental tree data
 ### Binary Tree Inorder Traversal
 
 > 💡 **Expert Mental Model:** Left spine dive first; process root upon ascent, then pivot right. No pre-push; pointer `curr` drives loop entry.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 
 **Recursive In-Order Traversal**
-
-* **Order:** Left $\rightarrow$ Root $\rightarrow$ Right
-* **Concept:** Traverse leftmost path fully, process parent, then traverse right subtree.
-* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$ stack space
 
 ```java
 import java.util.ArrayList;
@@ -183,9 +147,6 @@ public class RecursiveInOrder {
 ```
 
 **Iterative In-Order Traversal**
-
-* **Strategy:** Explicit Stack with `curr` Pointer (Pointer Navigation Model)
-* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$ explicit stack space
 
 ```java
 import java.util.ArrayList;
@@ -222,12 +183,9 @@ public class IterativeInOrder {
 ### Binary Tree Preorder Traversal
 
 > 💡 **Expert Mental Model:** Visit root immediately, push right then left child onto stack so left processes first. Root-first pre-push work list model.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 
 **Recursive Pre-Order Traversal**
-
-* **Order:** Root $\rightarrow$ Left $\rightarrow$ Right
-* **Concept:** Process current root, then recursively traverse left and right subtrees.
-* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$ stack space
 
 ```java
 import java.util.ArrayList;
@@ -253,9 +211,6 @@ public class RecursivePreOrder {
 ```
 
 **Iterative Pre-Order Traversal**
-
-* **Strategy:** Explicit LIFO Stack (Work List Model)
-* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$ explicit stack space
 
 ```java
 import java.util.ArrayList;
@@ -290,12 +245,9 @@ public class IterativePreOrder {
 ### Binary Tree Postorder Traversal
 
 > 💡 **Expert Mental Model:** Bottom-up guarantee; process both subtrees completely before evaluating parent using dual stacks or single-stack tracking.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(N)$ (2-stack) or $\mathcal{O}(H)$ (1-stack)
 
 **Recursive Post-Order Traversal**
-
-* **Order:** Left $\rightarrow$ Right $\rightarrow$ Root
-* **Concept:** Process both subtrees bottom-up before processing parent root node.
-* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$ stack space
 
 ```java
 import java.util.ArrayList;
@@ -321,9 +273,6 @@ public class RecursivePostOrder {
 ```
 
 **Iterative Post-Order Traversal (2-Stack Approach)**
-
-* **Strategy:** Inverted Pre-Order (Work List Model)
-* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(N)$ stack space
 
 ```java
 import java.util.ArrayList;
@@ -360,9 +309,6 @@ public class IterativePostOrderTwoStacks {
 ```
 
 **Iterative Post-Order Traversal (1-Stack with Tracking)**
-
-* **Strategy:** Single Stack with `lastVisited` Pointer (Pointer Navigation Model)
-* **Time/Space:** $\mathcal{O}(N)$ / $\mathcal{O}(H)$ optimal stack space
 
 ```java
 import java.util.ArrayList;
@@ -405,6 +351,7 @@ public class IterativePostOrderOneStack {
 ### Invert Binary Tree
 
 > 💡 **Expert Mental Model:** Swap left and right pointers locally at every node during traversal.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 
 ```java
 class Solution {
@@ -426,6 +373,7 @@ class Solution {
 ### Maximum Depth of Binary Tree
 
 > 💡 **Expert Mental Model:** Height is 1 plus the maximum of left and right child heights.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 
 ```java
 class Solution {
@@ -442,6 +390,7 @@ class Solution {
 ### Diameter of Binary Tree
 
 > 💡 **Expert Mental Model:** Compute local heights bottom-up while updating a global diameter scoreboard.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 
 ```java
 public class BinaryTreeDiameter {
@@ -469,6 +418,7 @@ public class BinaryTreeDiameter {
 ### Balanced Binary Tree
 
 > 💡 **Expert Mental Model:** Bubble up height differences; short-circuit or flag imbalance immediately if subtree delta exceeds 1.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 
 ```java
 class Solution {
@@ -495,6 +445,7 @@ class Solution {
 ### Same Tree
 
 > 💡 **Expert Mental Model:** Structural and value equivalence requires simultaneous node matching across both trees.
+> ⏱️ **Complexity:** Time $\mathcal{O}(\min(N_1, N_2))$ | Space $\mathcal{O}(\min(H_1, H_2))$
 
 ```java
 public boolean areEqual(TreeNode root1, TreeNode root2) {
@@ -511,6 +462,7 @@ public boolean areEqual(TreeNode root1, TreeNode root2) {
 ### Subtree of Another Tree
 
 > 💡 **Expert Mental Model:** Treat matching values as suspects; anchor a structural check or fall through to explore subtrees.
+> ⏱️ **Complexity:** Time $\mathcal{O}(M \times N)$ worst-case | Space $\mathcal{O}(H)$
 
 ```java
 class Solution {
@@ -535,6 +487,7 @@ class Solution {
 ### Lowest Common Ancestor of a Binary Search Tree
 
 > 💡 **Expert Mental Model:** Exploit BST ordering: if both node values are smaller, go left; if larger, go right; else current node is the split point (LCA).
+> ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(1)$ iterative
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -542,6 +495,7 @@ class Solution {
 ### Insert into a Binary Search Tree
 
 > 💡 **Expert Mental Model:** Navigate left or right based on BST comparison until hitting null, then attach the new node.
+> ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(H)$ (or $\mathcal{O}(1)$ iterative)
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -549,6 +503,7 @@ class Solution {
 ### Delete Node in a BST
 
 > 💡 **Expert Mental Model:** Handle 0, 1, or 2 children cases by replacing the deleted node with the successor from the right subtree.
+> ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(H)$
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -556,6 +511,7 @@ class Solution {
 ### Binary Tree Level Order Traversal
 
 > 💡 **Expert Mental Model:** Snapshot queue size per iteration to process nodes level-by-level cleanly.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(W)$
 
 ```java
 public List<List<Integer>> levelOrder(TreeNode root) {
@@ -584,6 +540,7 @@ public List<List<Integer>> levelOrder(TreeNode root) {
 ### Binary Tree Right Side View
 
 > 💡 **Expert Mental Model:** Capture the last element (`i == levelSize - 1`) of every BFS level queue snapshot.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(W)$
 
 ```java
 class Solution {
@@ -614,6 +571,7 @@ class Solution {
 ### Construct Quad Tree
 
 > 💡 **Expert Mental Model:** Quad-tree division requires checking uniformity in 2D grid quadrants and subdividing recursively.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N \log N)$ | Space $\mathcal{O}(H)$
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -621,6 +579,7 @@ class Solution {
 ### Count Good Nodes In Binary Tree
 
 > 💡 **Expert Mental Model:** Carry path maximum downward (top-down state propagation) to evaluate local goodness.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 
 ```java
 class Solution {
@@ -644,6 +603,7 @@ class Solution {
 ### Validate Binary Search Tree
 
 > 💡 **Expert Mental Model:** Enforce strict valid range bounds (`min < node.val < max`) recursively down every branch.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -651,6 +611,7 @@ class Solution {
 ### Kth Smallest Element In a Bst
 
 > 💡 **Expert Mental Model:** In-order traversal visits BST nodes in ascending sorted order; stop at count $k$.
+> ⏱️ **Complexity:** Time $\mathcal{O}(H + k)$ | Space $\mathcal{O}(H)$
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -658,6 +619,7 @@ class Solution {
 ### Construct Binary Tree From Preorder And Inorder Traversal
 
 > 💡 **Expert Mental Model:** Preorder root dictates the split boundary in Inorder array to form left and right subtrees.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(N)$
 
 ```java
 class Solution {
@@ -692,6 +654,7 @@ class Solution {
 ### House Robber III
 
 > 💡 **Expert Mental Model:** Return pair of values from child subtrees: max money with root robbed vs. root not robbed.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -699,6 +662,7 @@ class Solution {
 ### Delete Leaves With a Given Value
 
 > 💡 **Expert Mental Model:** Post-order pruning; remove leaves matching target and propagate null references back to parents.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -706,6 +670,7 @@ class Solution {
 ### Binary Tree Maximum Path Sum
 
 > 💡 **Expert Mental Model:** Discard negative sub-paths (`Math.max(0, path)`) and track global max path passing through current node.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 
 ```java
 class Solution {
@@ -731,6 +696,7 @@ class Solution {
 ### Serialize And Deserialize Binary Tree
 
 > 💡 **Expert Mental Model:** Flatten tree via pre-order traversal using explicit null markers to enable unambiguous reconstruction.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(N)$
 > *(Complete details and code implementation will come soon.)*
 
 ---
