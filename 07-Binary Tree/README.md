@@ -614,6 +614,84 @@ public int findSize(TreeNode root) {
 
 ---
 
+### Count Good Nodes in Binary Tree
+Within a binary tree, a node x is considered good if the path from the root of the tree to the node x contains no nodes with a value greater than the value of node x
+
+Given the root of a binary tree root, return the number of good nodes within the tree.
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+class Solution {
+    public int goodNodes(TreeNode root) {
+        if(root == null) return 0;
+        int max = root.val; // 2
+        int left = goodN(root.left, max); // 1,2
+        int right = goodN(root.right, max); // 1 2
+        System.out.println(left + " " + right);
+        return 1 + left + right;
+    }
+
+    private int goodN(TreeNode root, int max){ // 1 2
+        if(root == null) return 0; 
+        if(root.val >= max){ // 1 2
+            max = root.val;
+            return 1 + goodN(root.left, max) + goodN(root.right, max); 
+        }else{
+            return goodN(root.left, max) + goodN(root.right, max); // 1 1 + 5 2
+        }
+             
+    }
+}
+
+```
+The Core Concept: Top-Down State Propagation
+Whenever a problem depends on paths from the root or ancestor constraints, use Pre-Order DFS with State Propagation:
+
+Carry Down: Pass accumulated path state (like maxSoFar) from parent to child.
+
+Evaluate Locally: Check if the current node satisfies the condition (node.val >= maxVal).
+
+Branch Cleanly: Recurse left and right with the updated state (Math.max(maxVal, node.val)), summing the results.
+
+Mental Model: "Bring your history down, decide locally, add up globally."
+
+```java
+class Solution {
+    public int goodNodes(TreeNode root) {
+        return dfs(root, root.val);
+    }
+
+    private int dfs(TreeNode node, int maxVal) {
+        if (node == null) return 0;
+        
+        // Update the path maximum for the children
+        int nextMax = Math.max(maxVal, node.val);
+        
+        // Evaluate current node + aggregate left and right subtrees
+        return (node.val >= maxVal ? 1 : 0) 
+             + dfs(node.left, nextMax) 
+             + dfs(node.right, nextMax);
+    }
+}
+```
+
+---
+
 ### C. Find Node in Binary Tree
 
 * **Strategy:** Short-circuit `||` search.
