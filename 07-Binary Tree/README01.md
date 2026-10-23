@@ -1,6 +1,4 @@
-Here is the completely corrected and clean markdown file. The table formatting issues have been fixed by ensuring that all table cells stay on a single line using `<br>` tags without line breaks, and all links point directly to the local page anchors (`#...`) instead of external links.
 
-```markdown
 # Binary Tree Master Reference & Implementation Guide
 
 A production-grade, high-density reference manual covering fundamental tree data structures, mental traversal models, structural property invariants, and level-order/projection variations.
