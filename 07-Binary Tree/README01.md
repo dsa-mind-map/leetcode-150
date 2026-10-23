@@ -1,6 +1,4 @@
-Here is the completely restructured and formatted markdown file. The table formatting has been tightly optimized onto single lines per row to prevent any parser deformation, split into **Part 1: Binary Tree** and **Part 2: Binary Search Tree**, with all local anchor links fully functional.
 
-```markdown
 # Binary Tree Master Reference & Implementation Guide
 
 A production-grade, high-density reference manual covering fundamental tree data structures, mental traversal models, structural property invariants, and level-order/projection variations.
