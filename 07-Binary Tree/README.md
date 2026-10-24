@@ -311,34 +311,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class IterativePostOrderOneStack {
-
-    public List<Integer> postorderTraversal1Stack(TreeNode root) {
+public List<Integer> IterativePostOrderOneStack(TreeNode root) {
         List<Integer> result = new ArrayList<>();
+
         if (root == null) return result;
 
         Stack<TreeNode> stack = new Stack<>();
-        TreeNode current = root; // NO PRE-PUSH: Pointer drives loop entry
+        TreeNode curr = root;
 
-        while (current != null || !stack.isEmpty()) {
-            if (current != null) {
-                stack.push(current);
-                current = current.left;
+        while (curr != null || !stack.isEmpty()) {
+            if (curr != null) {
+                stack.push(curr);
+                curr = curr.left;
             } else {
-                TreeNode peekNode = stack.peek();
+                TreeNode rightChild = stack.peek().right;
                 
-                if (peekNode.right != null && current != peekNode.right) {
-                    current = peekNode.right;
+                if (rightChild == null) {
+                    TreeNode processedNode = stack.pop();
+                    result.add(processedNode.val);
+                    
+                    while (!stack.isEmpty() && processedNode == stack.peek().right) {
+                        processedNode = stack.pop();
+                        result.add(processedNode.val);
+                    }
                 } else {
-                    TreeNode visitedNode = stack.pop();
-                    result.add(visitedNode.val);
-                    current = visitedNode;
+                    curr = rightChild;
                 }
             }
         }
+
         return result;
     }
-}
 
 ```
 
