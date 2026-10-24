@@ -93,9 +93,18 @@ public class TreeNode {
 
 ---
 
+### 🧠 The Top 1% Base Case Derivation Framework
+Elite engineers do not guess base cases through trial and error. They derive them systematically using three architectural axioms:
+> * **AXIOM 1: The Structural Boundary (Null-Safety):** Intercepts non-existent nodes (`root == null`) before property lookups trigger a `NullPointerException`.
+> * **AXIOM 2: The Monoidal Identity Element (Mathematical Neutralization):** Determines what an empty space (`null`) contributes to parent aggregation without corrupting calculations (e.g., additive `0`, offset `-1`, logical `false`).
+> * **AXIOM 3: The State-Space Exhaustion (Range/Length Collision):** For array-slicing or bounds-tracking, terminates division when limits cross (`left > right`) or arrays empty out (`length == 0`).
+
+---
+
 #### Binary Tree Inorder Traversal
 > 💡 **Expert Mental Model:** Left spine dive first; process root upon ascent, then pivot right. No pre-push; pointer `curr` drives loop entry.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** Terminates execution immediately upon hitting a leaf's child since no data values can be bubbled up (`AXIOM 1`).
 
 **Recursive In-Order Traversal**
 ```java
@@ -109,7 +118,7 @@ public class RecursiveInOrder {
         return result;
     }
     private void helper(TreeNode root, List<Integer> result) {
-        if (root == null) return;
+        if (root == null) return; // Base Case Axiom 1 (Structural Boundary)
         helper(root.left, result);
         result.add(root.val);
         helper(root.right, result);
@@ -149,6 +158,7 @@ public class IterativeInOrder {
 #### Binary Tree Preorder Traversal
 > 💡 **Expert Mental Model:** Visit root immediately, push right then left child onto stack so left processes first. Root-first pre-push work list model.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** Terminates execution immediately upon hitting a leaf's child since no data values can be bubbled up (`AXIOM 1`).
 
 **Recursive Pre-Order Traversal**
 ```java
@@ -162,7 +172,7 @@ public class RecursivePreOrder {
         return result;
     }
     private void helper(TreeNode root, List<Integer> result) {
-        if (root == null) return;
+        if (root == null) return; // Base Case Axiom 1 (Structural Boundary)
         result.add(root.val);
         helper(root.left, result);
         helper(root.right, result);
@@ -198,6 +208,7 @@ public class IterativePreOrder {
 #### Binary Tree Postorder Traversal
 > 💡 **Expert Mental Model:** Bottom-up guarantee; process both subtrees completely before evaluating parent using dual stacks or single-stack tracking.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(N)$ (2-stack) or $\mathcal{O}(H)$ (1-stack)
+> 📐 **Top 1% Base Case Derivation:** Terminates execution immediately upon hitting a leaf's child since no data values can be bubbled up (`AXIOM 1`).
 
 **Recursive Post-Order Traversal**
 ```java
@@ -211,7 +222,7 @@ public class RecursivePostOrder {
         return result;
     }
     private void helper(TreeNode root, List<Integer> result) {
-        if (root == null) return;
+        if (root == null) return; // Base Case Axiom 1 (Structural Boundary)
         helper(root.left, result);
         helper(root.right, result);
         result.add(root.val);
@@ -283,11 +294,12 @@ public class IterativePostOrderOneStack {
 #### Find Height of a Binary Tree
 > 💡 **Expert Mental Model:** Calculate subtree maximum height recursively with explicit alignment to edge-count (-1 base) or node-count (0 base) standards.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** Edge-count uses `-1` so a leaf node evaluates $1 + (-1) = 0$ edges; node-count uses `0` because an empty tree contains zero nodes (`AXIOM 2`).
 
 **Convention 1: Edge-Count Basis (Single Node = 0)**
 ```java
 public int heightEdgeCount(TreeNode root) {
-    if (root == null) return -1;
+    if (root == null) return -1; // Base Case Axiom 2 (Offset Neutralization)
     return Math.max(heightEdgeCount(root.left), heightEdgeCount(root.right)) + 1;
 }
 ```
@@ -295,7 +307,7 @@ public int heightEdgeCount(TreeNode root) {
 **Convention 2: Node-Count Basis (Single Node = 1)**
 ```java
 public int heightNodeCount(TreeNode root) {
-    if (root == null) return 0;
+    if (root == null) return 0; // Base Case Axiom 2 (Additive Monoidal Identity)
     return Math.max(heightNodeCount(root.left), heightNodeCount(root.right)) + 1;
 }
 ```
@@ -305,9 +317,10 @@ public int heightNodeCount(TreeNode root) {
 #### Find Size of a Binary Tree
 > 💡 **Expert Mental Model:** Total node count equals left subtree size plus right subtree size plus 1 for the current node.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** An empty subtree contributes zero nodes to size, acting as the additive identity element (`AXIOM 2`).
 ```java
 public int findSize(TreeNode root) {
-    if (root == null) return 0;
+    if (root == null) return 0; // Base Case Axiom 2 (Additive Monoidal Identity)
     return findSize(root.left) + findSize(root.right) + 1;
 }
 ```
@@ -317,9 +330,10 @@ public int findSize(TreeNode root) {
 #### Find Node in Binary Tree
 > 💡 **Expert Mental Model:** Perform short-circuit OR search across subtrees after checking current root value.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** A `null` branch means the target is absent, acting as a neutral element in logical disjunction (`||`) (`AXIOM 2`).
 ```java
 public boolean findNode(TreeNode root, int target) {
-    if (root == null) return false;
+    if (root == null) return false; // Base Case Axiom 2 (Logical Identity)
     if (root.val == target) return true;
     return findNode(root.left, target) || findNode(root.right, target);
 }
@@ -330,10 +344,11 @@ public boolean findNode(TreeNode root, int target) {
 #### Invert Binary Tree
 > 💡 **Expert Mental Model:** Swap left and right pointers locally at every node during traversal.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** Passes an empty reference safely back up to leaf nodes without breaking pointer assignments (`AXIOM 1`).
 ```java
 class Solution {
     public TreeNode invertTree(TreeNode root) {
-        if (root == null) return null;
+        if (root == null) return null; // Base Case Axiom 1 (Structural Boundary)
         TreeNode left = root.left, right = root.right;
         root.left = right;
         root.right = left;
@@ -349,10 +364,11 @@ class Solution {
 #### Maximum Depth of Binary Tree
 > 💡 **Expert Mental Model:** Height is 1 plus the maximum of left and right child heights.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** An empty tree contains zero depth units, serving as the additive monoidal identity for leaf depth calculation (`AXIOM 2`).
 ```java
 class Solution {
     public int maxDepth(TreeNode root) {
-        if (root == null) return 0;
+        if (root == null) return 0; // Base Case Axiom 2 (Additive Monoidal Identity)
         return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
     }
 }
@@ -363,6 +379,7 @@ class Solution {
 #### Diameter of Binary Tree
 > 💡 **Expert Mental Model:** Compute local heights bottom-up while updating a global diameter scoreboard.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** A `null` child provides a baseline height of `0` to keep span and height-delta calculations mathematically valid (`AXIOM 2`).
 ```java
 public class BinaryTreeDiameter {
     private int maxDiameter = 0;
@@ -372,7 +389,7 @@ public class BinaryTreeDiameter {
         return maxDiameter;
     }
     private int calculateHeight(TreeNode node) {
-        if (node == null) return 0;
+        if (node == null) return 0; // Base Case Axiom 2 (Mathematical Neutralization)
         int leftHeight = calculateHeight(node.left);
         int rightHeight = calculateHeight(node.right);
         maxDiameter = Math.max(maxDiameter, leftHeight + rightHeight);
@@ -386,6 +403,7 @@ public class BinaryTreeDiameter {
 #### Balanced Binary Tree
 > 💡 **Expert Mental Model:** Bubble up height differences; short-circuit or flag imbalance immediately if subtree delta exceeds 1.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** A `null` node represents a balanced baseline height of `0` (`AXIOM 2`).
 ```java
 class Solution {
     boolean balanced = true;
@@ -394,7 +412,7 @@ class Solution {
         return balanced;
     }
     public int height(TreeNode root){
-        if(root == null) return 0;
+        if(root == null) return 0; // Base Case Axiom 2 (Mathematical Neutralization)
         int leftH = height(root.left);
         int rightH = height(root.right);
         if(Math.abs(leftH - rightH) > 1){
@@ -410,10 +428,11 @@ class Solution {
 #### Same Tree
 > 💡 **Expert Mental Model:** Structural and value equivalence requires simultaneous node matching across both trees.
 > ⏱️ **Complexity:** Time $\mathcal{O}(\min(N_1, N_2))$ | Space $\mathcal{O}(\min(H_1, H_2))$
+> 📐 **Top 1% Base Case Derivation:** Dual-node symmetry check; returns `true` only if structural termination aligns simultaneously across both trees (`AXIOM 1`).
 ```java
 public boolean areEqual(TreeNode root1, TreeNode root2) {
-    if (root1 == null && root2 == null) return true;
-    if (root1 == null || root2 == null) return false;
+    if (root1 == null && root2 == null) return true; // Base Case Axiom 1 (Structural Symmetry)
+    if (root1 == null || root2 == null) return false; // Base Case Axiom 1 (Structural Asymmetry)
     if (root1.val != root2.val) return false;
     return areEqual(root1.left, root2.left) && areEqual(root1.right, root2.right);
 }
@@ -424,16 +443,17 @@ public boolean areEqual(TreeNode root1, TreeNode root2) {
 #### Subtree of Another Tree
 > 💡 **Expert Mental Model:** Treat matching values as suspects; anchor a structural check or fall through to explore subtrees.
 > ⏱️ **Complexity:** Time $\mathcal{O}(M \times N)$ worst-case | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** Search root exhaustion yields `false` (`AXIOM 2`), while the helper `isSameTree` enforces dual-node symmetry termination (`AXIOM 1`).
 ```java
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-        if (root == null) return false;
+        if (root == null) return false; // Base Case Axiom 2 (Search Exhaustion)
         if (root.val == subRoot.val && isSameTree(root, subRoot)) return true;
         return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
     }
     private boolean isSameTree(TreeNode root1, TreeNode root2) {
-        if (root1 == null && root2 == null) return true;
-        if (root1 == null || root2 == null) return false;
+        if (root1 == null && root2 == null) return true; // Base Case Axiom 1 (Structural Symmetry)
+        if (root1 == null || root2 == null) return false; // Base Case Axiom 1 (Structural Asymmetry)
         if (root1.val != root2.val) return false;
         return isSameTree(root1.left, root2.left) && isSameTree(root1.right, root2.right);
     }
@@ -711,6 +731,7 @@ class Solution {
 #### Construct Quad Tree
 > 💡 **Expert Mental Model:** Quad-tree division requires checking uniformity in 2D grid quadrants and subdividing recursively.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N \log N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** When standard grid range slicing narrows to a single cell ($1 \times 1$), the region is uniformly leaves (`AXIOM 3`).
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -718,13 +739,14 @@ class Solution {
 #### Count Good Nodes In Binary Tree
 > 💡 **Expert Mental Model:** Carry path maximum downward (top-down state propagation) to evaluate local goodness.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** A dead-end path contributes zero "good node" counts to the global recursive summation (`AXIOM 2`).
 ```java
 class Solution {
     public int goodNodes(TreeNode root) {
         return dfs(root, root.val);
     }
     private int dfs(TreeNode node, int maxVal) {
-        if (node == null) return 0;
+        if (node == null) return 0; // Base Case Axiom 2 (Additive Identity)
         int nextMax = Math.max(maxVal, node.val);
         return (node.val >= maxVal ? 1 : 0) 
              + dfs(node.left, nextMax) 
@@ -738,11 +760,12 @@ class Solution {
 #### Construct Binary Tree From Preorder And Inorder Traversal
 > 💡 **Expert Mental Model:** Preorder root dictates the split boundary in Inorder array to form left and right subtrees.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(N)$
+> 📐 **Top 1% Base Case Derivation:** An empty array slice signifies an exhausted subtree boundary, stopping array carving (`AXIOM 3`).
 ```java
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         if (preorder.length == 0 || inorder.length == 0) {
-            return null;
+            return null; // Base Case Axiom 3 (State-Space Exhaustion)
         }
         TreeNode root = new TreeNode(preorder[0]);
         int mid = -1;
@@ -768,6 +791,7 @@ class Solution {
 #### House Robber III
 > 💡 **Expert Mental Model:** Return pair of values from child subtrees: max money with root robbed vs. root not robbed.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** Hitting `null` returns a zero-value state tuple `[0, 0]`, neutralizing profit calculation for empty branches (`AXIOM 2`).
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -775,6 +799,7 @@ class Solution {
 #### Delete Leaves With a Given Value
 > 💡 **Expert Mental Model:** Post-order pruning; remove leaves matching target and propagate null references back to parents.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** Passes empty reference `null` back up tree when hitting bounds or pruned subtrees (`AXIOM 1`).
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -782,6 +807,7 @@ class Solution {
 #### Binary Tree Maximum Path Sum
 > 💡 **Expert Mental Model:** Discard negative sub-paths (`Math.max(0, path)`) and track global max path passing through current node.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** An empty branch contributes zero sum value, allowing negative paths to be safely neutralized via `Math.max(0, ...)` (`AXIOM 2`).
 ```java
 class Solution {
     int maxSum = Integer.MIN_VALUE;
@@ -790,7 +816,7 @@ class Solution {
         return maxSum;
     }
     public int pathSum(TreeNode root){
-        if(root == null) return 0;
+        if(root == null) return 0; // Base Case Axiom 2 (Mathematical Neutralization)
         int leftMax = Math.max(0, pathSum(root.left));
         int rightMax = Math.max(0, pathSum(root.right));
         maxSum = Math.max(maxSum, root.val + leftMax + rightMax);
@@ -804,6 +830,7 @@ class Solution {
 #### Serialize And Deserialize Binary Tree
 > 💡 **Expert Mental Model:** Flatten tree via pre-order traversal using explicit null markers to enable unambiguous reconstruction.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(N)$
+> 📐 **Top 1% Base Case Derivation:** In serialization, hitting `null` appends explicit sentinel value (e.g., `"null,"`) (`AXIOM 1`). In deserialization, hitting `"null"` returns `null` pointer reference (`AXIOM 3`).
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -813,6 +840,7 @@ class Solution {
 #### Lowest Common Ancestor of a Binary Search Tree
 > 💡 **Expert Mental Model:** Exploit BST ordering: if both node values are smaller, go left; if larger, go right; else current node is the split point (LCA).
 > ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(1)$ iterative
+> 📐 **Top 1% Base Case Derivation:** Search boundary returns `null` if search key drifts out of tree bounds (`AXIOM 1`).
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -820,6 +848,7 @@ class Solution {
 #### Insert into a Binary Search Tree
 > 💡 **Expert Mental Model:** Navigate left or right based on BST comparison until hitting null, then attach the new node.
 > ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(H)$ (or $\mathcal{O}(1)$ iterative)
+> 📐 **Top 1% Base Case Derivation:** Hitting `null` indicates the insertion position has been reached; returns `new TreeNode(val)` (`AXIOM 1`).
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -827,6 +856,7 @@ class Solution {
 #### Delete Node in a BST
 > 💡 **Expert Mental Model:** Handle 0, 1, or 2 children cases by replacing the deleted node with the successor from the right subtree.
 > ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** Hitting `null` implies target value is not present in BST; returns `null` safely (`AXIOM 1`).
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -834,6 +864,7 @@ class Solution {
 #### Validate Binary Search Tree
 > 💡 **Expert Mental Model:** Enforce strict valid range bounds (`min < node.val < max`) recursively down every branch.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** Reaching `null` means the branch successfully satisfied all range constraints up to its leaf (`AXIOM 2`).
 > *(Complete details and code implementation will come soon.)*
 
 ---
@@ -841,4 +872,5 @@ class Solution {
 #### Kth Smallest Element In a Bst
 > 💡 **Expert Mental Model:** In-order traversal visits BST nodes in ascending sorted order; stop at count $k$.
 > ⏱️ **Complexity:** Time $\mathcal{O}(H + k)$ | Space $\mathcal{O}(H)$
+> 📐 **Top 1% Base Case Derivation:** Standard in-order traversal termination on `null` or early stopping when counter hits $k$ (`AXIOM 1 & 3`).
 > *(Complete details and code implementation will come soon.)*
