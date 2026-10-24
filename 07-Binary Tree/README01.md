@@ -1,4 +1,3 @@
-
 # Binary Tree Master Reference & Implementation Guide
 
 A production-grade, high-density reference manual covering fundamental tree data structures, mental traversal models, structural property invariants, and level-order/projection variations.
@@ -9,10 +8,10 @@ A production-grade, high-density reference manual covering fundamental tree data
 
 | Pattern Group | Problems Included | Core Algorithmic Technique | Top 1% Expert One-Liner Analysis |
 | :--- | :--- | :--- | :--- |
-| **1. Linear Traversals** | • [Binary Tree Inorder Traversal](#binary-tree-inorder-traversal)<br>• [Binary Tree Preorder Traversal](#binary-tree-preorder-traversal)<br>• [Binary Tree Postorder Traversal](#binary-tree-postorder-traversal) | Recursion / Explicit Stack | *Control execution order by decoupling when you visit the root relative to its subtrees.* |
+| **1. Linear Traversals & Core Operations** | • [TreeNode Class Definition](#treenode-class-definition)<br>• [Binary Tree Inorder Traversal](#binary-tree-inorder-traversal)<br>• [Binary Tree Preorder Traversal](#binary-tree-preorder-traversal)<br>• [Binary Tree Postorder Traversal](#binary-tree-postorder-traversal)<br>• [Find Height of a Binary Tree](#find-height-of-a-binary-tree)<br>• [Find Size of a Binary Tree](#find-size-of-a-binary-tree)<br>• [Find Node in Binary Tree](#find-node-in-binary-tree) | Recursion / Explicit Stack / Simple DFS | *Control execution order by decoupling when you visit the root relative to its subtrees or traversing to aggregate structural scalar counts.* |
 | **2. Structural DFS (Bottom-Up Accumulation)** | • [Invert Binary Tree](#invert-binary-tree)<br>• [Maximum Depth of Binary Tree](#maximum-depth-of-binary-tree)<br>• [Diameter of Binary Tree](#diameter-of-binary-tree)<br>• [Balanced Binary Tree](#balanced-binary-tree)<br>• [Same Tree](#same-tree)<br>• [Subtree of Another Tree](#subtree-of-another-tree) | Post-Order DFS with Return Values & Globals | *Drive parent decisions bottom-up by aggregating child heights, boolean flags, or metrics.* |
 | **3. Path Property & State Propagation** | • [Count Good Nodes In Binary Tree](#count-good-nodes-in-binary-tree)<br>• [Binary Tree Maximum Path Sum](#binary-tree-maximum-path-sum)<br>• [House Robber III](#house-robber-iii) | Pre-Order / Post-Order with Ancestor State / Tuples | *Carry ancestor context downward or compute local vs. global profitability to isolate optimal paths.* |
-| **4. Level-Order Projections & BFS** | • [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)<br>• [Binary Tree Right Side View](#binary-tree-right-side-view) | Queue + Generational Snapshot (`levelSize`) | *Isolate generational boundaries using level-size snapshots to extract spatial projections.* |
+| **4. Level-Order Projections & BFS** | • [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)<br>• [Reverse Level Order Traversal](#reverse-level-order-traversal)<br>• [Zigzag Level Order Traversal](#zigzag-level-order-traversal)<br>• [Binary Tree Vertical Order Traversal](#binary-tree-vertical-order-traversal)<br>• [Top View of Binary Tree](#top-view-of-binary-tree)<br>• [Bottom View of Binary Tree](#bottom-view-of-binary-tree)<br>• [Left View of Binary Tree](#left-view-of-binary-tree)<br>• [Binary Tree Right Side View](#binary-tree-right-side-view) | Queue + Generational Snapshot (`levelSize`) / Column Map | *Isolate generational boundaries using level-size snapshots or track horizontal distance coordinates to extract spatial projections.* |
 | **5. BST Property & Range Invariants** | • [Validate Binary Search Tree](#validate-binary-search-tree)<br>• [Kth Smallest Element In a Bst](#kth-smallest-element-in-a-bst)<br>• [Lowest Common Ancestor of a Binary Search Tree](#lowest-common-ancestor-of-a-binary-search-tree) | In-Order Traversal or Bounded DFS | *Leverage left < root < right ordering invariants to prune invalid branches or achieve sorted output.* |
 | **6. Structural Modification & Construction** | • [Insert into a Binary Search Tree](#insert-into-a-binary-search-tree)<br>• [Delete Node in a BST](#delete-node-in-a-bst)<br>• [Construct Binary Tree From Preorder And Inorder Traversal](#construct-binary-tree-from-preorder-and-inorder-traversal)<br>• [Delete Leaves With a Given Value](#delete-leaves-with-a-given-value)<br>• [Construct Quad Tree](#construct-quad-tree) | Divide & Conquer / Pointer Re-linking | *Rebuild or mutate tree pointers by returning updated child references to parent callers.* |
 | **7. Serialization & Complex State Handling** | • [Serialize And Deserialize Binary Tree](#serialize-and-deserialize-binary-tree) | BFS / Pre-Order with Null Markers | *Flatten multidimensional hierarchical topology into a sequential stream using explicit null sentinels.* |
@@ -21,9 +20,9 @@ A production-grade, high-density reference manual covering fundamental tree data
 
 ## 📋 Detailed Pattern Analysis & Selection Rationale
 
-### Pattern 1: Linear Traversals
-* **Included Problems:** [Binary Tree Inorder Traversal](#binary-tree-inorder-traversal), [Binary Tree Preorder Traversal](#binary-tree-preorder-traversal), [Binary Tree Postorder Traversal](#binary-tree-postorder-traversal).
-* **Why this pattern?** These problems require visiting every node in a specific sequence (Pre, In, Post) to generate a sequential list. 
+### Pattern 1: Linear Traversals & Core Operations
+* **Included Problems:** [TreeNode Class Definition](#treenode-class-definition), [Binary Tree Inorder Traversal](#binary-tree-inorder-traversal), [Binary Tree Preorder Traversal](#binary-tree-preorder-traversal), [Binary Tree Postorder Traversal](#binary-tree-postorder-traversal), [Find Height of a Binary Tree](#find-height-of-a-binary-tree), [Find Size of a Binary Tree](#find-size-of-a-binary-tree), [Find Node in Binary Tree](#find-node-in-binary-tree).
+* **Why this pattern?** These problems require visiting every node in a specific sequence (Pre, In, Post) or performing basic structural counts across all nodes.
 * **Expert Rationale:** They form the foundational grammar of tree navigation. Mastering recursive and iterative stack implementations trains your brain to handle pointer movement without losing state.
 
 ### Pattern 2: Structural DFS (Bottom-Up Accumulation)
@@ -37,9 +36,9 @@ A production-grade, high-density reference manual covering fundamental tree data
 * **Expert Rationale:** Employs top-down state propagation or bottom-up dynamic programming tuples to isolate optimal paths.
 
 ### Pattern 4: Level-Order Projections & BFS
-* **Included Problems:** [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal), [Binary Tree Right Side View](#binary-tree-right-side-view).
-* **Why this pattern?** The problem asks for properties grouped by depth level or spatial columns.
-* **Expert Rationale:** Capturing `levelSize = queue.size()` locks down generational boundaries to extract spatial projections efficiently.
+* **Included Problems:** [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal), [Reverse Level Order Traversal](#reverse-level-order-traversal), [Zigzag Level Order Traversal](#zigzag-level-order-traversal), [Binary Tree Vertical Order Traversal](#binary-tree-vertical-order-traversal), [Top View of Binary Tree](#top-view-of-binary-tree), [Bottom View of Binary Tree](#bottom-view-of-binary-tree), [Left View of Binary Tree](#left-view-of-binary-tree), [Binary Tree Right Side View](#binary-tree-right-side-view).
+* **Why this pattern?** The problem asks for properties grouped by depth level or horizontal column coordinate projections.
+* **Expert Rationale:** Capturing `levelSize = queue.size()` locks down generational boundaries, while horizontal coordinate tracking enables precise multi-dimensional projections.
 
 ### Pattern 5: BST Property & Range Invariants
 * **Included Problems:** [Validate Binary Search Tree](#validate-binary-search-tree), [Kth Smallest Element In a Bst](#kth-smallest-element-in-a-bst), [Lowest Common Ancestor of a Binary Search Tree](#lowest-common-ancestor-of-a-binary-search-tree).
@@ -61,6 +60,29 @@ A production-grade, high-density reference manual covering fundamental tree data
 ## 📚 Problem Solutions & Mental Models Index
 
 ### Part 1: Binary Tree
+
+#### TreeNode Class Definition
+> 💡 **Expert Mental Model:** Standard doubly-linked binary tree node with recursive structure pointers.
+> ⏱️ **Complexity:** Memory footprint $\mathcal{O}(1)$ per node instance.
+```java
+public class TreeNode {
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+
+    public TreeNode() {}
+    public TreeNode(int val) { 
+        this.val = val; 
+    }
+    public TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+```
+
+---
 
 #### Permanent Mental Anchors
 > 1. **Pre-Push vs. No Pre-Push Axiom (Deferred Work):**
@@ -93,11 +115,9 @@ public class RecursiveInOrder {
         helper(root.right, result);
     }
 }
-
 ```
 
 **Iterative In-Order Traversal**
-
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -122,18 +142,15 @@ public class IterativeInOrder {
         return result;
     }
 }
-
 ```
 
 ---
 
 #### Binary Tree Preorder Traversal
-
 > 💡 **Expert Mental Model:** Visit root immediately, push right then left child onto stack so left processes first. Root-first pre-push work list model.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 
 **Recursive Pre-Order Traversal**
-
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -151,11 +168,9 @@ public class RecursivePreOrder {
         helper(root.right, result);
     }
 }
-
 ```
 
 **Iterative Pre-Order Traversal**
-
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -176,18 +191,15 @@ public class IterativePreOrder {
         return result;
     }
 }
-
 ```
 
 ---
 
 #### Binary Tree Postorder Traversal
-
 > 💡 **Expert Mental Model:** Bottom-up guarantee; process both subtrees completely before evaluating parent using dual stacks or single-stack tracking.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(N)$ (2-stack) or $\mathcal{O}(H)$ (1-stack)
 
 **Recursive Post-Order Traversal**
-
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -205,11 +217,9 @@ public class RecursivePostOrder {
         result.add(root.val);
     }
 }
-
 ```
 
 **Iterative Post-Order Traversal (2-Stack Approach)**
-
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -234,11 +244,9 @@ public class IterativePostOrderTwoStacks {
         return result;
     }
 }
-
 ```
 
 **Iterative Post-Order Traversal (1-Stack with Tracking)**
-
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -268,16 +276,60 @@ public class IterativePostOrderOneStack {
         return result;
     }
 }
+```
 
+---
+
+#### Find Height of a Binary Tree
+> 💡 **Expert Mental Model:** Calculate subtree maximum height recursively with explicit alignment to edge-count (-1 base) or node-count (0 base) standards.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+
+**Convention 1: Edge-Count Basis (Single Node = 0)**
+```java
+public int heightEdgeCount(TreeNode root) {
+    if (root == null) return -1;
+    return Math.max(heightEdgeCount(root.left), heightEdgeCount(root.right)) + 1;
+}
+```
+
+**Convention 2: Node-Count Basis (Single Node = 1)**
+```java
+public int heightNodeCount(TreeNode root) {
+    if (root == null) return 0;
+    return Math.max(heightNodeCount(root.left), heightNodeCount(root.right)) + 1;
+}
+```
+
+---
+
+#### Find Size of a Binary Tree
+> 💡 **Expert Mental Model:** Total node count equals left subtree size plus right subtree size plus 1 for the current node.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+```java
+public int findSize(TreeNode root) {
+    if (root == null) return 0;
+    return findSize(root.left) + findSize(root.right) + 1;
+}
+```
+
+---
+
+#### Find Node in Binary Tree
+> 💡 **Expert Mental Model:** Perform short-circuit OR search across subtrees after checking current root value.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
+```java
+public boolean findNode(TreeNode root, int target) {
+    if (root == null) return false;
+    if (root.val == target) return true;
+    return findNode(root.left, target) || findNode(root.right, target);
+}
 ```
 
 ---
 
 #### Invert Binary Tree
-
 > 💡 **Expert Mental Model:** Swap left and right pointers locally at every node during traversal.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
-
 ```java
 class Solution {
     public TreeNode invertTree(TreeNode root) {
@@ -290,16 +342,13 @@ class Solution {
         return root;
     }
 }
-
 ```
 
 ---
 
 #### Maximum Depth of Binary Tree
-
 > 💡 **Expert Mental Model:** Height is 1 plus the maximum of left and right child heights.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
-
 ```java
 class Solution {
     public int maxDepth(TreeNode root) {
@@ -307,16 +356,13 @@ class Solution {
         return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
     }
 }
-
 ```
 
 ---
 
 #### Diameter of Binary Tree
-
 > 💡 **Expert Mental Model:** Compute local heights bottom-up while updating a global diameter scoreboard.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
-
 ```java
 public class BinaryTreeDiameter {
     private int maxDiameter = 0;
@@ -333,16 +379,13 @@ public class BinaryTreeDiameter {
         return 1 + Math.max(leftHeight, rightHeight);
     }
 }
-
 ```
 
 ---
 
 #### Balanced Binary Tree
-
 > 💡 **Expert Mental Model:** Bubble up height differences; short-circuit or flag imbalance immediately if subtree delta exceeds 1.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
-
 ```java
 class Solution {
     boolean balanced = true;
@@ -360,16 +403,13 @@ class Solution {
         return 1 + Math.max(leftH, rightH);
     }
 }
-
 ```
 
 ---
 
 #### Same Tree
-
 > 💡 **Expert Mental Model:** Structural and value equivalence requires simultaneous node matching across both trees.
 > ⏱️ **Complexity:** Time $\mathcal{O}(\min(N_1, N_2))$ | Space $\mathcal{O}(\min(H_1, H_2))$
-
 ```java
 public boolean areEqual(TreeNode root1, TreeNode root2) {
     if (root1 == null && root2 == null) return true;
@@ -377,16 +417,13 @@ public boolean areEqual(TreeNode root1, TreeNode root2) {
     if (root1.val != root2.val) return false;
     return areEqual(root1.left, root2.left) && areEqual(root1.right, root2.right);
 }
-
 ```
 
 ---
 
 #### Subtree of Another Tree
-
 > 💡 **Expert Mental Model:** Treat matching values as suspects; anchor a structural check or fall through to explore subtrees.
 > ⏱️ **Complexity:** Time $\mathcal{O}(M \times N)$ worst-case | Space $\mathcal{O}(H)$
-
 ```java
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
@@ -398,19 +435,16 @@ class Solution {
         if (root1 == null && root2 == null) return true;
         if (root1 == null || root2 == null) return false;
         if (root1.val != root2.val) return false;
-        return areEqual(root1.left, root2.left) && areEqual(root1.right, root2.right);
+        return isSameTree(root1.left, root2.left) && isSameTree(root1.right, root2.right);
     }
 }
-
 ```
 
 ---
 
 #### Binary Tree Level Order Traversal
-
 > 💡 **Expert Mental Model:** Snapshot queue size per iteration to process nodes level-by-level cleanly.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(W)$
-
 ```java
 public List<List<Integer>> levelOrder(TreeNode root) {
     List<List<Integer>> res = new ArrayList<>();
@@ -430,16 +464,225 @@ public List<List<Integer>> levelOrder(TreeNode root) {
     }
     return res;
 }
+```
 
+---
+
+#### Reverse Level Order Traversal
+> 💡 **Expert Mental Model:** Standard top-down BFS combined with prepending (`LinkedList.addFirst`) to build bottom-up level order output.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(W)$
+```java
+public List<List<Integer>> levelOrderBottom(TreeNode root) {
+    LinkedList<List<Integer>> res = new LinkedList<>();
+    if (root == null) return res;
+    Queue<TreeNode> q = new LinkedList<>();
+    q.offer(root);
+    while (!q.isEmpty()) {
+        int levelSize = q.size();
+        List<Integer> level = new ArrayList<>();
+        for (int i = 0; i < levelSize; i++) {
+            TreeNode curr = q.poll();
+            level.add(curr.val);
+            if (curr.left != null) q.offer(curr.left);
+            if (curr.right != null) q.offer(curr.right);
+        }
+        res.addFirst(level);
+    }
+    return res;
+}
+```
+
+---
+
+#### Zigzag Level Order Traversal
+> 💡 **Expert Mental Model:** Standard BFS level-snapshot combined with direction toggling or alternating dual stacks.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(W)$
+
+**Approach 1: Queue + Direction Flag**
+```java
+public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+    List<List<Integer>> res = new ArrayList<>();
+    if (root == null) return res;
+    Queue<TreeNode> q = new LinkedList<>();
+    q.offer(root);
+    boolean leftToRight = true;
+    while (!q.isEmpty()) {
+        int levelSize = q.size();
+        LinkedList<Integer> level = new LinkedList<>();
+        for (int i = 0; i < levelSize; i++) {
+            TreeNode curr = q.poll();
+            if (leftToRight) level.addLast(curr.val);
+            else level.addFirst(curr.val);
+            if (curr.left != null) q.offer(curr.left);
+            if (curr.right != null) q.offer(curr.right);
+        }
+        res.add(level);
+        leftToRight = !leftToRight;
+    }
+    return res;
+}
+```
+
+**Approach 2: Dual Stacks**
+```java
+public List<List<Integer>> zigzagLevelOrderDualStack(TreeNode root) {
+    List<List<Integer>> res = new ArrayList<>();
+    if (root == null) return res;
+    Stack<TreeNode> s1 = new Stack<>();
+    Stack<TreeNode> s2 = new Stack<>();
+    s1.push(root);
+    while (!s1.isEmpty() || !s2.isEmpty()) {
+        List<Integer> level1 = new ArrayList<>();
+        while (!s1.isEmpty()) {
+            TreeNode curr = s1.pop();
+            level1.add(curr.val);
+            if (curr.left != null) s2.push(curr.left);
+            if (curr.right != null) s2.push(curr.right);
+        }
+        if (!level1.isEmpty()) res.add(level1);
+        List<Integer> level2 = new ArrayList<>();
+        while (!s2.isEmpty()) {
+            TreeNode curr = s2.pop();
+            level2.add(curr.val);
+            if (curr.right != null) s1.push(curr.right);
+            if (curr.left != null) s1.push(curr.left);
+        }
+        if (!level2.isEmpty()) res.add(level2);
+    }
+    return res;
+}
+```
+
+---
+
+#### Binary Tree Vertical Order Traversal
+> 💡 **Expert Mental Model:** BFS queue paired with horizontal coordinate state `(node, col)` and tracked `minCol`/`maxCol` bounds to avoid sort overhead.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(N)$
+```java
+public List<List<Integer>> verticalOrder(TreeNode root) {
+    List<List<Integer>> res = new ArrayList<>();
+    if (root == null) return res;
+    Map<Integer, List<Integer>> map = new HashMap<>();
+    Queue<Pair> q = new LinkedList<>();
+    q.offer(new Pair(root, 0));
+    int minCol = 0, maxCol = 0;
+    while (!q.isEmpty()) {
+        Pair p = q.poll();
+        TreeNode node = p.node;
+        int col = p.col;
+        map.computeIfAbsent(col, k -> new ArrayList<>()).add(node.val);
+        minCol = Math.min(minCol, col);
+        maxCol = Math.max(maxCol, col);
+        if (node.left != null) q.offer(new Pair(node.left, col - 1));
+        if (node.right != null) q.offer(new Pair(node.right, col + 1));
+    }
+    for (int c = minCol; c <= maxCol; c++) {
+        res.add(map.get(c));
+    }
+    return res;
+}
+
+private static class Pair {
+    TreeNode node;
+    int col;
+    Pair(TreeNode node, int col) {
+        this.node = node;
+        this.col = col;
+    }
+}
+```
+
+---
+
+#### Top View of Binary Tree
+> 💡 **Expert Mental Model:** BFS traversal inserting into column map **only if column coordinate is unvisited**.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(N)$
+```java
+public List<Integer> topView(TreeNode root) {
+    List<Integer> res = new ArrayList<>();
+    if (root == null) return res;
+    Map<Integer, Integer> map = new HashMap<>();
+    Queue<Pair> q = new LinkedList<>();
+    q.offer(new Pair(root, 0));
+    int minCol = 0, maxCol = 0;
+    while (!q.isEmpty()) {
+        Pair p = q.poll();
+        TreeNode node = p.node;
+        int col = p.col;
+        if (!map.containsKey(col)) {
+            map.put(col, node.val);
+        }
+        minCol = Math.min(minCol, col);
+        maxCol = Math.max(maxCol, col);
+        if (node.left != null) q.offer(new Pair(node.left, col - 1));
+        if (node.right != null) q.offer(new Pair(node.right, col + 1));
+    }
+    for (int c = minCol; c <= maxCol; c++) {
+        res.add(map.get(c));
+    }
+    return res;
+}
+```
+
+---
+
+#### Bottom View of Binary Tree
+> 💡 **Expert Mental Model:** BFS traversal with **unconditional overwrites** per column key so deepest node wins.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(N)$
+```java
+public List<Integer> bottomView(TreeNode root) {
+    List<Integer> res = new ArrayList<>();
+    if (root == null) return res;
+    Map<Integer, Integer> map = new HashMap<>();
+    Queue<Pair> q = new LinkedList<>();
+    q.offer(new Pair(root, 0));
+    int minCol = 0, maxCol = 0;
+    while (!q.isEmpty()) {
+        Pair p = q.poll();
+        TreeNode node = p.node;
+        int col = p.col;
+        map.put(col, node.val);
+        minCol = Math.min(minCol, col);
+        maxCol = Math.max(maxCol, col);
+        if (node.left != null) q.offer(new Pair(node.left, col - 1));
+        if (node.right != null) q.offer(new Pair(node.right, col + 1));
+    }
+    for (int c = minCol; c <= maxCol; c++) {
+        res.add(map.get(c));
+    }
+    return res;
+}
+```
+
+---
+
+#### Left View of Binary Tree
+> 💡 **Expert Mental Model:** Capture first element (`i == 0`) of every level snapshot in standard BFS.
+> ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(W)$
+```java
+public List<Integer> leftSideView(TreeNode root) {
+    List<Integer> res = new ArrayList<>();
+    if (root == null) return res;
+    Queue<TreeNode> q = new LinkedList<>();
+    q.offer(root);
+    while (!q.isEmpty()) {
+        int levelSize = q.size();
+        for (int i = 0; i < levelSize; i++) {
+            TreeNode curr = q.poll();
+            if (i == 0) res.add(curr.val);
+            if (curr.left != null) q.offer(curr.left);
+            if (curr.right != null) q.offer(curr.right);
+        }
+    }
+    return res;
+}
 ```
 
 ---
 
 #### Binary Tree Right Side View
-
 > 💡 **Expert Mental Model:** Capture the last element (`i == levelSize - 1`) of every BFS level queue snapshot.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(W)$
-
 ```java
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
@@ -461,13 +704,11 @@ class Solution {
         return res;
     }
 }
-
 ```
 
 ---
 
 #### Construct Quad Tree
-
 > 💡 **Expert Mental Model:** Quad-tree division requires checking uniformity in 2D grid quadrants and subdividing recursively.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N \log N)$ | Space $\mathcal{O}(H)$
 > *(Complete details and code implementation will come soon.)*
@@ -475,10 +716,8 @@ class Solution {
 ---
 
 #### Count Good Nodes In Binary Tree
-
 > 💡 **Expert Mental Model:** Carry path maximum downward (top-down state propagation) to evaluate local goodness.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
-
 ```java
 class Solution {
     public int goodNodes(TreeNode root) {
@@ -492,16 +731,13 @@ class Solution {
              + dfs(node.right, nextMax);
     }
 }
-
 ```
 
 ---
 
 #### Construct Binary Tree From Preorder And Inorder Traversal
-
 > 💡 **Expert Mental Model:** Preorder root dictates the split boundary in Inorder array to form left and right subtrees.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(N)$
-
 ```java
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
@@ -525,13 +761,11 @@ class Solution {
         return root;
     }
 }
-
 ```
 
 ---
 
 #### House Robber III
-
 > 💡 **Expert Mental Model:** Return pair of values from child subtrees: max money with root robbed vs. root not robbed.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 > *(Complete details and code implementation will come soon.)*
@@ -539,7 +773,6 @@ class Solution {
 ---
 
 #### Delete Leaves With a Given Value
-
 > 💡 **Expert Mental Model:** Post-order pruning; remove leaves matching target and propagate null references back to parents.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 > *(Complete details and code implementation will come soon.)*
@@ -547,10 +780,8 @@ class Solution {
 ---
 
 #### Binary Tree Maximum Path Sum
-
 > 💡 **Expert Mental Model:** Discard negative sub-paths (`Math.max(0, path)`) and track global max path passing through current node.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
-
 ```java
 class Solution {
     int maxSum = Integer.MIN_VALUE;
@@ -566,13 +797,11 @@ class Solution {
         return root.val + Math.max(leftMax, rightMax);
     }
 }
-
 ```
 
 ---
 
 #### Serialize And Deserialize Binary Tree
-
 > 💡 **Expert Mental Model:** Flatten tree via pre-order traversal using explicit null markers to enable unambiguous reconstruction.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(N)$
 > *(Complete details and code implementation will come soon.)*
@@ -582,7 +811,6 @@ class Solution {
 ### Part 2: Binary Search Tree
 
 #### Lowest Common Ancestor of a Binary Search Tree
-
 > 💡 **Expert Mental Model:** Exploit BST ordering: if both node values are smaller, go left; if larger, go right; else current node is the split point (LCA).
 > ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(1)$ iterative
 > *(Complete details and code implementation will come soon.)*
@@ -590,7 +818,6 @@ class Solution {
 ---
 
 #### Insert into a Binary Search Tree
-
 > 💡 **Expert Mental Model:** Navigate left or right based on BST comparison until hitting null, then attach the new node.
 > ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(H)$ (or $\mathcal{O}(1)$ iterative)
 > *(Complete details and code implementation will come soon.)*
@@ -598,7 +825,6 @@ class Solution {
 ---
 
 #### Delete Node in a BST
-
 > 💡 **Expert Mental Model:** Handle 0, 1, or 2 children cases by replacing the deleted node with the successor from the right subtree.
 > ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(H)$
 > *(Complete details and code implementation will come soon.)*
@@ -606,7 +832,6 @@ class Solution {
 ---
 
 #### Validate Binary Search Tree
-
 > 💡 **Expert Mental Model:** Enforce strict valid range bounds (`min < node.val < max`) recursively down every branch.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 > *(Complete details and code implementation will come soon.)*
@@ -614,13 +839,6 @@ class Solution {
 ---
 
 #### Kth Smallest Element In a Bst
-
 > 💡 **Expert Mental Model:** In-order traversal visits BST nodes in ascending sorted order; stop at count $k$.
 > ⏱️ **Complexity:** Time $\mathcal{O}(H + k)$ | Space $\mathcal{O}(H)$
 > *(Complete details and code implementation will come soon.)*
-
-```
-
-<FollowUp label="Would you like to add code implementations for the BST section next?" query="Show me the code implementation for Validate Binary Search Tree and Kth Smallest Element in a BST."/>
-
-```
