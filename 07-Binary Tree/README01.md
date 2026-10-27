@@ -842,7 +842,21 @@ class Solution {
 > ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(1)$ iterative
 > 📐 **Top 1% Base Case Derivation:** Search boundary returns `null` if search key drifts out of tree bounds (`AXIOM 1`).
 > *(Complete details and code implementation will come soon.)*
+```java
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
 
+        if(root == null || p == null || q == null) return null;
+        if(root.val < p.val && root.val < q.val){
+            return lowestCommonAncestor(root.right, p,q);
+        }else if(root.val > p.val && root.val > q.val ){
+            return lowestCommonAncestor(root.left, p,q);
+        }else{
+            return root;
+        }
+    }
+}
+java
 ---
 
 #### Insert into a Binary Search Tree
