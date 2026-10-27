@@ -856,7 +856,7 @@ class Solution {
         }
     }
 }
-java
+```
 ---
 
 #### Insert into a Binary Search Tree
