@@ -864,7 +864,24 @@ class Solution {
 > ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(H)$ (or $\mathcal{O}(1)$ iterative)
 > 📐 **Top 1% Base Case Derivation:** Hitting `null` indicates the insertion position has been reached; returns `new TreeNode(val)` (`AXIOM 1`).
 > *(Complete details and code implementation will come soon.)*
+```java
+class Solution {
+    public TreeNode insertIntoBST(TreeNode root, int val) {
 
+        if(root == null) return new TreeNode(val);
+
+        if(root.val < val){
+            root.right = insertIntoBST(root.right, val);
+        }else if(root.val > val){
+            root.left = insertIntoBST(root.left, val);
+        }
+
+        return root;
+        
+    }
+    
+}
+```
 ---
 
 #### Delete Node in a BST
