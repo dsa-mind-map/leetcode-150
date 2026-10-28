@@ -849,6 +849,8 @@ class Solution {
 
 ### Part 2: Binary Search Tree
 
+every node in the left subtree is smaller than the root and every node in the right subtree is greater than the root. This is a recursive property
+
 In most implementations, duplicates are not allowed.
 
 BST Search - target exists, target doesn't exist
