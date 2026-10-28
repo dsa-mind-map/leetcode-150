@@ -295,6 +295,18 @@ public class IterativePostOrderOneStack {
 > 💡 **Expert Mental Model:** Calculate subtree maximum height recursively with explicit alignment to edge-count (-1 base) or node-count (0 base) standards.
 > ⏱️ **Complexity:** Time $\mathcal{O}(N)$ | Space $\mathcal{O}(H)$
 > 📐 **Top 1% Base Case Derivation:** Edge-count uses `-1` so a leaf node evaluates $1 + (-1) = 0$ edges; node-count uses `0` because an empty tree contains zero nodes (`AXIOM 2`).
+>
+> Spot on. You've nailed the exact directional mental models:
+
+Height of a node: Measured downward from that node to its deepest leaf (bottom-up).
+
+Depth of a node: Measured upward from the root down to that node (top-down).
+
+Because of this symmetry, when you look at an entire tree:
+
+The max depth of the tree is the depth of its lowest leaf.
+
+The max height of the tree is the height of its root.
 
 **Convention 1: Edge-Count Basis (Single Node = 0)**
 ```java
