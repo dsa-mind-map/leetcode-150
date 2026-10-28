@@ -849,6 +849,29 @@ class Solution {
 
 ### Part 2: Binary Search Tree
 
+In most implementations, duplicates are not allowed.
+
+BST Search - target exists, target doesn't exist
+BST Insertion
+BST Removal - one child, two children and no children
+
+Complete Binary Tree - All levels are completely filled left to right except the last level.
+
+Specialized Tree Types 
+
+heap -  A complete binary tree satisfying min-heap or max-heap property.
+min-heap property  : the value of the parent < values of childrens
+max-heap property  : the value of the parent > values of childrens
+
+N-ary Tree :
+
+Trie ( Prefix Tree )
+Each node represent single character, path from root to a node respresent word.
+Called prefix tree because each node store the prefix of a word.
+used for auto-complete feature in search engine.
+
+Each node can have more than 2 children. used for file system hierarchy or representing website structure.
+
 #### Lowest Common Ancestor of a Binary Search Tree
 > 💡 **Expert Mental Model:** Exploit BST ordering: if both node values are smaller, go left; if larger, go right; else current node is the split point (LCA).
 > ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(1)$ iterative
