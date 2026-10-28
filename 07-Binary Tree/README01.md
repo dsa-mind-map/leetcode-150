@@ -849,7 +849,12 @@ class Solution {
 
 ### Part 2: Binary Search Tree
 
-every node in the left subtree is smaller than the root and every node in the right subtree is greater than the root. This is a recursive property
+every node in the left subtree is smaller than the root and every node in the right subtree is greater than the root. This is a recursive property.
+
+Sorted array vs Binary Search Tree :  
+
+BST has search, insert & delete - o(logn) 
+Array - search o(logn) , insert o(n) and delete o(n)
 
 In most implementations, duplicates are not allowed.
 
