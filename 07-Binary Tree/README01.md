@@ -852,7 +852,9 @@ class Solution {
 In most implementations, duplicates are not allowed.
 
 BST Search - target exists, target doesn't exist
+
 BST Insertion
+
 BST Removal - one child, two children and no children
 
 Complete Binary Tree - All levels are completely filled left to right except the last level.
