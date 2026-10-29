@@ -933,73 +933,74 @@ class Solution {
 > ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(H)$
 > 📐 **Top 1% Base Case Derivation:** Hitting `null` implies target value is not present in BST; returns `null` safely (`AXIOM 1`).
 
-The Three Cases
-Case 1: No Children
-       50 (delete)
-      /
-    30
-
-Result: null
-if(root.left == null && root.right == null) 
-    return null;
-Case 2: One Child (Left Child Missing)
-       50 (delete)
-         \
-         70
-
-Result: return 70
-if(root.left == null) 
-    return root.right;
-Case 3: One Child (Right Child Missing)
-       50 (delete)
-      /
-    30
-
-Result: return 30
-if(root.right == null) 
-    return root.left;
-The Tricky Part: Two Children Case
-⚠️ The Duplicate Problem
-When you have two children, you must handle the successor correctly:
-
-BEFORE deletion:
-         50 (delete)
-        /  \
-       30   70
-           /  \
-         60    80
-
-STEP 1: Find successor (leftmost of right subtree)
-successor = 60
-
-STEP 2: Copy successor's value
-         60 ← changed from 50
-        /  \
-       30   70
-           /  \
-         60 ← DUPLICATE! ERROR!
-           80
-The duplicate violates BST property! You must delete the original.
-
-✅ The Solution: Recursive Delete
-TreeNode min = minRight(root.right, root);
-root.val = min.val;                          // Copy value up
-root.right = deleteNode(root.right, min.val); // Delete original down
-What happens in the recursive call:
-
-deleteNode(root.right, min.val) searches for the successor value in the right subtree
-Finds the original 60
-60 has left == null (it's the leftmost)
-Hits base case: if(root.left == null) return root.right;
-Returns 60.right (null), effectively removing 60
-Returns modified subtree back up
-AFTER deletion:
-
-         60 ← no duplicate
-        /  \
-       30   70  ← 70's left is now null
-             \
-              80
+        
+        The Three Cases
+        Case 1: No Children
+               50 (delete)
+              /
+            30
+        
+        Result: null
+        if(root.left == null && root.right == null) 
+            return null;
+        Case 2: One Child (Left Child Missing)
+               50 (delete)
+                 \
+                 70
+        
+        Result: return 70
+        if(root.left == null) 
+            return root.right;
+        Case 3: One Child (Right Child Missing)
+               50 (delete)
+              /
+            30
+        
+        Result: return 30
+        if(root.right == null) 
+            return root.left;
+        The Tricky Part: Two Children Case
+        ⚠️ The Duplicate Problem
+        When you have two children, you must handle the successor correctly:
+        
+        BEFORE deletion:
+                 50 (delete)
+                /  \
+               30   70
+                   /  \
+                 60    80
+        
+        STEP 1: Find successor (leftmost of right subtree)
+        successor = 60
+        
+        STEP 2: Copy successor's value
+                 60 ← changed from 50
+                /  \
+               30   70
+                   /  \
+                 60 ← DUPLICATE! ERROR!
+                   80
+        The duplicate violates BST property! You must delete the original.
+        
+        ✅ The Solution: Recursive Delete
+        TreeNode min = minRight(root.right, root);
+        root.val = min.val;                          // Copy value up
+        root.right = deleteNode(root.right, min.val); // Delete original down
+        What happens in the recursive call:
+        
+        deleteNode(root.right, min.val) searches for the successor value in the right subtree
+        Finds the original 60
+        60 has left == null (it's the leftmost)
+        Hits base case: if(root.left == null) return root.right;
+        Returns 60.right (null), effectively removing 60
+        Returns modified subtree back up
+        AFTER deletion:
+        
+                 60 ← no duplicate
+                /  \
+               30   70  ← 70's left is now null
+                     \
+                      80
 
 ```java
 class Solution {
