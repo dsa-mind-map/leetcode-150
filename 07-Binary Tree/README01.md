@@ -932,7 +932,42 @@ class Solution {
 > 💡 **Expert Mental Model:** Handle 0, 1, or 2 children cases by replacing the deleted node with the successor from the right subtree.
 > ⏱️ **Complexity:** Time $\mathcal{O}(H)$ | Space $\mathcal{O}(H)$
 > 📐 **Top 1% Base Case Derivation:** Hitting `null` implies target value is not present in BST; returns `null` safely (`AXIOM 1`).
-> *(Complete details and code implementation will come soon.)*
+
+```java
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+
+        if(root == null) return null;
+
+        if(root.val == key){
+            if(root.left == null && root.right == null) return null;
+            if(root.left == null) return root.right;
+            
+            if(root.right == null) return root.left;
+
+            //System.out.println(minRight(root.right, root).val);
+            TreeNode min = minRight(root.right, root);
+            root.val = min.val;
+            root.right = deleteNode(root.right, min.val);
+        }else if(root.val < key){
+            root.right = deleteNode(root.right, key);
+        }else if(root.val > key){
+            root.left = deleteNode(root.left, key);
+        }
+        
+        return root;
+
+        
+    }
+    private TreeNode minRight(TreeNode root, TreeNode parent){
+        TreeNode curr = root;
+        while(curr != null && curr.left != null) {
+            curr = curr.left;
+        }
+        return curr;
+    }
+}
+```
 
 ---
 
