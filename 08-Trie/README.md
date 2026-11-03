@@ -25,6 +25,8 @@ class TrieNode {
 }
 ```
 
+
+
 **That's it. Everything else is variations of this.**
 
 ---
@@ -42,6 +44,11 @@ At the end of each hallway, you see another menu with 26 letters.
 You keep walking, following letters.
 When you see a ✓ mark (isWord=true), that's a VALID DISH NAME.
 You can stop there and eat, or keep going to find longer dishes.
+
+│                                                              │
+│  The word "CAT" is BUILT by the PATH:                      │
+│  ROOT → [follow index 2] → [follow index 0] → [follow index 19]
+│          (represents 'c')   (represents 'a')   (represents 't')
 
 Example: "CAT" restaurant
 
