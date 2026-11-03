@@ -25,6 +25,81 @@ class TrieNode {
 }
 ```
 
+1. "To access children, I need to be at the parent"
+✓ CORRECT!
+
+// To add 'c' to root's children:
+TrieNode curr = root;
+int idx = 'c' - 'a';  // idx = 2
+if (curr.children[idx] == null) {  // ← curr is parent
+    curr.children[idx] = new TrieNode();  // ← creating child
+}
+
+// To add 'a' under 'c':
+curr = curr.children[idx];  // ← NOW curr is 'c' node (was child, now parent)
+idx = 'a' - 'a';  // idx = 0
+if (curr.children[idx] == null) {  // ← curr is now parent of 'a'
+    curr.children[idx] = new TrieNode();  // ← creating child
+}
+
+// This is the KEY: curr MOVES to each node as we go deeper
+
+
+2. "curr moves till the last character node, then we mark isWord = TRUE"
+✓ CORRECT!
+
+void insert(String word) {
+    TrieNode curr = root;
+    
+    for (char c : word.toCharArray()) {
+        int idx = c - 'a';
+        if (curr.children[idx] == null) {
+            curr.children[idx] = new TrieNode();
+        }
+        curr = curr.children[idx];  // ← curr MOVES to next node
+                                     // After loop ends, curr is at LAST char node
+    }
+    
+    // NOW curr points to the last character's node
+    curr.isWord = true;  // ← We mark THIS node (last char node)
+}
+
+
+3. "Root has no value; children have characters"
+✓ CORRECT!
+
+// Root node
+TrieNode root = new TrieNode();
+// root stores: children[26] and isWord
+// But it doesn't represent any character!
+// It's just a starting point
+
+// root.children[2] points to a node that is REACHED by 'c'
+// That node isn't "labeled" with 'c'
+// Instead, the EDGE to it (children[2]) represents 'c'
+
+Visual:
+        ┌──────┐
+        │ ROOT │ ◀── No character value
+        │ isW: │
+        │false │
+        └──┬───┘
+           │
+    ┌──────┼──────┐
+    │      │      │
+children[0] children[2] children[25]
+    │      'c'    │
+    │      │      │
+   null  ┌────┐  null
+         │ C  │ ◀── Node itself doesn't store 'c'
+         │    │    It's reached VIA index 2
+         │isW:│
+         │ no │
+         └────┘
+
+
+4. "Distinction: BST pointer ends at NULL; Trie pointer ends at last char node"
+
 
 
 **That's it. Everything else is variations of this.**
