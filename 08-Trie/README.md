@@ -3,6 +3,11 @@
 I'm going to teach you like a **World-Class Trie Expert** would. This is the definitive guide where you'll understand not just HOW to solve these problems, but WHY the pattern works.
 
 ---
+backtracking like a state machine with an undo action.
+
+Definition of a Root-to-Leaf Path: A valid path requires a starting node (the root) and an ending node (a leaf, which is a node with no left or right children).
+
+Empty Tree: If the root is null, the tree is completely empty. Since there are no nodes, there are no roots and no leaves, meaning no root-to-leaf path exists.
 
 ## PRELUDE: The Universal Truth About Tries
 
