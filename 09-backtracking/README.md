@@ -1,5 +1,13 @@
 # The World #1 Backtracking Master Guide
 
+https://neetcode.io/courses/dsa-for-beginners/22
+
+https://neetcode.io/courses/advanced-algorithms/11
+
+https://neetcode.io/courses/advanced-algorithms/12
+
+https://neetcode.io/courses/advanced-algorithms/13
+
 *Architected for First-Principles Recognition, Pattern Mapping, and Zero-Latency Recall*
 
 ---
